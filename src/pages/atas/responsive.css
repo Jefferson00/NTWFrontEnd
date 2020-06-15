@@ -1,0 +1,21 @@
+@media (max-height: 700px){
+    .box-modal .box-modal-content .item-details .form-details{
+        height: 70%;
+    }
+}
+
+@media (max-width: 1072px){
+    header#header-atas div:first-child {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    header#header-atas {
+        clip-path: none;
+        min-height: 250px;
+    }
+
+    header#header-atas div:last-child {
+        text-align: center;
+    }
+}
