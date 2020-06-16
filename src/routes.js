@@ -5,6 +5,7 @@ import Home from './pages/home/home'
 import Atas from './pages/atas/atas'
 import Produtos from './pages/produtos/produtos'
 import ProdutoDetalhe from './pages/produtos/produtoDetalhe'
+import Parceiros from './pages/parceiros/parceiros'
 
 export default function Routes(){
     return(
@@ -14,6 +15,7 @@ export default function Routes(){
             <Route path="/atas" exact component={Atas}/>   
             <Route path="/produtos" exact component={Produtos}/>   
             <Route path="/produtos/detalhe" exact component={ProdutoDetalhe}/>   
+            <Route path="/parceiros" exact component={Parceiros}/>   
             </Switch>
         </BrowserRouter>
     )

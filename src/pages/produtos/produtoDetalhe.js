@@ -3,6 +3,7 @@ import Header from '../header'
 import Footer from '../footer'
 
 import imgNotebook from '../../assets/products/Notebook.png'
+import imgLenovo from '../../assets/logos/Lenovo_Global_Corporate_Logo.png'
 
 import './produtos.css'
 
@@ -17,7 +18,7 @@ export default function Produtos(){
                 <div className="main-first-produto">
                     <div>
                         <h1>NOTEBOOKS</h1>
-                        <img src={imgNotebook}></img>
+                        <img src={imgLenovo}></img>
                     </div>
                     <div>
                         <img src={imgNotebook}></img>
@@ -28,6 +29,7 @@ export default function Produtos(){
                         <img src={imgNotebook}/>
                         <div>
                             <h3>ThinkPad E14</h3>
+                            <p>* Leve e resistente * Processadores Intel * Armazenamento SSD * Não sei o que não sei o que lá * Bateria top * Caro pra caralho</p>
                         </div>
                         <a href="#">Baixe o catalogo</a>
                     </div>

@@ -38,7 +38,7 @@ export default function Produtos(){
                     <img src={imgDesk} alt="teste"/>
                     <div className="desc-produto">
                         <h3>Desktops</h3>
-                        <p>Notebooks corporativos lenovo. Leves e resistentes com opções Intel e AMD</p>
+                        <p>Desktops corporativos lenovo. Perfeitos para qualquer ambiente de tabalho, com opções Intel e AMD</p>
                         <a href="produtos/detalhe">SAIBA MAIS</a>
                     </div>
                 </div>
@@ -46,7 +46,7 @@ export default function Produtos(){
                     <img src={imgScanner} alt="teste"/>
                     <div className="desc-produto">
                         <h3>Scanners</h3>
-                        <p>Notebooks corporativos lenovo. Leves e resistentes com opções Intel e AMD</p>
+                        <p>Scanners Fujitsu. Várias opções para diferentes cargas de trabalho</p>
                         <a href="produtos/detalhe">SAIBA MAIS</a>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ export default function Produtos(){
                     <img src={imgServidor} alt="teste"/>
                     <div className="desc-produto">
                         <h3>Servidores</h3>
-                        <p>Notebooks corporativos lenovo. Leves e resistentes com opções Intel e AMD</p>
+                        <p>Trabalhamos com toda linha datacenter Lenovo</p>
                         <a href="produtos/detalhe">SAIBA MAIS</a>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ export default function Produtos(){
                     <img src={imgMonitor} alt="teste"/>
                     <div className="desc-produto">
                         <h3>Monitores</h3>
-                        <p>Notebooks corporativos lenovo. Leves e resistentes com opções Intel e AMD</p>
+                        <p>Monitores AOC, Philips e Lenovo, opções para seu ambiente de trabalho</p>
                         <a href="produtos/detalhe">SAIBA MAIS</a>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export default function Produtos(){
                     <img src={imgNetworking} alt="teste"/>
                     <div className="desc-produto">
                         <h3>Networking</h3>
-                        <p>Notebooks corporativos lenovo. Leves e resistentes com opções Intel e AMD</p>
+                        <p>Todos os produtos e soluções para sua infraestrutura de rede</p>
                         <a href="produtos/detalhe">SAIBA MAIS</a>
                     </div>
                 </div>
