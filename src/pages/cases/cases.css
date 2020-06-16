@@ -1,0 +1,191 @@
+header#header-cases{
+    flex-direction: column;
+    align-items: flex-start;
+    clip-path: polygon(0% 100%,100% 60%,100% 0%,0% 0% ,0% 0);
+    -webkit-clip-path: polygon(0% 100%,100% 60%,100% 0%,0% 0% ,0% 0);
+    position: absolute;
+    z-index: 2;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F3F3F3 61.46%, #D4D4D4 99.97%, #B5B5B5 99.98%, #1E76B5 99.99%, #0064AB 99.99%, #3483BC 100%);
+    width: 100%;
+    min-height: 350px;
+}
+
+header#header-cases.detalhe{
+    min-height: 150px;
+}
+
+header#header-cases div:first-child{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+header#header-cases div:last-child{
+    flex: 1;
+    width: 80%;
+    margin: 0 auto;
+}
+
+header#header-cases div:last-child h1{
+    color: #0064AB;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 56px;
+}
+
+main#main-cases{
+    margin: 100px 0;
+}
+
+main#main-cases .content-cases-img{
+    background-image: url('../../assets/content/partnership.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    min-height: 600px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    padding: 10% 0;
+    clip-path: polygon(0% 90%,100% 100%,100% 0%,0% 0% ,0% 0);
+    -webkit-clip-path: polygon(0% 90%,100% 100%,100% 0%,0% 0% ,0% 0);
+}
+
+main#main-cases .content-cases-img h3{
+    color: #C9C9C9;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+}
+
+main#main-cases .content-cases-img p{
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    margin-top: 20px;
+    color: #E9E9E9;
+}
+
+main#main-cases .content-list-cases{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+main#main-cases .cases-card{
+    max-width: 350px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+main#main-cases .cases-card-title{
+    background: #0064AB;
+    width: 50%;
+    border-radius: 0 8px 0 0;
+    font-weight: bold;
+    color: #eaeaea;
+    padding: 10px 10px 0;
+}
+
+main#main-cases .cases-card-content{
+    background: #757272;
+    height: 300px;
+}
+
+main#main-cases .cases-card-content img{
+    height: 100%;
+}
+
+main#main-cases .cases-card-span{
+    height: 100px;
+    background: #505050;
+    color: #DFDFDF;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+
+
+/*MODAL*/
+
+.box-modal-cases{
+    height: 100vh;
+    width: 100vw;
+    background: #000000d4;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    z-index: 3;
+}
+
+.box-modal-cases .box-modal-content{
+    width: 90vw;
+    height: 90vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.box-modal-cases .box-modal-content .border{
+    border: 1px solid #E4DEDE;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    margin: 30px 32px;
+    height: 90%;
+}
+
+.box-modal-cases .box-modal-content div{
+    display: flex;
+}
+
+.box-modal-cases .box-modal-content .border div:nth-child(1){
+    height: 70%;
+}
+
+.box-modal-cases .box-modal-content .border div:nth-child(1) img{
+    object-fit: cover;
+    width: 100%;
+  }
+  
+  .box-modal-cases  .box-modal-content .border div:nth-child(2){
+      background:  #0064AB;
+      display: flex;
+      text-align: center;
+      color: #eaeaea;
+      height: 30%;
+      padding: 0 40px;
+  }
+  
+  .box-modal-cases .box-modal-content div:nth-child(2) p{
+    align-self: center;
+  }
+  
+  .box-modal-cases .box-modal-content div:nth-child(3){
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 10px;
+      color: #565656;
+      cursor: pointer;
+  }

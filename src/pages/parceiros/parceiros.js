@@ -3,11 +3,19 @@ import React, { useEffect, useState } from 'react'
 import Header from '../header'
 import Footer from '../footer'
 
-import imgPartnership from '../../assets/content/partnership.png'
-
 import './parceiros.css'
 
+import api from '../../services/api'
+
 export default function Parceiros(){
+    const [parceiros, setParceiros] = useState([]);
+
+    useEffect(() => {
+        api.get('parceiros').then(response =>{
+            setParceiros(response.data);
+        })
+    },[])
+
     return(
         <div>
             <header id="header-parceiros">
@@ -31,7 +39,13 @@ export default function Parceiros(){
                 </div>
                 <div className="content-list-parceiros">
                     <div className="list-parceiros">
-
+                        {parceiros.map(parceiro =>(
+                            <div>
+                                <a href={parceiro.site} target="_blank">
+                                    <img src={`http://localhost:3333/getImage/${parceiro.imagem}`} alt={parceiro.nome}/>
+                                </a>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </main>

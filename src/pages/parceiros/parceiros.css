@@ -79,10 +79,16 @@ main#main-parceiros .content-list-parceiros{
     border-top: 1px solid #CFCFCF;
     border-bottom: 1px solid #CFCFCF;
     margin: 40px 0 60px 0;
+    display: flex;
 }
 
 main#main-parceiros .content-list-parceiros .list-parceiros{
-
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
 }
 
 main#main-parceiros .content-list-parceiros .list-parceiros img{
