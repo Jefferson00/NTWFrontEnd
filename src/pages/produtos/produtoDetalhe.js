@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../header'
 import Footer from '../footer'
+import {Link, useParams} from 'react-router-dom'
 
 import imgNotebook from '../../assets/products/Notebook.png'
 import imgLenovo from '../../assets/logos/Lenovo_Global_Corporate_Logo.png'
 
 import './produtos.css'
 
-export default function Produtos(){
+import api from '../../services/api'
+
+export default function ProdutosDetalhe(){
+    let {cat} = useParams();
+    const [produtos, setProdutos] = useState([])
+    
+    let fabricantes = []
+
+    useEffect(()=>{
+        api.get('produtos/'+cat).then(response =>{
+            setProdutos(response.data)
+        })
+
+        api.get('parceiros/')
+    },[])
     return(
         <div>
             <header id="header-produtos" className="detalhe">
@@ -17,7 +32,7 @@ export default function Produtos(){
             <main id="main-produtos">
                 <div className="main-first-produto">
                     <div>
-                        <h1>NOTEBOOKS</h1>
+                        <h1>{cat}</h1>
                         <img src={imgLenovo}></img>
                     </div>
                     <div>
@@ -25,32 +40,29 @@ export default function Produtos(){
                     </div>
                 </div>
                 <div className="list-produtos">
-                    <div className="card-produto">
-                        <img src={imgNotebook}/>
-                        <div>
-                            <h3>ThinkPad E14</h3>
-                            <p>* Leve e resistente * Processadores Intel * Armazenamento SSD * Não sei o que não sei o que lá * Bateria top * Caro pra caralho</p>
-                        </div>
-                        <a href="#">Baixe o catalogo</a>
-                    </div>
-                    <div className="card-produto">
-                        <img src={imgNotebook}/>
-                        <div>
-                            <h3>ThinkPad E14</h3>
-                        </div>
-                        <a href="#">Baixe o catalogo</a>
-                    </div>
-                    <div className="card-produto">
-                        <img src={imgNotebook}/>
-                        <div>
-                            <h3>ThinkPad E14</h3>
-                        </div>
-                        <a href="#">Baixe o catalogo</a>
-                    </div>
+                    
+                    {produtos.map(produto => {
+                        if (fabricantes.indexOf(produto.fabricante) === -1) {
+                            fabricantes.push(produto.fabricante)
+                        }
+                        
+                        return (
+                            <div className="card-produto">
+                                <img src={`http://localhost:3333/getImage/${produto.imagem}`}/>
+                                <div>
+                                    <h3>{produto.fabricante} {produto.modelo}</h3>
+                                    <p>{produto.caracteristica}</p>
+                                </div>
+                                <a href="#">Baixe o catalogo</a>
+                            </div>
+                        )
+                    })}
+                    {console.log(fabricantes)}
                 </div>
             </main>
 
             <Footer></Footer>
         </div>
     )
+    
 }

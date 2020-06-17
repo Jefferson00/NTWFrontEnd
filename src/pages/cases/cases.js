@@ -57,11 +57,11 @@ export default function Cases() {
 
                 <div className="content-list-cases">
                     {cases.map(cs => (
-                        <div className="cases-card" onClick={() => openModal(cs.id)}>
+                        <div className="cases-card">
                             <div className="cases-card-title">
                                 <p>{cs.orgao}</p>
                             </div>
-                            <div className="cases-card-content">
+                            <div className="cases-card-content"  onClick={() => openModal(cs.id)}>
                                 <img src={`http://localhost:3333/getImage/${cs.imagem}`} />
                             </div>
                             <div className="cases-card-span">

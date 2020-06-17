@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import {Link} from 'react-router-dom'
 import Header from '../header'
 import imgNotebook from '../../assets/products/Notebook.png'
 import imgDesk from '../../assets/products/Desktop.png'
@@ -9,7 +10,7 @@ import imgNetworking from '../../assets/products/switch.webp'
 
 import Footer from '../footer'
 
-import api from '../../services/api'
+
 
 import './produtos.css'
 
@@ -31,7 +32,7 @@ export default function Produtos(){
                     <div className="desc-produto">
                         <h3>Notebooks</h3>
                         <p>Notebooks corporativos lenovo. Leves e resistentes com opções Intel e AMD</p>
-                        <a href="produtos/detalhe">SAIBA MAIS</a>
+                        <Link to="produtos/detalhe/notebooks">SAIBA MAIS</Link>
                     </div>
                 </div>
                 <div className="card-produto">
@@ -39,7 +40,7 @@ export default function Produtos(){
                     <div className="desc-produto">
                         <h3>Desktops</h3>
                         <p>Desktops corporativos lenovo. Perfeitos para qualquer ambiente de tabalho, com opções Intel e AMD</p>
-                        <a href="produtos/detalhe">SAIBA MAIS</a>
+                        <Link to="produtos/detalhe/desktops">SAIBA MAIS</Link>
                     </div>
                 </div>
                 <div className="card-produto">
@@ -47,7 +48,7 @@ export default function Produtos(){
                     <div className="desc-produto">
                         <h3>Scanners</h3>
                         <p>Scanners Fujitsu. Várias opções para diferentes cargas de trabalho</p>
-                        <a href="produtos/detalhe">SAIBA MAIS</a>
+                        <Link to="produtos/detalhe/scanners">SAIBA MAIS</Link>
                     </div>
                 </div>
                 <div className="card-produto">
@@ -55,7 +56,7 @@ export default function Produtos(){
                     <div className="desc-produto">
                         <h3>Servidores</h3>
                         <p>Trabalhamos com toda linha datacenter Lenovo</p>
-                        <a href="produtos/detalhe">SAIBA MAIS</a>
+                        <Link to="produtos/detalhe/servidores">SAIBA MAIS</Link>
                     </div>
                 </div>
                 <div className="card-produto">
@@ -63,7 +64,7 @@ export default function Produtos(){
                     <div className="desc-produto">
                         <h3>Monitores</h3>
                         <p>Monitores AOC, Philips e Lenovo, opções para seu ambiente de trabalho</p>
-                        <a href="produtos/detalhe">SAIBA MAIS</a>
+                        <Link to="produtos/detalhe/monitores">SAIBA MAIS</Link>
                     </div>
                 </div>
                 <div className="card-produto">
@@ -71,7 +72,7 @@ export default function Produtos(){
                     <div className="desc-produto">
                         <h3>Networking</h3>
                         <p>Todos os produtos e soluções para sua infraestrutura de rede</p>
-                        <a href="produtos/detalhe">SAIBA MAIS</a>
+                        <Link to="produtos/detalhe/networking">SAIBA MAIS</Link>
                     </div>
                 </div>
             </div>
