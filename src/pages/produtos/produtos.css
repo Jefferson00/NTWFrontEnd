@@ -85,6 +85,19 @@ main#main-produtos .desc-produto a{
     font-weight: bold;
 }
 
+main#main-produtos .link-back{
+    margin: 30px 0 0 20px;
+}
+
+main#main-produtos .link-back a{
+    color: #0064AB;
+    transition: all 400ms;
+}
+
+main#main-produtos .link-back a:hover{
+    color: #01bbf3;
+}
+
 main#main-produtos .main-first-produto{
     display: flex;
     justify-content: space-between;
