@@ -1,0 +1,199 @@
+
+/*login.js*/
+.main-content, .main-content-index{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
+.main-content-div{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/*Header*/
+
+.header-admin, .header-admin-index{
+    background: #0064AB;
+    display: flex;
+    padding: 20px;
+}
+
+.header-admin-index{
+    justify-content: space-between;
+}
+
+.header-admin-index div{
+    display: flex;
+}
+
+.header-admin > div, .header-admin-index div{
+    margin: 0 20px;
+    align-self: center;
+}
+
+.header-admin > div img, .header-admin-index div img{
+    height: 50px;
+}
+
+.header-admin > div h3, .header-admin-index div h3, .header-admin-index div p{
+    color: #EFEFEF;
+}
+
+/*DIV LOGIN*/
+
+.main-content-div-login{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content-login{
+    border: 1px solid #CBCBCB;
+    box-sizing: border-box;
+    align-self: center;
+    padding: 20px 50px;
+    max-width: 200px;
+    min-width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content-login .contact-form form{
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-login .contact-form form input, textarea{
+    margin: 10px; 
+}
+
+.main-content-login > div{
+    margin: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.main-content-login > div img{
+    height: 50px;
+}
+
+
+
+/*index*/
+.itens-admin{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.itens-admin > div{
+    margin: 20px;
+    color: #565656;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.itens-admin > div.item-selected{
+    border: 2px solid #0062A8;
+    border-radius: 5px;
+}
+
+.main-content-index{
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 60px;
+    margin: 0 auto;
+    max-width: 1900px;
+}
+
+.grid{
+    display: grid !important;
+    min-width: 40% !important;
+  }
+
+  .contact-form.grid form{
+    grid-row: 1;
+    grid-column: 1;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form.grid form input, textarea, select{
+    margin: 20px;
+}
+
+.contact-form.grid form.active{
+    opacity: 1;
+    z-index: 1;
+}
+
+.contact-form.grid form .input-group{
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-form.grid form .input-group div{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.content-list{
+    border: 1px solid #B8B8B8;
+    max-height: 500px;
+    overflow: overlay;
+    padding: 20px;
+    min-width: 40%;
+}
+
+.content-list.grid ul{
+    grid-row: 1;
+    grid-column: 1;
+    opacity: 0;
+}
+
+.content-list.grid ul.active{
+    opacity: 1;
+    z-index: 1;
+}
+
+.content-list ul li{
+    background: #d2d2d2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.content-list ul li img{
+    height: 100px;
+    width: 100px;
+}
+
+.content-list ul li div:nth-child(1){
+   display: flex;
+   flex-direction: column;
+   font-size: 14px;
+}
+
+.content-list ul li:nth-child(2n){
+    background: #eaeaea;
+}
+
+.content-list-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+

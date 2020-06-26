@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../footer'
+
+import api from '../../services/api'
 
 import hlImg1 from '../../assets/content/hl-1.jpg'
 import hlImg2 from '../../assets/content/hl-2.jpg'
@@ -16,13 +18,8 @@ import productsImg from '../../assets/products/products.png'
 
 import inst1 from '../../assets/content/inst-1.jpg'
 
-import lenovoLogo from '../../assets/logos/Lenovo_Global_Corporate_Logo.png'
-import fujitsuLogo from '../../assets/logos/fujitsu-logo.png'
-import nutanixLogo from '../../assets/logos/Nutanix_Logo.png'
-import aocLogo from '../../assets/logos/aoc-logo.png'
-import netscoutLogo from '../../assets/logos/NetScout_logo.png'
-
 import './home.css'
+import './responsive.css'
 
 const instText1 = `Compromisso, parceria e seriedade são as principais 
 objetivos da NorthWare ao oferecer as melhores Soluções em Tecnologia e Informação (TI)
@@ -55,6 +52,8 @@ const instText2 =
 
 export default function Home() {
 
+    const [parceiros, setParceiros] = useState([]);
+
     useEffect(() => {
 
         /*Slider*/
@@ -65,13 +64,15 @@ export default function Home() {
 
         var direction;
         if (slider != null) {
+            var cont = 0
             window.addEventListener('load', function () {
-
+                
                 this.setInterval(() => {
                     direction = -1;
 
                     carousel.style.justifyContent = 'flex-start';
                     slider.style.transform = 'translate(-33.4%)';
+                    
                 }, 3000)
             })
 
@@ -93,6 +94,7 @@ export default function Home() {
             });
 
             slider.addEventListener('transitionend', function () {
+                console.log(cont++)
                 if (direction === -1) {
                     slider.appendChild(slider.firstElementChild);
                 } else if (direction === 1) {
@@ -108,55 +110,62 @@ export default function Home() {
             })
         }
 
-    const imgLogo = document.getElementById("img-logo")
-        /* MENU DOWN */ 
-    
-    const menu = document.getElementById('home');
-    
-    function menuDown(){
-    
-      const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
-              if((windowTop) > menu.style.height + window.innerHeight){
-                menu.classList.add('menu-down')
-                imgLogo.src = logoBlue
-              }
-    }
-    
-    function menuUp(){
-            menu.classList.remove('menu-down')
-            imgLogo.src =  logoImg
-    }
-    
-    if(menu != null){
-      window.addEventListener('scroll', function(){
-        menuDown();
-        if(window.scrollY===0&&window.scrollX===0){
-              menuUp();
-        }
-      })
-    }
+            const imgLogo = document.getElementById("img-logo")
+                /* MENU DOWN */ 
+            
+            const menu = document.getElementById('home');
+            
+            function menuDown(){
+            
+            const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
+                    if((windowTop) > menu.style.height + window.innerHeight){
+                        menu.classList.add('menu-down')
+                        imgLogo.src = logoBlue
+                    }
+            }
+            
+            function menuUp(){
+                    menu.classList.remove('menu-down')
+                    imgLogo.src =  logoImg
+            }
+            
+            if(menu != null){
+            window.addEventListener('scroll', function(){
+                menuDown();
+                if(window.scrollY===0&&window.scrollX===0){
+                    menuUp();
+                }
+            })
+            }
       
-    /*ANIMAÇÕES
+            /*ANIMAÇÕES
 
-    const target = document.querySelectorAll('[data-anime]');
-    const presentation = document.getElementById('pres')
-    const animationClass = 'animate';
+            const target = document.querySelectorAll('[data-anime]');
+            const presentation = document.getElementById('pres')
+            const animationClass = 'animate';
 
-    function animeScroll(){
-        const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
-        target.forEach(function(element){
-            console.log(presentation.offsetTop)
-        if((windowTop) > presentation.offsetTop){
-            element.classList.add(animationClass);
-        }
-        })
-    }
+            function animeScroll(){
+                const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
+                target.forEach(function(element){
+                    console.log(presentation.offsetTop)
+                if((windowTop) > presentation.offsetTop){
+                    element.classList.add(animationClass);
+                }
+                })
+            }
 
-    window.addEventListener('scroll', function(){
-    animeScroll();
-    })*/
+            window.addEventListener('scroll', function(){
+            animeScroll();
+            })*/
+            api.get('parceiros').then(response =>{
+                setParceiros(response.data)
+            })
     
-    })
+    },[])
+
+    function scrollToInst(){
+        document.querySelector('.institutional').scrollIntoView({behavior:'smooth'})
+    }
 
     return (
         <div>
@@ -168,7 +177,7 @@ export default function Home() {
                             <a href="/">Home</a>
                         </li>
                         <li>
-                            <a href="#inst">Institucional</a>
+                            <a onClick={() =>{scrollToInst()}}>Institucional</a>
                         </li>
                         <li>
                             <a href="/atas">Atas Governo</a>
@@ -225,7 +234,7 @@ export default function Home() {
             <section className="presentation" id="pres">
                 <div className="up-presentation" data-anime="left">
                     <h1>
-                        Com mais de 20 anos de experiência
+                        COM MAIS DE 20 ANOS DE EXPERIÊNCIA
                     </h1>
                     <p>
                         A Northware ofere a seus clientes um portfólio de soluções tecnológicas com grande valor agregado.
@@ -266,7 +275,7 @@ export default function Home() {
                         A NorthWare participou de alguns dos projetos de maior destaque do mercado brasileiro de TI. Seja com clientes do setor público ou empresas privadas.
                     </p>
                     <div className="cases-btn-div">
-                        <a to="/cases" className="btn-link">SAIBA MAIS</a>
+                        <a href="/cases" className="btn-link">SAIBA MAIS</a>
                     </div>
                 </div>
                 <div>
@@ -275,7 +284,7 @@ export default function Home() {
                         A NorthWare participou de alguns dos projetos de maior destaque do mercado brasileiro de TI. Projetos de Hiperconvergencias deram o que falar bicho
                      </p>
                     <div className="cases-btn-div">
-                        <a to="/cases" className="btn-link">SAIBA MAIS</a>
+                        <a href="/cases" className="btn-link">SAIBA MAIS</a>
                     </div>
                 </div>
                 <div>
@@ -284,46 +293,23 @@ export default function Home() {
                         A NorthWare participou de alguns dos projetos de maior destaque do mercado brasileiro de TI. Seja com clientes do setor público ou empresas privadas.
                     </p>
                     <div className="cases-btn-div">
-                        <a to="/cases" className="btn-link">SAIBA MAIS</a>
+                        <a href="/cases" className="btn-link">SAIBA MAIS</a>
                     </div>
                 </div>
             </section>
 
             <section className="partners">
                 <div className="slide-track">
-                    <div>
-                        <img src={lenovoLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={nutanixLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={fujitsuLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={aocLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={netscoutLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={fujitsuLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={aocLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={netscoutLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={fujitsuLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={aocLogo} alt="logo-lenovo"/>
-                    </div>
-                    <div>
-                        <img src={netscoutLogo} alt="logo-lenovo"/>
-                    </div>
+                   {parceiros.map(parceiro => (
+                       <div>
+                            <img src={`http://localhost:3333/getImage/${parceiro.imagem}`} alt="logo-lenovo"/>
+                        </div>
+                   ))}
+                   {parceiros.map(parceiro => (
+                       <div>
+                            <img src={`http://localhost:3333/getImage/${parceiro.imagem}`} alt="logo-lenovo"/>
+                        </div>
+                   ))}
                 </div>
             </section>
 

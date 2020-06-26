@@ -1,6 +1,7 @@
 import React from 'react';
 import Routes from './routes'
 import './main.css';
+import './responsive.css';
 
 function App() {
     return (

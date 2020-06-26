@@ -1,0 +1,109 @@
+@media (max-width: 1090px){
+    header#home .main-menu{
+        display: none;
+    }
+
+    .presentation img {
+        width: 90%;   
+    }
+
+    .presentation .up-presentation{
+        clip-path: polygon(115% 0%, 100% 50%, 0 100%, 0 0);
+    }
+
+    @keyframes polygon {
+        0% {  opacity:0; clip-path:  polygon(115% 0%, 100% 100%, 0 100%, 0 0); }
+        100% {   opacity:1; clip-path:  polygon(115% 0%, 100% 50%, 0 100%, 0 0);}
+    }
+}
+
+@media (max-width: 790px){
+    header#home{
+        clip-path: none;
+        -webkit-clip-path:none;
+        min-height: 90px;
+        position: initial;
+    }
+
+    header#home img{
+       width: 200px;
+    }
+
+    header#home.menu-down{
+        min-height: 50px;
+    }
+
+    header#home.menu-down img{
+        width: auto;
+    }
+
+    header#home .main-menu{
+        display: none;
+    }
+
+    .presentation img {
+        width: 80%;
+        height: 400px;   
+    }
+
+    .presentation .up-presentation{
+        margin-bottom: 20px;
+    }
+
+    .presentation .up-presentation, .presentation .down-presentation{
+        clip-path: none;
+        -webkit-clip-path:none;
+        animation: none;
+        height: 320px;
+    }
+}
+
+@media (max-width: 582px){
+    .presentation .up-presentation p{
+        width: 100%;
+    }
+
+    .presentation .up-presentation, .presentation .down-presentation{
+        height: 260px;
+    }
+
+    .presentation img{
+       height: 300px;
+    }
+
+    .presentation .up-presentation p{
+        font-size: 14px;
+        line-height: 16px;
+        padding: 10px;
+    }
+
+    .presentation .up-presentation h1{
+        font-size: 24px;
+        line-height: 36px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 425px){
+    .container-slider {
+        height: 80vh;
+        clip-path: none;
+    }
+
+    .presentation .up-presentation{
+        margin-bottom: 100px;
+    }
+
+    .presentation .up-presentation, .presentation .down-presentation{
+        height: 160px;
+    }
+
+    .presentation img{
+        width: 100%;
+        height: 250px;
+    }
+
+    .institutional {
+        width: 100%;
+    }
+}

@@ -9,6 +9,25 @@ import phone from '../assets/icons/phone.svg'
 
 
 function Footer(){
+
+    function scrolToTop(){
+        window.scroll({
+            top:0,
+            behavior:'smooth'
+        })
+    }
+
+    window.onscroll = function (){
+        const toTopElement = document.getElementById('toTop')
+
+        if(window.pageYOffset > window.innerHeight){
+            toTopElement.style.opacity = 1
+        }else{
+            toTopElement.style.opacity = 0
+        }
+
+    }
+
     return(
         <footer>
             <div className="inform">
@@ -55,8 +74,8 @@ function Footer(){
             <div className="logo-white">
                 <img src={logoWhite} alt="logo"></img>
             </div>
-            <div className="top">
-                <a href="#">^^</a>
+            <div id="toTop" className="top">
+                <span onClick={() => {scrolToTop()}}></span>
             </div> 
             <div className="copy">
                 2020 Northware

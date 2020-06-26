@@ -192,6 +192,10 @@ main#main-atas .card-table-description table td{
     align-items: center;
 }
 
+.box-modal .box-modal-content div .item-description img{
+    height: 200px;
+}
+
 .box-modal .box-modal-content div .item-description table{
     border-collapse: separate;
     border-spacing: 15px;

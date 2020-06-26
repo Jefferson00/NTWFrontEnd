@@ -70,7 +70,7 @@ header .main-menu a:hover{
   color: #c7c7c7;
 }
 
-form input, form textarea{
+form input, form textarea, form select{
   resize: vertical;
   line-height: 24px;
   border: 1px solid #d2d2d2;
@@ -93,20 +93,71 @@ form input[type=button],[type=submit]{
 }
 
 .btn{
-  min-height: 50px;
   border: 1px solid;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   color: #F7F7F7;
   text-align: center;
-  font-size: 24px;
-  padding: 20px;
+  font-size: 14px;
   font-weight: bold;
 }
 
 .btn.download{
+  font-size: 24px;
+  padding: 20px;
   background: #FF9F2F;
   border: 1px solid #C56C03;
+}
+
+.btn.edit{
+  background: #FF9F2F;
+  border: 1px solid #C56C03;
+  width: 50%;
+}
+
+.btn.cancel{
+  background: #dd0404;
+  border: 1px solid #b82b00;
+  width: 50%;
+}
+
+.btn-edit, .btn-delete{
+  border: none;
+  padding: 5px;
+  border-radius: 7px;
+  transition: 400ms;
+  margin-right: 20px;
+}
+
+.btn-edit{
+  background: #FF9F2F;
+}
+
+.btn-edit:hover{
+  background: #e97e03;
+}
+
+.btn-delete{
+  background: #a00702;
+}
+
+.btn-delete:hover{
+  background: #690401;
+}
+
+
+.btn-edit span, .btn-delete span{
+  display: flex;
+  height: 18px;
+  width: 18px;
+}
+
+.btn-edit span{
+  background: url('./assets/icons/edit.svg') no-repeat;
+}
+
+.btn-delete span{
+  background: url('./assets/icons/delete.svg') no-repeat;
 }
 
 /*
@@ -159,7 +210,6 @@ footer .address >div{
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  flex-wrap: wrap;
   padding: 10px 20px;
   flex: 1;
 }
@@ -176,21 +226,40 @@ footer .logo-white{
     margin: 0 auto;
 }
 
-.top{
-  border: 1px solid;
-  align-self: flex-end;
-  margin: 10px 40px;
-}
-.top a{
-color: #f0f0f5;
+@keyframes move {
+  0% {bottom: 10px;}
+  50% {bottom: 30px;}
+  100% {bottom: 20px;}
 }
 
-.top a svg{
-font-size: 4.5rem;
+.top{
+    border: 1px solid;
+    margin: 10px 40px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+    background: #0000007a;
+    box-shadow: 3px 3px 7px #0000008c;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 400ms;
+}
+
+.top:hover{
+  background: #00000089;
+  animation: move 0.7s linear;
+}
+
+.top span{
+  background: url('./assets/icons/arrow_up.svg') no-repeat;
+  display: flex;
+  width: 35px;
+  height: 35px;
 }
 
 footer .copy{
   padding: 40px;
   border-top: 1px solid #d2d2d261;
-  margin: 0 20px;
+  margin: 20px 20px 0;
 }

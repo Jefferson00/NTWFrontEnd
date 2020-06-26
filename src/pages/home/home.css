@@ -164,6 +164,11 @@ header#home.menu-down a:hover{
 
 /*PRESENTATION*/
 
+@keyframes polygon {
+	0% {  opacity:0; clip-path:  polygon(115% 0%, 100% 100%, 0 100%, 0 0); }
+	100% {   opacity:1; clip-path:  polygon(115% 0%, 60% 50%, 0 100%, 0 0);}
+}
+
 .presentation{
     width: 100%;
     display: flex;
@@ -176,6 +181,7 @@ header#home.menu-down a:hover{
     margin-top: 40px;
     position: absolute;
     z-index: 2;
+    height: 590px;
 }
 
 .presentation .up-presentation, .down-presentation{
@@ -189,21 +195,28 @@ header#home.menu-down a:hover{
     justify-content: flex-start;
     flex-wrap: wrap;
     align-items: flex-start;
+   
+}
+
+.presentation .up-presentation{
+    animation: polygon 2s linear;
 }
 
 .presentation .up-presentation h1{
     color: #EAEAEA;
     font-size: 48px;
     line-height: 56px;
+    
 }
 
 .presentation .up-presentation p{
-    font-size: 18px;
+    font-size: 21px;
     line-height: 21px; 
     color: #EAEAEA;
+    width: 50%;
 }
 
-.presentation .up-presentation h1, p{
+.presentation .up-presentation h1, .up-presentation p{
     padding: 30px 0px 0px 70px;
 }
 
@@ -347,6 +360,8 @@ SLIDE PARTNER
     margin: 20px;
 	width: 250px;
 }
+
+
 
 
 /*ANIMAÇÕES

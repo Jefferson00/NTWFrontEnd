@@ -26,7 +26,7 @@ export default function Header(){
                                 <a href="/cases">Cases</a>
                             </li>
                             <li>
-                                <a href="/contatos">Contatos</a>
+                                <a href="/contato">Contatos</a>
                             </li>
                         </ul>
                     </nav>

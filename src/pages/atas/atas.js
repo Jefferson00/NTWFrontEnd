@@ -182,12 +182,12 @@ export default function Atas() {
             <main id="main-atas">
                 <div id="item" className="items">
                     <div id="todos" className="item-selected">Todos</div>
-                    <div id="monitor">Monitores</div>
+                    <div id="monitores">Monitores</div>
                     <div id="desktops">Computadores</div>
-                    <div id="notebook">Notebooks</div>
+                    <div id="notebooks">Notebooks</div>
                     <div id="hiper">Hiperconvergencia</div>
                     <div id="scanners">Scanners</div>
-                    <div id="redes">Redes</div>
+                    <div id="networking">Redes</div>
                     <div id="wifi">Wi-Fi</div>
                 </div>
 
