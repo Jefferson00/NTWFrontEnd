@@ -57,6 +57,19 @@ header#home.menu-down a:hover{
     color: #01385f;
 }
 
+/*menu fullscreen*/
+
+header#home.on{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #d2d2d2;
+    z-index: 10;
+    clip-path: none;
+}
+
 /*Slider*/
 .container-slider{
     width:100%;

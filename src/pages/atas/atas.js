@@ -168,13 +168,26 @@ export default function Atas() {
         api.get('atas').then(response =>{
             setAtas(response.data);
         })
+
+        //Menu responsivo
+
+        let show = true;
+        const header = document.getElementById("header-atas")
+        const menuToggle = header.querySelector(".menu-toggle")
+
+        menuToggle.addEventListener("click", () =>{
+
+            document.body.style.overflow = show ? "hidden" : "initial"
+            header.classList.toggle("on", show)
+            show = !show
+        })
     }, [])
 
     return (
         <div>
             <header id="header-atas">
                 <Header></Header>
-                <div>
+                <div className="header-tittle">
                     <h1>ATAS DE REGISTRO DE PREÇOS</h1>
                 </div>
             </header>

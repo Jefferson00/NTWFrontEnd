@@ -43,6 +43,8 @@ header{
   align-items: center;
 }
 
+
+
 header .main-menu{
   flex: 1;
 }
@@ -69,6 +71,7 @@ header .main-menu a{
 header .main-menu a:hover{
   color: #c7c7c7;
 }
+
 
 form input, form textarea, form select{
   resize: vertical;

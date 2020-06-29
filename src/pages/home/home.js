@@ -137,6 +137,19 @@ export default function Home() {
                 }
             })
             }
+
+            //Menu responsivo
+
+            let show = true;
+            const header = document.getElementById("home")
+            const menuToggle = header.querySelector(".menu-toggle")
+
+            menuToggle.addEventListener("click", () =>{
+
+                document.body.style.overflow = show ? "hidden" : "initial"
+                header.classList.toggle("on", show)
+                show = !show
+            })
       
             /*ANIMAÇÕES
 
@@ -195,7 +208,14 @@ export default function Home() {
                             <a href="/contato">Contatos</a>
                         </li>
                     </ul>
+
                 </nav>
+                    <div className="menu-toggle">
+                        <div className="one"></div>
+                        <div className="two"></div>
+                        <div className="three"></div>
+                    </div>
+               
             </header>
 
             <section className="container-slider">

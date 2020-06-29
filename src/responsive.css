@@ -1,3 +1,6 @@
+
+
+
 @media(max-width: 990px){
     footer .inform{
         flex-direction: column;
@@ -10,6 +13,12 @@
     
     .top{
         right: 0;
+    }
+}
+
+@media(max-width: 790px){
+    header .main-menu ul{
+        display: none;
     }
 }
 

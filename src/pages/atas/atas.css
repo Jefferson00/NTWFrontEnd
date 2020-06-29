@@ -18,18 +18,35 @@ header#header-atas div:first-child{
     margin: 0 auto;
 }
 
-header#header-atas div:last-child{
+header#header-atas .header-tittle{
     flex: 1;
     width: 80%;
     margin: 0 auto;
 }
 
-header#header-atas div:last-child h1{
+header#header-atas .header-tittle h1{
     color: #0064AB;
     font-style: normal;
     font-weight: 400;
     font-size: 48px;
     line-height: 56px;
+}
+
+header#header-atas .logo{
+    display: flex;
+}
+
+/*menu fullscreen*/
+
+header#header-atas.on{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #d2d2d2;
+    z-index: 10;
+    clip-path: none;
 }
 
 main#main-atas .items{

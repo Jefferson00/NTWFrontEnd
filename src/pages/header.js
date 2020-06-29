@@ -4,7 +4,14 @@ import logoImg from '../assets/logos/logo-ntw.png'
 export default function Header(){
     return (
         <div>
-                   <img id="img-logo" src={logoImg} alt="logo" />
+            <div className="logo">
+                <img id="img-logo" src={logoImg} alt="logo" />
+                   <div className="menu-toggle">
+                        <div className="one"></div>
+                        <div className="two"></div>
+                        <div className="three"></div>
+                    </div>
+            </div>      
                     <nav className="main-menu">
                         <ul>
                             <li>
@@ -30,7 +37,6 @@ export default function Header(){
                             </li>
                         </ul>
                     </nav>
-
         </div>
     )
 }

@@ -3,6 +3,50 @@
         display: none;
     }
 
+    header#home .menu-toggle{
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+     }
+ 
+     header#home .one, .two, .three{
+         background-color: #0065ac;
+         height: 5px;
+         width: 100%;
+         margin: 6px auto;
+         transition: 400ms;
+     }
+
+    header#home.on{
+        display: flex;
+        align-items: center;
+    }
+
+    header#home.on img{
+        display: none;
+    }
+
+    header#home.on .main-menu, header#home.on .main-menu ul{
+         display: block;
+         text-align: center;
+     }
+
+    header#home.on .menu-toggle{
+        position: absolute;
+        right: 0;
+        top: 15px;
+    }
+
+    header#home.on .menu-toggle .one{
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+    header#home.on .menu-toggle .two{
+        opacity: 0;
+    }
+    header#home.on .menu-toggle .three{
+        transform: rotate(-45deg) translate(8px, -10px);
+    }
+
     .presentation img {
         width: 90%;   
     }
@@ -35,10 +79,6 @@
 
     header#home.menu-down img{
         width: auto;
-    }
-
-    header#home .main-menu{
-        display: none;
     }
 
     .presentation img {
