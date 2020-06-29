@@ -4,22 +4,6 @@
     }
 }
 
-@media (max-width: 1072px){
-    header#header-atas div:first-child {
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    header#header-atas {
-        clip-path: none;
-        min-height: 250px;
-    }
-
-    header#header-atas div:last-child {
-        text-align: center;
-    }
-}
-
 @media (max-width: 1240px){
 
     .box-modal .box-modal-content .border {
@@ -38,10 +22,41 @@
     }
 }
 
+@media (max-width: 1072px){
+    header#header-atas .logo{
+        margin-top: 20px;
+    }
+
+    header#header-atas .main-div-header{
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    header#header-atas {
+        clip-path: none;
+        min-height: 250px;
+    }
+
+    header#header-atas .main-menu{
+        margin: 20px 0 20px;
+    }
+
+    header#header-atas .header-tittle {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
 @media (max-width: 790px){
-    header#header-atas div:last-child h1{
+    header#header-atas .header-tittle h1{
         font-size: 36px;
         line-height: 36px;
+    }
+
+    header#header-atas .logo{
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
     }
 
     header#header-atas .menu-toggle{
@@ -62,6 +77,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+     header#header-atas.on .main-div-header .main-menu{
+        flex: 0;
     }
 
     header#header-atas.on img, header#header-atas.on .header-tittle{
@@ -105,6 +124,13 @@
 }
 
 @media (max-width: 500px){
+    header#header-atas .logo img{
+        width: 50%;
+    }
+
+    .download-item {
+        justify-content: center;
+    }
 
     .box-modal{
         height: 100%;

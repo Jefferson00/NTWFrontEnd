@@ -61,6 +61,12 @@
     }
 }
 
+@media (min-width: 1020px){
+    .container-slider{
+        animation: sliderAnimation 0.7s;
+    }
+}
+
 @media (max-width: 790px){
     header#home{
         clip-path: none;

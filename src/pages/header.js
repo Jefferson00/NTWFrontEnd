@@ -3,7 +3,7 @@ import logoImg from '../assets/logos/logo-ntw.png'
 
 export default function Header(){
     return (
-        <div>
+        <div className="main-div-header">
             <div className="logo">
                 <img id="img-logo" src={logoImg} alt="logo" />
                    <div className="menu-toggle">

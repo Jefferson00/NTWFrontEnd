@@ -9,7 +9,7 @@ header#header-atas{
     min-height: 350px;
 }
 
-header#header-atas div:first-child{
+header#header-atas .main-div-header{
     display: flex;
     justify-content: space-between;
     flex: 1;

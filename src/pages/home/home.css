@@ -71,11 +71,17 @@ header#home.on{
 }
 
 /*Slider*/
+
+@keyframes sliderAnimation {
+	0% {  opacity:0; clip-path:  polygon(0% 20%,100% 0%,100% 0%,0% 0% ,0% 0%); }
+	100% {   opacity:1; clip-path:  polygon(0% 95%,100% 100%,100% 0%,0% 0% ,0% 0%);}
+}
 .container-slider{
     width:100%;
     margin: 0;
     clip-path: polygon(0% 95%,100% 100%,100% 0%,0% 0% ,0% 0%);
     -webkit-clip-path: polygon(0% 95%,100% 100%,100% 0%,0% 0% ,0% 0%);
+
 }
 
 .container-slider .carousel{
@@ -165,7 +171,12 @@ header#home.on{
     border-radius: 50%;
     height: 200px;
     width: 200px;
-    transition: linear 0.4s;
+    transition: border-radius  0.8s cubic-bezier(0.620, 0.005, 0.000, 1.005), box-shadow 2s;
+}
+
+.highlight div img:hover{
+    border-radius: 30% 20%;
+    box-shadow: 15px 10px 0px #0064ab;
 }
 
 .highlight div p{
