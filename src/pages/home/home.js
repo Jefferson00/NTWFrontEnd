@@ -21,6 +21,7 @@ import inst1 from '../../assets/content/inst-1.jpg'
 import './home.css'
 import './responsive.css'
 
+
 const instText1 = `Compromisso, parceria e seriedade são as principais 
 objetivos da NorthWare ao oferecer as melhores Soluções em Tecnologia e Informação (TI)
  para os seus clientes. 
@@ -153,23 +154,19 @@ export default function Home() {
       
             /*ANIMAÇÕES*/
 
-            const target = document.querySelectorAll('[data-anime]');
-            const presentation = document.getElementById('pres')
-
-            function animeScroll(){
-                const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
-                target.forEach(function(element){
-                    console.log(presentation.offsetTop)
-                if((windowTop) > presentation.offsetTop){
-                    element.style.display = "flex"
-                }
+            const linkCases = document.querySelectorAll('.cases a')
+            //const classes = ['case-animated','case-animated2']
+            linkCases.forEach(element =>{
+                element.addEventListener('mouseover', ()=>{
+                    element.parentElement.parentElement.classList.add('case-animated2')
+                    element.parentElement.parentElement.classList.add('case-animated')
                 })
-            }
-
-            window.addEventListener('scroll', function(){
-            animeScroll();
+                element.addEventListener('mouseout', ()=>{
+                    element.parentElement.parentElement.classList.remove('case-animated2')
+                    element.parentElement.parentElement.classList.remove('case-animated')
+                })
             })
-
+            
             api.get('parceiros').then(response =>{
                 setParceiros(response.data)
             })
@@ -250,22 +247,22 @@ export default function Home() {
                     <p>Suporte Técnico</p>
                 </div>
             </section>
+                <section className="presentation" id="pres" data-aos="fade-in">
+                    <div className="up-presentation">
+                        <h1>
+                            COM MAIS DE 20 ANOS DE EXPERIÊNCIA
+                        </h1>
+                        <p>
+                            A Northware ofere a seus clientes um portfólio de soluções tecnológicas com grande valor agregado.
+                        </p>
+                    </div>
 
-            <section className="presentation" id="pres">
-                <div className="up-presentation" style={{display: "none"}} data-anime="left">
-                    <h1>
-                        COM MAIS DE 20 ANOS DE EXPERIÊNCIA
-                    </h1>
-                    <p>
-                        A Northware ofere a seus clientes um portfólio de soluções tecnológicas com grande valor agregado.
-                    </p>
-                </div>
+                    <img id="productsImg" src={productsImg} alt="imagem"/>
 
-                <img id="productsImg" src={productsImg}  style={{display: "none"}} data-anime="show-up" alt="imagem"/>
-
-                <div className="down-presentation"  style={{display: "none"}} data-anime="rigth">
-                </div>
-            </section>
+                    <div className="down-presentation">
+                    </div>
+                </section>
+            
 
             <section id="inst" className="institutional">
                 <div>

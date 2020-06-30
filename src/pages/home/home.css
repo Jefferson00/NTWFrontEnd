@@ -216,9 +216,6 @@ header#home.on{
     position: absolute;
     z-index: 2;
     height: 590px;
-    animation: showup 1s linear;
-    animation-delay: 1.5s;
-    animation-fill-mode: backwards;
 }
 
 .presentation .up-presentation, .down-presentation{
@@ -233,11 +230,6 @@ header#home.on{
     flex-wrap: wrap;
     align-items: flex-start;
    
-}
-
-.presentation .up-presentation{
-    animation: polygon 1s ease-in;
-    animation-fill-mode: backwards;
 }
 
 .presentation .up-presentation h1{
@@ -259,7 +251,6 @@ header#home.on{
 }
 
 .presentation .down-presentation{
-    animation: polygon2 1s ease-in;
     clip-path: polygon(100% 0%, 100% 100%, -20% 100%, 40% 50%);
     -webkit-clip-path: polygon(100% 0%, 100% 100%, -20% 100%, 40% 50%);
 }
@@ -367,6 +358,22 @@ header#home.on{
     color: #f1f1f1;
 }
 
+@keyframes caseAnime1 {
+	0% { background-color: #D0D0D0; }
+	100% { background-color: #8b1b1b;}
+}
+
+@keyframes caseAnime2 {
+	0% { }
+	100% { transform: rotateY(360deg);}
+}
+
+.case-animated{
+    animation: caseAnime1 2s linear forwards;
+}
+.case-animated2{
+    animation: caseAnime2 0.5s linear;
+}
 
 /**
 SLIDE PARTNER
