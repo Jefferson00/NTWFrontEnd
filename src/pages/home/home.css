@@ -193,6 +193,16 @@ header#home.on{
 	100% {   opacity:1; clip-path:  polygon(115% 0%, 60% 50%, 0 100%, 0 0);}
 }
 
+@keyframes polygon2 {
+	0% {  opacity:0; clip-path:  polygon(115% 0%, 100% 100%, 0 100%, 0 0); }
+	100% {   opacity:1; clip-path:  polygon(100% 0%, 100% 100%, -20% 100%, 40% 50%);}
+}
+
+@keyframes showup {
+	0% {  opacity:0; transform: translateX(200%);}
+	100% {   opacity:1;transform: translateX(0);}
+}
+
 .presentation{
     width: 100%;
     display: flex;
@@ -206,6 +216,9 @@ header#home.on{
     position: absolute;
     z-index: 2;
     height: 590px;
+    animation: showup 1s linear;
+    animation-delay: 1.5s;
+    animation-fill-mode: backwards;
 }
 
 .presentation .up-presentation, .down-presentation{
@@ -223,7 +236,8 @@ header#home.on{
 }
 
 .presentation .up-presentation{
-    animation: polygon 2s linear;
+    animation: polygon 1s ease-in;
+    animation-fill-mode: backwards;
 }
 
 .presentation .up-presentation h1{
@@ -245,6 +259,7 @@ header#home.on{
 }
 
 .presentation .down-presentation{
+    animation: polygon2 1s ease-in;
     clip-path: polygon(100% 0%, 100% 100%, -20% 100%, 40% 50%);
     -webkit-clip-path: polygon(100% 0%, 100% 100%, -20% 100%, 40% 50%);
 }

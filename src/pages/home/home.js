@@ -151,25 +151,25 @@ export default function Home() {
                 show = !show
             })
       
-            /*ANIMAÇÕES
+            /*ANIMAÇÕES*/
 
             const target = document.querySelectorAll('[data-anime]');
             const presentation = document.getElementById('pres')
-            const animationClass = 'animate';
 
             function animeScroll(){
                 const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
                 target.forEach(function(element){
                     console.log(presentation.offsetTop)
                 if((windowTop) > presentation.offsetTop){
-                    element.classList.add(animationClass);
+                    element.style.display = "flex"
                 }
                 })
             }
 
             window.addEventListener('scroll', function(){
             animeScroll();
-            })*/
+            })
+
             api.get('parceiros').then(response =>{
                 setParceiros(response.data)
             })
@@ -252,7 +252,7 @@ export default function Home() {
             </section>
 
             <section className="presentation" id="pres">
-                <div className="up-presentation" data-anime="left">
+                <div className="up-presentation" style={{display: "none"}} data-anime="left">
                     <h1>
                         COM MAIS DE 20 ANOS DE EXPERIÊNCIA
                     </h1>
@@ -261,9 +261,9 @@ export default function Home() {
                     </p>
                 </div>
 
-                <img id="productsImg" src={productsImg} data-anime="show-up" alt="imagem"/>
+                <img id="productsImg" src={productsImg}  style={{display: "none"}} data-anime="show-up" alt="imagem"/>
 
-                <div className="down-presentation" data-anime="rigth">
+                <div className="down-presentation"  style={{display: "none"}} data-anime="rigth">
                 </div>
             </section>
 
