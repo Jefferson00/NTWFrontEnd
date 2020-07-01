@@ -158,12 +158,31 @@ export default function Home() {
             //const classes = ['case-animated','case-animated2']
             linkCases.forEach(element =>{
                 element.addEventListener('mouseover', ()=>{
-                    element.parentElement.parentElement.classList.add('case-animated2')
-                    element.parentElement.parentElement.classList.add('case-animated')
+                    /*element.parentElement.parentElement.childNodes.item(3).style.opacity = "1"
+                    element.parentElement.parentElement.childNodes.item(4).style.opacity = "1"
+                    element.parentElement.parentElement.childNodes.item(5).style.opacity = "1"
+                    element.parentElement.parentElement.childNodes.item(3).classList.add('case-animated')
+                    element.parentElement.parentElement.childNodes.item(4).classList.add('case-animated')
+                    element.parentElement.parentElement.childNodes.item(5).classList.add('case-animated')*/
+                    //element.parentElement.parentElement.style.border ="none"
+                    element.parentElement.parentElement.childNodes.item(0).style.color = "#ffffff"
+                    element.parentElement.parentElement.childNodes.item(1).style.color = "#ffffff"
+                    element.parentElement.parentElement.childNodes.item(3).style.opacity = "1"
+                    element.parentElement.parentElement.childNodes.item(3).classList.add('case-animated2')
                 })
                 element.addEventListener('mouseout', ()=>{
-                    element.parentElement.parentElement.classList.remove('case-animated2')
-                    element.parentElement.parentElement.classList.remove('case-animated')
+                    //element.parentElement.parentElement.classList.remove('case-animated2')
+                    /*element.parentElement.parentElement.childNodes.item(3).style.opacity = "0"
+                    element.parentElement.parentElement.childNodes.item(4).style.opacity = "0"
+                    element.parentElement.parentElement.childNodes.item(5).style.opacity = "0"
+                    element.parentElement.parentElement.childNodes.item(3).classList.remove('case-animated')
+                    element.parentElement.parentElement.childNodes.item(4).classList.remove('case-animated')
+                    element.parentElement.parentElement.childNodes.item(5).classList.remove('case-animated')*/
+                    //element.parentElement.parentElement.style.border ="1px solid #C1C1C1"
+                    element.parentElement.parentElement.childNodes.item(0).style.color = "#757272"
+                    element.parentElement.parentElement.childNodes.item(1).style.color = "#757272"
+                    element.parentElement.parentElement.childNodes.item(3).style.opacity = "0"
+                    element.parentElement.parentElement.childNodes.item(3).classList.remove('case-animated2')
                 })
             })
             
@@ -294,6 +313,7 @@ export default function Home() {
                     <div className="cases-btn-div">
                         <a href="/cases" className="btn-link">SAIBA MAIS</a>
                     </div>
+                    <div className="background"></div>
                 </div>
                 <div>
                     <h1>Hiperconvergencia</h1>
@@ -303,6 +323,7 @@ export default function Home() {
                     <div className="cases-btn-div">
                         <a href="/cases" className="btn-link">SAIBA MAIS</a>
                     </div>
+                    <div className="background"></div>
                 </div>
                 <div>
                     <h1>Digitalização</h1>
@@ -312,6 +333,7 @@ export default function Home() {
                     <div className="cases-btn-div">
                         <a href="/cases" className="btn-link">SAIBA MAIS</a>
                     </div>
+                    <div className="background"></div>
                 </div>
             </section>
 
