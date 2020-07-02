@@ -206,7 +206,7 @@ export default function Home() {
                             <a href="/">Home</a>
                         </li>
                         <li>
-                            <a onClick={() =>{scrollToInst()}}>Institucional</a>
+                            <a onClick={() =>{scrollToInst()}} style={{cursor : "pointer"}}>Institucional</a>
                         </li>
                         <li>
                             <a href="/atas">Atas Governo</a>

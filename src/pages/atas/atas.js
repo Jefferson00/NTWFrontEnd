@@ -140,7 +140,8 @@ export default function Atas() {
 
         window.addEventListener('load', function () {
             ver()
-            
+            const title = document.querySelector(".header-tittle h1")
+            title.style.transform = "translateX(0)"
         })
 
         for (var i = 0; i < itens.length; i++) {

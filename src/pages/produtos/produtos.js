@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import Header from '../header'
 import imgNotebook from '../../assets/products/Notebook.png'
@@ -15,12 +15,43 @@ import Footer from '../footer'
 import './produtos.css'
 
 export default function Produtos(){
+
+    window.addEventListener('load', function () {
+        const title = document.querySelector(".header-tittle h1")
+        title.style.transform = "translateX(0)"
+    })
+
+    useEffect(()=>{
+    /*ANIMAÇÕES*/
+
+    const linkProdutos = document.querySelectorAll('.desc-produto a')
+    linkProdutos.forEach(element =>{
+            const cardProd = element.parentElement.parentElement
+            const descProd = element.parentElement.parentElement.childNodes.item(1)
+            const background = element.parentElement.parentElement.childNodes.item(2)
+            const h3 = descProd.childNodes.item(0)
+            const p = descProd.childNodes.item(1)
+        element.addEventListener('mouseover', ()=>{
+            background.style.opacity = "1"
+            h3.style.color = "#ffffff"
+            p.style.color = "#ffffff"
+            background.classList.add('produto-animated')
+        })
+        element.addEventListener('mouseout', ()=>{
+            background.style.opacity = "0"
+            h3.style.color = "#565656"
+            p.style.color = "#818181"
+            background.classList.remove('produto-animated')
+        })
+        })
+    },[])
+
     return(
     <div>
         <header id="header-produtos">
             <Header></Header>
 
-            <div>
+            <div className="header-tittle">
                 <h1>PRODUTOS E SOLUÇÕES</h1>
             </div>
         </header>
@@ -34,6 +65,7 @@ export default function Produtos(){
                         <p>Notebooks corporativos lenovo. Leves e resistentes com opções Intel e AMD</p>
                         <Link to="produtos/detalhe/notebooks">SAIBA MAIS</Link>
                     </div>
+                    <div className="background-produtos"></div>
                 </div>
                 <div className="card-produto">
                     <img src={imgDesk} alt="teste"/>
@@ -42,6 +74,7 @@ export default function Produtos(){
                         <p>Desktops corporativos lenovo. Perfeitos para qualquer ambiente de tabalho, com opções Intel e AMD</p>
                         <Link to="produtos/detalhe/desktops">SAIBA MAIS</Link>
                     </div>
+                    <div className="background-produtos"></div>
                 </div>
                 <div className="card-produto">
                     <img src={imgScanner} alt="teste"/>
@@ -50,6 +83,7 @@ export default function Produtos(){
                         <p>Scanners Fujitsu. Várias opções para diferentes cargas de trabalho</p>
                         <Link to="produtos/detalhe/scanners">SAIBA MAIS</Link>
                     </div>
+                    <div className="background-produtos"></div>
                 </div>
                 <div className="card-produto">
                     <img src={imgServidor} alt="teste"/>
@@ -58,6 +92,7 @@ export default function Produtos(){
                         <p>Trabalhamos com toda linha datacenter Lenovo</p>
                         <Link to="produtos/detalhe/servidores">SAIBA MAIS</Link>
                     </div>
+                    <div className="background-produtos"></div>
                 </div>
                 <div className="card-produto">
                     <img src={imgMonitor} alt="teste"/>
@@ -66,6 +101,7 @@ export default function Produtos(){
                         <p>Monitores AOC, Philips e Lenovo, opções para seu ambiente de trabalho</p>
                         <Link to="produtos/detalhe/monitores">SAIBA MAIS</Link>
                     </div>
+                    <div className="background-produtos"></div>
                 </div>
                 <div className="card-produto">
                     <img src={imgNetworking} alt="teste"/>
@@ -74,6 +110,7 @@ export default function Produtos(){
                         <p>Todos os produtos e soluções para sua infraestrutura de rede</p>
                         <Link to="produtos/detalhe/networking">SAIBA MAIS</Link>
                     </div>
+                    <div className="background-produtos"></div>
                 </div>
             </div>
         </main>

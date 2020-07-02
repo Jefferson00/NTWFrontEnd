@@ -13,7 +13,7 @@ header#header-produtos.detalhe{
     min-height: 150px;
 }
 
-header#header-produtos div:first-child{
+header#header-produtos .main-div-header{
     display: flex;
     justify-content: space-between;
     flex: 1;
@@ -22,22 +22,44 @@ header#header-produtos div:first-child{
     margin: 0 auto;
 }
 
-header#header-produtos div:last-child{
+header#header-produtos .header-tittle{
     flex: 1;
     width: 80%;
     margin: 0 auto;
+    overflow: hidden;
 }
 
-header#header-produtos div:last-child h1{
+header#header-produtos .header-tittle h1{
     color: #0064AB;
     font-style: normal;
     font-weight: 400;
     font-size: 48px;
     line-height: 56px;
+    transition: 0.5s;
+    transform: translateX(200%);
+}
+
+header#header-produtos .logo{
+    display: flex;
 }
 
 
 /*MAIN */
+@keyframes produtoAnime {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.produto-animated{
+    animation: produtoAnime 4s linear infinite;
+}
 
 main#main-produtos{
     width: 80%;
@@ -54,17 +76,31 @@ main#main-produtos .main-content-produtos{
 main#main-produtos .card-produto{
     border: 1px solid #CDCDCD;
     display: flex;
-    padding: 40px;
     height: 246px;
+    overflow: hidden;
+    transition: all 1s;
+    position: relative;
+}
+
+main#main-produtos .card-produto .background-produtos{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -9999;
+    background: linear-gradient(-45deg, #033649, #036564, #0064AB, #C9C9C9);
+    background-size: 400% 400%;
+    opacity: 0;
+    transition: 2s;
 }
 
 main#main-produtos .card-produto img{
     width: 50%;
+    margin: 20px;
     object-fit: contain;
 }
 
 main#main-produtos .desc-produto{
-    margin-left: 20px;
+    margin: 20px;
 }
 
 main#main-produtos .desc-produto h3{
@@ -83,6 +119,11 @@ main#main-produtos .desc-produto a{
     font-size: 18px;
     line-height: 21px;
     font-weight: bold;
+    transition: all 0.4s;
+}
+
+main#main-produtos .desc-produto a:hover{
+    color: #e7e7e7;
 }
 
 main#main-produtos .link-back{
