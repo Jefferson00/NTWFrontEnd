@@ -13,6 +13,7 @@ export default function Atas() {
 
     const [atas, setAtas] = useState([]);
     const [ataModal, setAtaModal] = useState([]);
+    const [id_atas, setIdAtas] = useState([])
 
     const [clienteNome, setClienteNome] = useState('');
     const [clienteEmpresa, setClienteEmpresa] = useState('');
@@ -26,6 +27,8 @@ export default function Atas() {
     function closeModal() {
         var modal = document.getElementById("modal")
         modal.style.display = "none";
+        const loading = document.getElementById('loading')
+        loading.style.display = "flex"
     }
 
     function openModal(id_atas) {
@@ -33,18 +36,33 @@ export default function Atas() {
         api.get('/atas/'+id_atas).then(response =>{
             setAtaModal(response.data)
         })
-        console.log(ataModal)
         var modal = document.getElementById("modal")
         modal.style.display = "flex";
     }
 
-    async function sendMail(id_atas){
+    function itsLoaded(){
+        const loading = document.getElementById('loading')
+        loading.style.display = "none"
+    }
+
+    function clearInputs(){
+        setClienteNome('')
+        setClienteEmail('')
+        setClienteEmpresa('')
+        setClienteTelefone('')
+        setClienteCidade('')
+        setClienteUF('')
+    }
+
+    async function sendMail(e){
         const data = {clienteNome, clienteEmpresa, clienteEmail, clienteTelefone, clienteCidade, clienteUF}
-        console.log(data)
+        e.preventDefault()
         try {
             await api.post(`send/${id_atas}`, data)
-
-            alert('Obrigado, entraremos em contato')   
+            
+            alert('Obrigado, entraremos em contato')
+            clearInputs()
+            closeModal()   
         } catch (error) {
             console.log(error)
         }
@@ -248,7 +266,7 @@ export default function Atas() {
                 </div>
 
                 <div className="download-item">
-                    <button className="btn download">DOWNLOAD</button>
+                    <button className="btn download">Download</button>
                 </div>
             </main>
 
@@ -257,7 +275,7 @@ export default function Atas() {
             <div id="modal" className="box-modal">
                 <div className="box-modal-content">
                 {ataModal.map( ata1 => (
-                    <div className="border">
+                    <div className="border" onLoad={()=>{itsLoaded()}}>
                                 <div className="item-description">
                                 <img src= {`http://localhost:3333/getImage/${ata1.imagem}`}/>
                                 <h3>{ata1.modelo}</h3>
@@ -292,7 +310,7 @@ export default function Atas() {
                             <div className="form-details">
                                 <p>Gostou? Preencha o formulario que entraremos em contato</p>
                                
-                                <form onSubmit={() => sendMail(ata1.id_atas)}>
+                                <form onSubmit={sendMail}>
                                     
                                     <label>Nome</label>
                                         <input type="text" 
@@ -333,14 +351,16 @@ export default function Atas() {
                                         </div>
                                     </div>
                                     <div className="input-group">
-                                        <input type="submit"></input>
+                                        <input type="submit" onClick={() => {setIdAtas(ata1.id_atas)}}></input>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 ))}
-
+                    <div id="loading" className="loading-modal">
+                        <span></span>
+                    </div>
                     <div id="close-modal" onClick={() => closeModal()}>
                         X
                     </div>
