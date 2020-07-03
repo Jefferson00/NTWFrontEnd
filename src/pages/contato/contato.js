@@ -34,12 +34,17 @@ export default function Contato() {
         }
     }
 
+    window.addEventListener('load', function () {
+        const title = document.querySelector(".header-tittle h1")
+        title.style.transform = "translateX(0)"
+    })
+
     return (
         <div>
             <header id="header-contato">
                 <Header></Header>
 
-                <div>
+                <div className="header-tittle">
                     <h1>CONTATO</h1>
                 </div>
             </header>

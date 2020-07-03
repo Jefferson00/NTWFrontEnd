@@ -26,6 +26,8 @@ export default function Cases() {
     function closeModal() {
         const modal = document.getElementById("modal")
         modal.style.display = "none"
+        const loading = document.getElementById('loading')
+        loading.style.display = "flex"
     }
 
     useEffect(() => {
@@ -34,12 +36,22 @@ export default function Cases() {
         })
     }, [])
 
+    window.addEventListener('load', function () {
+        const title = document.querySelector(".header-tittle h1")
+        title.style.transform = "translateX(0)"
+    })
+
+    function itsLoaded(){
+        const loading = document.getElementById('loading')
+        loading.style.display = "none"
+    }
+
     return (
         <div>
             <header id="header-cases">
                 <Header></Header>
 
-                <div>
+                <div className="header-tittle">
                     <h1>CASES</h1>
                 </div>
             </header>
@@ -77,7 +89,7 @@ export default function Cases() {
             <div id="modal" className="box-modal-cases">
                 <div className="box-modal-content">
                     {caseModal.map(csm => (
-                        <div className="border">
+                        <div className="border" onLoad={()=>{itsLoaded()}}>
                             <div>
                                 <img src={`http://localhost:3333/getImage/${csm.imagem}`}/>
                             </div>
@@ -85,6 +97,9 @@ export default function Cases() {
                                 <p>
                                     {csm.descricao}
                                 </p>
+                            </div>
+                            <div id="loading" className="loading-modal">
+                                <span></span>
                             </div>
                             <div id="close-modal" onClick={() => closeModal()}>
                                 X

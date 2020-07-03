@@ -9,7 +9,7 @@ header#header-contato{
     min-height: 350px;
 }
 
-header#header-contato div:first-child{
+header#header-contato .main-div-header{
     display: flex;
     justify-content: space-between;
     flex: 1;
@@ -18,18 +18,25 @@ header#header-contato div:first-child{
     margin: 0 auto;
 }
 
-header#header-contato div:last-child{
+header#header-contato .header-tittle{
     flex: 1;
     width: 80%;
     margin: 0 auto;
+    overflow: hidden;
 }
 
-header#header-contato div:last-child h1{
+header#header-contato .header-tittle h1{
     color: #0064AB;
     font-style: normal;
     font-weight: 400;
     font-size: 48px;
     line-height: 56px;
+    transition: 0.5s;
+    transform: translateX(200%);
+}
+
+header#header-contato .logo{
+    display: flex;
 }
 
 /*MAIN*/

@@ -14,7 +14,7 @@ header#header-parceiros.detalhe{
     min-height: 150px;
 }
 
-header#header-parceiros div:first-child{
+header#header-parceiros .main-div-header{
     display: flex;
     justify-content: space-between;
     flex: 1;
@@ -23,25 +23,27 @@ header#header-parceiros div:first-child{
     margin: 0 auto;
 }
 
-header#header-parceiros div:last-child{
+header#header-parceiros .header-tittle{
     flex: 1;
     width: 80%;
     margin: 0 auto;
+    overflow: hidden;
 }
 
-header#header-parceiros div:last-child h1{
+header#header-parceiros .header-tittle h1{
     color: #0064AB;
     font-style: normal;
     font-weight: 400;
     font-size: 48px;
     line-height: 56px;
+    transition: 0.5s;
+    transform: translateX(200%);
 }
 
-
-
-main#main-parceiros{
-    
+header#header-parceiros .logo{
+    display: flex;
 }
+
 
 main#main-parceiros .content-parceiros-img{
     background-image: url('../../assets/content/partnership.png');
@@ -54,19 +56,27 @@ main#main-parceiros .content-parceiros-img{
     justify-content: flex-end;
     align-items: center;
     flex-direction: column;
-    padding: 10% 0;
+    padding: 6% 0;
     clip-path: polygon(0% 90%,100% 100%,100% 0%,0% 0% ,0% 0);
     -webkit-clip-path: polygon(0% 90%,100% 100%,100% 0%,0% 0% ,0% 0);
 }
 
-main#main-parceiros .content-parceiros-img h3{
+main#main-parceiros .content-parceiros-img div{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+main#main-parceiros .content-parceiros-img div h3{
     color: #C9C9C9;
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 36px;
+    line-height: 46px;
     text-align: center;
 }
 
-main#main-parceiros .content-parceiros-img p{
+main#main-parceiros .content-parceiros-img div p{
     font-size: 18px;
     line-height: 21px;
     text-align: center;
