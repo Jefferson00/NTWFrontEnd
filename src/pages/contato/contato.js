@@ -14,6 +14,7 @@ import phone from '../../assets/icons/phone.svg'
 import Map from './map'
 
 import './contato.css'
+import './responsive.css'
 
 export default function Contato() {
     const [nome, setNome] = useState('');
@@ -33,11 +34,40 @@ export default function Contato() {
             console.log(error)
         }
     }
+    
 
     window.addEventListener('load', function () {
         const title = document.querySelector(".header-tittle h1")
         title.style.transform = "translateX(0)"
+
+        this.setInterval(()=>{
+            const form = document.querySelector(".contact-form-container")
+            form.style.transform = "translateY(0)"
+            form.style.opacity = "1"
+        },500)
+
+        this.setInterval(()=>{
+            const text = document.querySelector(".text-contact")
+            text.style.opacity = "1"
+        },1500)
+        
+        
+
+        //Menu responsivo
+
+        let show = true;
+        const header = document.getElementById("header-contato")
+        const menuToggle = header.querySelector(".menu-toggle")
+
+        menuToggle.addEventListener("click", () =>{
+
+            document.body.style.overflow = show ? "hidden" : "initial"
+            header.classList.toggle("on", show)
+            show = !show
+        })
     })
+
+    
 
     return (
         <div>
@@ -74,9 +104,18 @@ export default function Contato() {
                             </form>
 
                             <div className="informations">
-                                <p> SCN Quadra 01 Bloco F, Ed. América Office Tower, Sala 501 Brasília-DF CEP 70711-905</p>
-                                <p> 61 3202-9393</p>
-                                <p> northware@northware.com.br</p>
+                                <div id="address">
+                                    <span></span>
+                                    <p> SCN Quadra 01 Bloco F, Ed. América Office Tower, Sala 501 Brasília-DF CEP 70711-905</p>
+                                </div>
+                                <div id="phone">
+                                    <span></span>
+                                    <p> 61 3202-9393</p>
+                                </div>
+                                <div id="mail">
+                                    <span></span>
+                                    <p> northware@northware.com.br</p>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -37,13 +37,15 @@ button{
   cursor: pointer;
 }
 
+/*
+HEADER GERAL
+**/
+
 header{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-
 
 header .main-menu{
   flex: 1;
@@ -72,6 +74,7 @@ header .main-menu a:hover{
   color: #c7c7c7;
 }
 
+/*FORMULARIOS E INPUTS*/
 
 form input, form textarea, form select{
   resize: vertical;

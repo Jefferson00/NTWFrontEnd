@@ -304,6 +304,10 @@ export default function Home() {
                 </div>
             </section>
 
+            <div className="cases-title">
+                <h1>Alguns Cases de Sucesso</h1>
+            </div>
+
             <section className="cases">
                 <div>
                     <h1>Segurança</h1>
@@ -336,6 +340,10 @@ export default function Home() {
                     <div className="background"></div>
                 </div>
             </section>
+
+            <div className="partner-title">
+                <h1>PARCEIROS</h1>
+            </div>
 
             <section className="partners">
                 <div className="slide-track">

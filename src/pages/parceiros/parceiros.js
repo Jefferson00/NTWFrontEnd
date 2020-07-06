@@ -4,6 +4,7 @@ import Header from '../header'
 import Footer from '../footer'
 
 import './parceiros.css'
+import './responsive.css'
 
 import api from '../../services/api'
 
@@ -14,6 +15,19 @@ export default function Parceiros(){
         api.get('parceiros').then(response =>{
             setParceiros(response.data);
         })
+
+          //Menu responsivo
+
+          let show = true;
+          const header = document.getElementById("header-parceiros")
+          const menuToggle = header.querySelector(".menu-toggle")
+  
+          menuToggle.addEventListener("click", () =>{
+  
+              document.body.style.overflow = show ? "hidden" : "initial"
+              header.classList.toggle("on", show)
+              show = !show
+          })
     },[])
 
     window.addEventListener('load', function () {

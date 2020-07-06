@@ -1,0 +1,99 @@
+@media (max-width: 1072px){
+    header#header-cases .logo{
+        margin-top: 20px;
+    }
+
+    header#header-cases .main-div-header{
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    header#header-cases {
+        clip-path: none;
+        min-height: 250px;
+    }
+
+    header#header-cases .main-menu{
+        margin: 20px 0 20px;
+    }
+
+    header#header-cases .header-tittle {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+@media (max-width: 790px){
+    header#header-cases .header-tittle h1{
+        font-size: 36px;
+        line-height: 36px;
+    }
+
+    header#header-cases .logo{
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header#header-cases .menu-toggle{
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+     }
+ 
+     header#header-cases .one, .two, .three{
+         background-color: #0065ac;
+         height: 5px;
+         width: 100%;
+         margin: 6px auto;
+         transition: 400ms;
+     }
+
+     header#header-cases.on{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+     header#header-cases.on .main-div-header .main-menu{
+        flex: 0;
+    }
+
+    header#header-cases.on img, header#header-cases.on .header-tittle{
+        display: none;
+    }
+
+    header#header-cases.on .main-menu, header#header-cases.on .main-menu ul{
+         display: block;
+         text-align: center;
+     }
+
+    header#header-cases.on .menu-toggle{
+        position: absolute;
+        right: 0;
+        top: 15px;
+    }
+
+    header#header-cases.on .menu-toggle .one{
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+    header#header-cases.on .menu-toggle .two{
+        opacity: 0;
+    }
+    header#header-cases.on .menu-toggle .three{
+        transform: rotate(-45deg) translate(8px, -10px);
+    }
+
+    main#main-cases .content-cases-img{
+        clip-path: none;
+    }
+}
+
+@media (max-width: 590px){
+    header#header-cases .logo img{
+        width: 50%;
+    }
+}
+

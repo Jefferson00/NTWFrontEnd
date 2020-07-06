@@ -44,6 +44,19 @@ header#header-parceiros .logo{
     display: flex;
 }
 
+/*menu fullscreen*/
+
+header#header-parceiros.on{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #d2d2d2;
+    z-index: 10;
+    clip-path: none;
+}
+
 
 main#main-parceiros .content-parceiros-img{
     background-image: url('../../assets/content/partnership.png');
@@ -94,13 +107,19 @@ main#main-parceiros .content-list-parceiros{
 
 main#main-parceiros .content-list-parceiros .list-parceiros{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+    grid-gap: 40px;
     align-items: center;
     width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
-main#main-parceiros .content-list-parceiros .list-parceiros img{
+main#main-parceiros .content-list-parceiros .list-parceiros div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+main#main-parceiros .content-list-parceiros .list-parceiros div img{
+    max-height: 100px;
 }

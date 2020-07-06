@@ -39,20 +39,38 @@ export default function ProdutosDetalhe(){
                 img = categorias[i].img
             }
         }
+        
    }
 
    window.addEventListener('load', getImageOfProduct())
 
     //lista de produtos
     const [produtos, setProdutos] = useState([])
-    
+    const [fabricantes1, setFabricantes] = useState([])
+
     let fabricantes = []
+    let fabricante = ''
 
     useEffect(()=>{
         api.get('produtos/'+cat).then(response =>{
             setProdutos(response.data)
         })
+
+        //Menu responsivo
+
+        let show = true;
+        const header = document.getElementById("header-produtos")
+        const menuToggle = header.querySelector(".menu-toggle")
+
+        menuToggle.addEventListener("click", () =>{
+
+            document.body.style.overflow = show ? "hidden" : "initial"
+            header.classList.toggle("on", show)
+            show = !show
+        })
     },[])
+
+    
     return(
         <div>
             <header id="header-produtos" className="detalhe">
@@ -65,8 +83,18 @@ export default function ProdutosDetalhe(){
                 </div>
                 <div className="main-first-produto">
                     <div>
-                        <h1>{cat}</h1>
-                        <img src={imgLenovo}></img>
+                        <h1>{cat.toUpperCase()}</h1>
+                            {produtos.map(produto => {
+                            if (fabricantes.indexOf(produto.fabricante) === -1) {
+                                fabricantes.push(produto.fabricante)
+                                }
+                            })}
+                            
+                            {()=>{
+                                api.get('parceiros/'+fabricante).then(response =>{
+                                    setFabricantes(response.data)
+                                console.log(response.data)})
+                            }}
                     </div>
                     <div>
                         <img src={img}/>
@@ -74,13 +102,8 @@ export default function ProdutosDetalhe(){
                 </div>
                 <div className="list-produtos">
                     
-                    {produtos.map(produto => {
-                        if (fabricantes.indexOf(produto.fabricante) === -1) {
-                            fabricantes.push(produto.fabricante)
-                        }
-                        
-                        return (
-                            <div className="card-produto">
+                    {produtos.map(produto => (
+                            <div className="card-produto" key={produto.id_produto}>
                                 <img src={`http://localhost:3333/getImage/${produto.imagem}`}/>
                                 <div>
                                     <h3>{produto.fabricante} {produto.modelo}</h3>
@@ -89,7 +112,7 @@ export default function ProdutosDetalhe(){
                                 <a href={produto.catalogo} target="_blank">Baixe o catalogo</a>
                             </div>
                         )
-                    })}
+                    )}
   
                 </div>
             </main>

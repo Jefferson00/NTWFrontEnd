@@ -3,16 +3,20 @@ import './admin.css'
 import logoW from '../../assets/logos/Logo-w.png'
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom'
-
+import Logs from './logs'
 
 
 export default function Admin() {
 
     const history = useHistory();
 
+    function itsLoaded(){
+        const loading = document.getElementById('loading')
+        loading.style.display = "none"
+    }
+
     /*Token*/
     api.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-
 
     /*variaveis de estado */
     //form users
@@ -59,6 +63,7 @@ export default function Admin() {
     const [isValidParceiro, setIsValidParceiro] = useState('')
     const [fileParceiro, setFileParceiro] = useState('')
     let arrayCat = []
+    const [adminAccess, setAdminAccess] = useState(false)
 
     const userName = localStorage.getItem('name');
 
@@ -68,6 +73,9 @@ export default function Admin() {
     function verifyUser(id) {
         api.get(`users/${id}`).then(response => {
             const userLogged = response.data
+            if(userLogged.access == 0){
+                setAdminAccess(true)
+            }
         }, error => {
             if (error) {
                 history.push('/admin')
@@ -113,6 +121,8 @@ export default function Admin() {
         const itensAdmin = document.querySelectorAll('.itens-admin >div')
         const formsAdmin = document.querySelectorAll('.contact-form.grid form')
         const lists = document.querySelectorAll('.content-list.grid ul')
+
+        /*função que muda os formularios e tabelas com base no item clicado*/
 
         for (var i = 0; i < itensAdmin.length; i++) {
             (function (i) {
@@ -176,6 +186,21 @@ export default function Admin() {
         api.get('parceiros').then(response => {
             setParceiros(response.data)
         })
+    }
+
+    async function createLog(log){
+        console.log(log)
+        try {
+            const id_user = idLogged
+            const acao = log.acao
+            const tabela = log.tabela
+            const detalhe = JSON.stringify(log.detalhe)
+            console.log(log.detalhe)
+            const data = {id_user,acao,tabela,detalhe}
+            await api.post('logs',data)
+        } catch (error) {
+            alert('Erro no log')
+        }
     }
 
     /*função que limpa os campos */
@@ -244,6 +269,8 @@ export default function Admin() {
             const data = { id_produtos, descricao, orgao, quantidade, garantia, validade, valor }
             await api.post('atas', data)
             alert('Cadastro realizado!')
+            const log = {acao:'cadastrar',tabela:'atas',detalhe:data}
+            createLog(log)
             clearInputs()
         } catch (err) {
             alert('Cadastro não realizado')
@@ -690,6 +717,11 @@ export default function Admin() {
         })
     }
 
+    function showLogs(){
+        const logsContent = document.querySelector('.logs-content')
+        logsContent.style.display = "flex"
+        logsContent.scrollIntoView({behavior:'smooth'})
+    }
    
 
     return (
@@ -704,10 +736,17 @@ export default function Admin() {
                     </div>
                 </div>
                 <div>
-                    <div>
+                    {adminAccess ?
+                        <div id="logs" onClick={showLogs}>
+                            <p>Logs</p>
+                        </div>
+                        :
+                        <div style={{pointerEvents : "none"}}></div>
+                    } 
+                    <div id="userName">
                         <p>{userName}</p>
                     </div>
-                    <div onClick={logout}>
+                    <div id="logout" onClick={logout}>
                         <p>Logout</p>
                     </div>
                 </div>
@@ -718,10 +757,15 @@ export default function Admin() {
                 <div id="produtos">Produtos</div>
                 <div id="cases">Cases</div>
                 <div id="parceiros">Parceiros</div>
-                <div id="usuarios">Usuários</div>
+                {adminAccess ?
+                    <div id="usuarios">Usuarios</div>
+                    :
+                    <div style={{pointerEvents : "none"}}></div>
+                }
+                
             </div>
 
-            <div className="main-content-index">
+            <div className="main-content-index" onLoad={()=>{itsLoaded()}}>
                 <div className="contact-form grid">
                     <form id="atas" className="active" onSubmit={cadastraAta}>
                         <div className="input-group">
@@ -1020,6 +1064,16 @@ export default function Admin() {
                         ))}
                     </ul>
                 </div>
+            </div>
+            {adminAccess ?
+                <Logs></Logs>
+                    :
+                <div></div>
+            } 
+            
+
+            <div id="loading" className="loading-admin">
+                <span></span>
             </div>
         </div>
     )

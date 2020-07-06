@@ -1,0 +1,155 @@
+@media (max-width: 1072px){
+    header#header-contato .logo{
+        margin-top: 20px;
+    }
+
+    header#header-contato .main-div-header{
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    header#header-contato {
+        clip-path: none;
+        min-height: 250px;
+    }
+
+    header#header-contato .main-menu{
+        margin: 20px 0 20px;
+    }
+
+    header#header-contato .header-tittle {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    main#main-contato .contact-content{
+        margin: 50px 0;
+    }
+}
+
+@media (max-width:880px){
+    main#main-contato .contact-form-container{
+        margin-left: 50px;
+    }
+    main#main-contato .text-contact{
+        padding: 0 20px 0 100px;
+    }
+
+    main#main-contato .contact-form form .input-group{
+        display: block;
+    }
+
+    main#main-contato .contact-form form .input-group div{
+        width: auto;
+    }
+}
+
+@media (max-width: 790px){
+    header#header-contato .header-tittle h1{
+        font-size: 36px;
+        line-height: 36px;
+    }
+
+    header#header-contato .logo{
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header#header-contato .menu-toggle{
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+     }
+ 
+     header#header-contato .one, .two, .three{
+         background-color: #0065ac;
+         height: 5px;
+         width: 100%;
+         margin: 6px auto;
+         transition: 400ms;
+     }
+
+     header#header-contato.on{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+     header#header-contato.on .main-div-header .main-menu{
+        flex: 0;
+    }
+
+    header#header-contato.on img, header#header-contato.on .header-tittle{
+        display: none;
+    }
+
+    header#header-contato.on .main-menu, header#header-contato.on .main-menu ul{
+         display: block;
+         text-align: center;
+     }
+
+    header#header-contato.on .menu-toggle{
+        position: absolute;
+        right: 0;
+        top: 15px;
+    }
+
+    header#header-contato.on .menu-toggle .one{
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+    header#header-contato.on .menu-toggle .two{
+        opacity: 0;
+    }
+    header#header-contato.on .menu-toggle .three{
+        transform: rotate(-45deg) translate(8px, -10px);
+    }
+
+}
+
+@media (max-width: 670px){
+    main#main-contato .contact-form-container{
+        top: 155px;
+        width: 80%;
+    }
+    main#main-contato .text-contact{
+        width: auto;
+        padding: 0 20px 0 20px;
+    }
+
+    .footer-2{
+        height: 1660px;
+    }
+}
+
+@media (max-width: 590px){
+    header#header-contato .logo img{
+        width: 50%;
+    }
+}
+
+@media (max-width: 400px){
+    main#main-contato .text-contact p:nth-child(2){
+        font-size: 18px;
+        line-height: 24px;
+    }
+    main#main-contato .text-contact p{
+        font-size: 26px;
+    }
+
+    main#main-contato .contact-form-container{
+        margin-left: 30px;
+    }
+    main#main-contato .contact-form form input{
+        min-height: 30px;
+        margin: 15px;
+    }
+
+    main#main-contato .contact-form .informations{
+        padding: 10px;
+        font-size: 14px;
+        margin: 10px;
+    }
+    
+}
+

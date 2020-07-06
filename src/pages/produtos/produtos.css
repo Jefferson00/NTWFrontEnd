@@ -43,6 +43,18 @@ header#header-produtos .logo{
     display: flex;
 }
 
+/*menu fullscreen*/
+
+header#header-produtos.on{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #d2d2d2;
+    z-index: 10;
+    clip-path: none;
+}
 
 /*MAIN */
 @keyframes produtoAnime {
@@ -69,7 +81,7 @@ main#main-produtos{
 
 main#main-produtos .main-content-produtos{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     grid-gap: 20px;
 }
 
@@ -150,7 +162,7 @@ main#main-produtos .main-first-produto h1{
 }
 
 main#main-produtos .main-first-produto div:last-child{
-    height:500px ;
+    height:auto ;
     width: 70%;
 }
 main#main-produtos .main-first-produto div:first-child img {

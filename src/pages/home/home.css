@@ -299,6 +299,21 @@ header#home.on{
 
 /*CASES*/
 
+.cases-title{
+    border-top: 1px solid #D0D0D0;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cases-title h1{
+    color: #565656;
+    margin-top: 20px;
+    text-align: center;
+}
+
 .cases{
     width: 100%;
     display: flex;
@@ -446,6 +461,17 @@ header#home.on{
 /**
 SLIDE PARTNER
 */
+
+.partner-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.partner-title h1{
+    color: #565656;
+    margin: 20px;
+}
 
 @keyframes scroll {
 	0% { transform: translateX(0); }

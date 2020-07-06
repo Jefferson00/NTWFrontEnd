@@ -39,8 +39,23 @@ header#header-contato .logo{
     display: flex;
 }
 
-/*MAIN*/
+/*menu fullscreen*/
 
+header#header-contato.on{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #d2d2d2;
+    z-index: 10;
+    clip-path: none;
+}
+
+/*MAIN*/
+main#main-contato{
+    position: relative;
+}
 main#main-contato .contact-content{
     display: flex;
     width: 100%;
@@ -55,6 +70,9 @@ main#main-contato .contact-form-container{
     position: absolute;
     min-height: 500px;
     z-index: 1;
+    opacity: 0;
+    transform: translateY(400px);
+    transition: 0.8s;
 }
 
 main#main-contato .contact-form{
@@ -82,7 +100,7 @@ main#main-contato .contact-form form label::after{
     color: red;
 }
 
-main#main-contato .contact-form form input, textarea{
+main#main-contato .contact-form form input{
     border: 1px solid #858585;
     border-radius: 7px;
     min-height: 40px;
@@ -91,6 +109,8 @@ main#main-contato .contact-form form input, textarea{
 
 main#main-contato .contact-form form textarea{
     min-height: 200px;
+    border: 1px solid #858585;
+    border-radius: 7px;
     resize: vertical;
     line-height: 24px;
 }
@@ -112,6 +132,32 @@ main#main-contato .contact-form .informations{
     padding: 20px;
     margin: 20px;
 }
+main#main-contato .contact-form .informations div{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+main#main-contato .contact-form .informations div span{
+    display: flex;
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+main#main-contato .contact-form .informations div p{
+    margin-top: 10px;
+}
+
+main#main-contato .contact-form .informations #address span{
+    background: url('../../assets/icons/room.svg');
+}
+main#main-contato .contact-form .informations #phone span{
+    background: url('../../assets/icons/phone.svg');
+}
+main#main-contato .contact-form .informations #mail span{
+    background: url('../../assets/icons/mail.svg');
+}
 
 main#main-contato .text-contact{
     width: 50%;
@@ -120,6 +166,8 @@ main#main-contato .text-contact{
     position: absolute;
     padding: 0 20px 0 200px;
     text-align: center;
+    transition: 2.5s;
+    opacity: 0;
 }
 
 main#main-contato .text-contact p {
@@ -136,15 +184,28 @@ main#main-contato .text-contact p:nth-child(2) {
     color: #878787;
 }
 
+@keyframes footerAnime {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 
 .footer-2{
     background: linear-gradient(180deg, #C8C8C8 0%, #0064AB 100%);
     clip-path: polygon(0% 100%,100% 100%,150% 40%,-40% -10% ,0% 0%);
+    background-position: 400% 400%;
     height: 1350px;
     margin-top: 200px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    animation: footerAnime 4s linear infinite;
 }
 
 .footer-2 .social{

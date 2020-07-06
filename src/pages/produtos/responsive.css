@@ -1,0 +1,155 @@
+@media (max-width: 1072px){
+    header#header-produtos .logo{
+        margin-top: 20px;
+    }
+
+    header#header-produtos .main-div-header{
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    header#header-produtos {
+        clip-path: none;
+        min-height: 250px;
+    }
+
+    header#header-produtos .main-menu{
+        margin: 20px 0 20px;
+    }
+
+    header#header-produtos .header-tittle {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    main#main-produtos .main-content-produtos{
+        margin-top: 50px;
+    }
+}
+
+
+
+@media (max-width: 790px){
+    header#header-produtos .header-tittle h1{
+        font-size: 36px;
+        line-height: 36px;
+    }
+
+    header#header-produtos .logo{
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header#header-produtos .menu-toggle{
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+     }
+ 
+     header#header-produtos .one, .two, .three{
+         background-color: #0065ac;
+         height: 5px;
+         width: 100%;
+         margin: 6px auto;
+         transition: 400ms;
+     }
+
+     header#header-produtos.on{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+     header#header-produtos.on .main-div-header .main-menu{
+        flex: 0;
+    }
+
+    header#header-produtos.on img, header#header-produtos.on .header-tittle{
+        display: none;
+    }
+
+    header#header-produtos.on .main-menu, header#header-produtos.on .main-menu ul{
+         display: block;
+         text-align: center;
+     }
+
+    header#header-produtos.on .menu-toggle{
+        position: absolute;
+        right: 0;
+        top: 15px;
+    }
+
+    header#header-produtos.on .menu-toggle .one{
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+    header#header-produtos.on .menu-toggle .two{
+        opacity: 0;
+    }
+    header#header-produtos.on .menu-toggle .three{
+        transform: rotate(-45deg) translate(8px, -10px);
+    }
+
+
+    /*produtos detalhes*/
+
+    main#main-produtos .main-first-produto{
+        flex-direction: column;
+    }
+
+    main#main-produtos .main-first-produto div:last-child{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    main#main-produtos .main-first-produto div:last-child img{
+        height: 400px;
+    }
+}
+
+@media (max-width: 590px){
+    header#header-produtos .logo img{
+        width: 50%;
+    }
+
+    main#main-produtos .main-content-produtos{
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    main#main-produtos .card-produto{
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+        text-align: center;
+    }
+
+    /*produtos detalhes*/
+    main#main-produtos .main-first-produto div:last-child img{
+        height: 300px;
+    }
+
+    main#main-produtos .list-produtos .card-produto div{
+        width: 80%;
+    }
+
+    main#main-produtos .list-produtos .card-produto img{
+        width: 100%;
+    }
+
+    main#main-produtos .main-first-produto h1{
+        font-size: 24px;
+    }
+
+    main#main-produtos .link-back{
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 400px){
+    /*produtos detalhes*/
+    main#main-produtos .main-first-produto div:last-child img{
+        height: 150px;
+    }
+}

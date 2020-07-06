@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react'
 import Header from '../header'
 import Footer from '../footer'
 
-import StjImg from '../../assets/content/stj-case.jpg'
-
 import './cases.css'
+import './responsive.css'
 
 import api from '../../services/api'
 
@@ -13,14 +12,18 @@ export default function Cases() {
     const [cases, setCases] = useState([])
     const [caseModal, setCaseModal] = useState([])
 
+    async function loadResult(id){
+        const result = await api.get('/cases/'+id)
+        setCaseModal(result.data)
+    }
+
     function openModal(id) {
-        console.log(id)
-        api.get('/cases/'+id).then(response => {
-            setCaseModal(response.data)
-        })
-        console.log(caseModal)
+    
         const modal = document.getElementById("modal")
         modal.style.display = "flex"
+        
+        loadResult(id)
+       
     }
 
     function closeModal() {
@@ -28,12 +31,27 @@ export default function Cases() {
         modal.style.display = "none"
         const loading = document.getElementById('loading')
         loading.style.display = "flex"
+        setCaseModal([])
+
     }
 
     useEffect(() => {
         api.get('cases').then(response => {
             setCases(response.data)
         })
+
+         //Menu responsivo
+
+         let show = true;
+         const header = document.getElementById("header-cases")
+         const menuToggle = header.querySelector(".menu-toggle")
+ 
+         menuToggle.addEventListener("click", () =>{
+ 
+             document.body.style.overflow = show ? "hidden" : "initial"
+             header.classList.toggle("on", show)
+             show = !show
+         })
     }, [])
 
     window.addEventListener('load', function () {
@@ -89,7 +107,7 @@ export default function Cases() {
             <div id="modal" className="box-modal-cases">
                 <div className="box-modal-content">
                     {caseModal.map(csm => (
-                        <div className="border" onLoad={()=>{itsLoaded()}}>
+                        <div id="box" className="border" onLoad={()=>{itsLoaded()}}>
                             <div>
                                 <img src={`http://localhost:3333/getImage/${csm.imagem}`}/>
                             </div>
@@ -98,14 +116,16 @@ export default function Cases() {
                                     {csm.descricao}
                                 </p>
                             </div>
-                            <div id="loading" className="loading-modal">
-                                <span></span>
-                            </div>
+                            
                             <div id="close-modal" onClick={() => closeModal()}>
                                 X
                             </div>
                         </div>
                     ))}
+                    
+                </div>
+                <div id="loading" className="loading-modal">
+                                <span></span>
                 </div>
             </div>
         </div>

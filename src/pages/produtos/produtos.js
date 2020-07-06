@@ -13,6 +13,7 @@ import Footer from '../footer'
 
 
 import './produtos.css'
+import './responsive.css'
 
 export default function Produtos(){
 
@@ -43,6 +44,19 @@ export default function Produtos(){
             p.style.color = "#818181"
             background.classList.remove('produto-animated')
         })
+        })
+
+        //Menu responsivo
+
+        let show = true;
+        const header = document.getElementById("header-produtos")
+        const menuToggle = header.querySelector(".menu-toggle")
+
+        menuToggle.addEventListener("click", () =>{
+
+            document.body.style.overflow = show ? "hidden" : "initial"
+            header.classList.toggle("on", show)
+            show = !show
         })
     },[])
 

@@ -102,9 +102,18 @@
         animation: none;
         height: 320px;
     }
+
+    .partners .slide-track > div{
+        width: 150px;
+    }
 }
 
 @media (max-width: 582px){
+    header#home.on{
+        height: 100%;
+        width: 100%;
+    }
+
     .presentation .up-presentation p{
         width: 100%;
     }
@@ -127,6 +136,10 @@
         font-size: 24px;
         line-height: 36px;
         padding: 10px;
+    }
+
+    .partners .slide-track > div{
+        width: 100px;
     }
 }
 
