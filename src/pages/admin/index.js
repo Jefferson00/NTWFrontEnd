@@ -311,6 +311,9 @@ export default function Admin() {
                 headers: { 'Content-type': 'multipart/form-data' }
             })
             alert('Cadastro realizado!')
+            const detalhe = {categoria, modelo, fabricante, caracteristica, catalogo}
+            const log = {acao:'cadastrar',tabela:'produtos',detalhe:detalhe}
+            createLog(log)
             clearInputs()
         } catch (error) {
             alert('Cadastro não realizado')
@@ -340,6 +343,9 @@ export default function Admin() {
                 headers: { 'Content-type': 'multipart/form-data' }
             })
             alert('Cadastro realizado!')
+            const detalhe = {categoria, orgao, descricao}
+            const log = {acao:'cadastrar',tabela:'case',detalhe:detalhe}
+            createLog(log)
             clearInputs()
         } catch (error) {
             alert('Cadastro não realizado')
@@ -378,6 +384,9 @@ export default function Admin() {
                 headers: { 'Content-type': 'multipart/form-data' }
             })
             alert('Cadastro realizado!')
+            const detalhe = {nome, site}
+            const log = {acao:'cadastrar',tabela:'parceiros',detalhe:detalhe}
+            createLog(log)
             clearInputs()
         } catch (error) {
             alert('Cadastro não realizado')
@@ -390,6 +399,10 @@ export default function Admin() {
             var conf = window.confirm("Deseja realmente excluir?")
             if (conf) {
                 await api.delete(`users/${id}`);
+                const userDeleted = users.filter(user => user.id === id)
+                const detalhe = {"usuario": userDeleted[0].name}
+                const log = {acao:'deletar',tabela:'users',detalhe:detalhe}
+                createLog(log)
                 setUsers(users.filter(user => user.id !== id))
             }
         } catch (err) {
@@ -402,6 +415,10 @@ export default function Admin() {
             var conf = window.confirm("Deseja realmente excluir?")
             if (conf) {
                 await api.delete(`atas/${id_atas}`);
+                const ataDeleted = atas.filter(ata => ata.id_atas === id_atas)
+                const detalhe = {"ata": ataDeleted}
+                const log = {acao:'deletar',tabela:'atas',detalhe:detalhe}
+                createLog(log)
                 setAtas(atas.filter(ata => ata.id_atas !== id_atas))
             }
         } catch (error) {
@@ -415,6 +432,10 @@ export default function Admin() {
             if (conf) {
                 await api.delete(`produtos/${id_produto}`);
                 alert('deletado com sucesso')
+                const produtoDeleted = produtos.filter(prod => prod.id_produto === id_produto)
+                const detalhe = {"produto": produtoDeleted[0].modelo}
+                const log = {acao:'deletar',tabela:'produtos',detalhe:detalhe}
+                createLog(log)
                 setProdutos(produtos.filter(produto => produto.id_produto !== id_produto))
             }
         } catch (error) {
@@ -428,6 +449,10 @@ export default function Admin() {
             if (conf) {
                 await api.delete(`cases/${id}`);
                 alert('deletado com sucesso')
+                const caseDeleted = cases.filter(cs => cs.id === id)
+                const detalhe = {"case": caseDeleted[0].orgao}
+                const log = {acao:'deletar',tabela:'cases',detalhe:detalhe}
+                createLog(log)
                 setCases(cases.filter(cs => cs.id !== id))
             }
         } catch (error) {
@@ -441,6 +466,10 @@ export default function Admin() {
             if (conf) {
                 await api.delete(`parceiros/${id}`);
                 alert('deletado com sucesso')
+                const parceiroDeleted = parceiros.filter(parceiro => parceiro.id === id)
+                const detalhe = {"parceiro": parceiroDeleted[0].nome}
+                const log = {acao:'deletar',tabela:'parceiros',detalhe:detalhe}
+                createLog(log)
                 setParceiros(parceiros.filter(parceiro => parceiro.id !== id))
             }
         } catch (error) {

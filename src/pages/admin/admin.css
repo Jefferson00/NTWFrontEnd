@@ -244,14 +244,15 @@
     max-width: 80%;
 }
 
-.logs-list ul{
+.logs-list table{
     background: #d2d2d2;
+    width: 100%;
+    table-layout: fixed;
+    overflow-wrap: break-word;
 }
 
-.logs-list li{
+.logs-list table td{
     border: 1px solid #ffffff;
-    display: flex;
-    flex-direction: column;
     padding: 10px;
 }
 

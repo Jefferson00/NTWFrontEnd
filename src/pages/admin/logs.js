@@ -33,7 +33,7 @@ export default function Header() {
     function print() {
 		
         const element = document.querySelector('#topdf')
-        const doc = new jsPDF('p', 'px', 'a4');
+        const doc = new jsPDF('p', 'px', 'a4', true);
 		const call = () => {
 			doc.save('test.pdf');
 		};
@@ -45,22 +45,38 @@ export default function Header() {
         <div>
             <div className="logs-content">
                 <div className="logs-list" id="topdf">
-                    <ul>
-                        {logs.map(log => (
-                            <li key={log.id_log}>
-                                <strong>Usuario:</strong>
-                                <p>{log.name}</p>
-                                <strong>Ação:</strong>
-                                <p>{log.acao}</p>
-                                <strong>Tabela:</strong>
-                                <p>{log.tabela}</p>
-                                <strong>Detalhe:</strong>
-                                <p>{log.detalhe}</p>
-                                <strong>Data:</strong>
-                                <p>{log.data}</p>
-                            </li>
-                        ))}
-                    </ul>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style={{width:"15%"}}>
+                                    Usuario
+                                </th>
+                                <th style={{width:"15%"}}>
+                                    Ação
+                                </th>
+                                <th style={{width:"15%"}}>
+                                    Tabela
+                                </th>
+                                <th style={{width:"40%"}}>
+                                    Detalhe
+                                </th>
+                                <th style={{width:"15%"}}>
+                                    Data
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {logs.map(log=>(
+                                    <tr key={log.id_log}>
+                                        <td>{log.name}</td>
+                                        <td>{log.acao}</td>
+                                        <td>{log.tabela}</td>
+                                        <td>{log.detalhe}</td>
+                                        <td>{log.data}</td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
                 </div>
                 <div className="logs-options">
                     <div>
