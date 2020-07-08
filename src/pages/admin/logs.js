@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../services/api';
-import html2canvas from 'html2canvas'
+import 'jspdf-autotable'
 import jsPDF from 'jspdf'
 
 export default function Header() {
@@ -32,20 +32,48 @@ export default function Header() {
 
     function print() {
 		
-        const element = document.querySelector('#topdf')
-        const doc = new jsPDF('p', 'px', 'a4', true);
-		const call = () => {
-			doc.save('test.pdf');
-		};
+        //const element = document.querySelector('#topdf')
+        const doc = new jsPDF('landscape ', 'px', 'a4', true);
+        doc.autoTable({
+            html :'#topdf',
+            startY: false,
+            theme: 'grid',
+            tableWidth: 'fixed',
+            columnWidth: 'wrap',
+            showHeader: 'everyPage',
+            tableLineColor: 200,
+            tableLineWidth: 0,
+            columnStyles: {
+                3: {
+                  columnWidth: 'auto'
+                }
+              },
+            styles: {
+                overflow: 'linebreak',
+                columnWidth: 'wrap',
+                font: 'arial',
+                fontSize: 10,
+                cellPadding: 2,
+                overflowColumns: 'linebreak'
+            }
+        
+        })
+        //doc.text(20, doc.lastAutoTable.finalY, 'Lista de Logs')
+        
+        /*const call = () => {
+			doc.save('logs.pdf');
+        };*/
+        
+        doc.save('logs.pdf');
 		
-		doc.fromHTML(element, 10, 10, {}, call);
+		//doc.fromHTML(element, 10, 10, {}, call);
     }
     
     return (
         <div>
             <div className="logs-content">
-                <div className="logs-list" id="topdf">
-                    <table>
+                <div className="logs-list" >
+                    <table id="topdf">
                         <thead>
                             <tr>
                                 <th style={{width:"15%"}}>
