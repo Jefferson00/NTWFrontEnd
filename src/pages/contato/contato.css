@@ -253,3 +253,23 @@ main#main-contato .social a{
 main#main-contato .social a svg{
     font-size: 3.5rem;
 }
+
+.loading-modal{
+    position: fixed;
+    background: #ffffff69;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-modal span{
+    background: url('../../assets/icons/loading.svg');
+    display: flex;
+    height: 100px;
+    width: 100px;
+}
+

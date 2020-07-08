@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../header'
 import Footer from '../footer'
-import {Link, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 import imgNotebook from '../../assets/products/Notebook.png'
 import imgDesktop from '../../assets/products/Desktop.png'
@@ -10,12 +10,12 @@ import imgServidor from '../../assets/products/server.png'
 import imgMonitor from '../../assets/products/aoc22p1e.png'
 import imgNetwork from '../../assets/products/switch.webp'
 
-
-import imgLenovo from '../../assets/logos/Lenovo_Global_Corporate_Logo.png'
-
 import './produtos.css'
 
 import api from '../../services/api'
+
+const API_URL = process.env.REACT_APP_API_URL
+const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
 
 export default function ProdutosDetalhe(){
     let {cat} = useParams();
@@ -79,7 +79,7 @@ export default function ProdutosDetalhe(){
 
             <main id="main-produtos">
                 <div className="link-back">
-                    <Link to='/produtos'>Voltar</Link>
+                    <a href='/produtos'>Voltar</a>
                 </div>
                 <div className="main-first-produto">
                     <div>
@@ -104,7 +104,7 @@ export default function ProdutosDetalhe(){
                     
                     {produtos.map(produto => (
                             <div className="card-produto" key={produto.id_produto}>
-                                <img src={`http://localhost:3333/getImage/${produto.imagem}`}/>
+                                <img src={API_URL+API_IMAGE_PATH+produto.imagem}/>
                                 <div>
                                     <h3>{produto.fabricante} {produto.modelo}</h3>
                                     <p>{produto.caracteristica}</p>

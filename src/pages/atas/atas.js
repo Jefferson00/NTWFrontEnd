@@ -8,6 +8,8 @@ import api from '../../services/api'
 import './atas.css'
 import './responsive.css'
 
+const API_URL = process.env.REACT_APP_API_URL
+const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
 
 export default function Atas() {
 
@@ -245,7 +247,7 @@ export default function Atas() {
                                 <h1>{ata.categoria}</h1>
                             </div>
                             <div className="card-img">
-                                <img src= {`http://localhost:3333/getImage/${ata.imagem}`} />
+                                <img src= {API_URL+API_IMAGE_PATH+ata.imagem} />
                             </div>
                             <h3>{ata.modelo}</h3>
                             <div className="card-table-description">
@@ -292,7 +294,7 @@ export default function Atas() {
                     {ataModal.map( ata1 => (
                         <div className="border" onLoad={()=>{itsLoaded()}}>
                                     <div className="item-description">
-                                    <img src= {`http://localhost:3333/getImage/${ata1.imagem}`}/>
+                                    <img src= {API_URL+API_IMAGE_PATH+ata1.imagem}/>
                                     <h3>{ata1.modelo}</h3>
                                     <table>
                                         <tr>

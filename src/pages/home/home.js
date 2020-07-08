@@ -50,6 +50,8 @@ const instText2 =
     integradas em hardware e software , desde a implementação, 
     o treinamento até o suporte.`
 
+const API_URL = process.env.REACT_APP_API_URL
+const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
 
 export default function Home() {
 
@@ -158,27 +160,12 @@ export default function Home() {
             //const classes = ['case-animated','case-animated2']
             linkCases.forEach(element =>{
                 element.addEventListener('mouseover', ()=>{
-                    /*element.parentElement.parentElement.childNodes.item(3).style.opacity = "1"
-                    element.parentElement.parentElement.childNodes.item(4).style.opacity = "1"
-                    element.parentElement.parentElement.childNodes.item(5).style.opacity = "1"
-                    element.parentElement.parentElement.childNodes.item(3).classList.add('case-animated')
-                    element.parentElement.parentElement.childNodes.item(4).classList.add('case-animated')
-                    element.parentElement.parentElement.childNodes.item(5).classList.add('case-animated')*/
-                    //element.parentElement.parentElement.style.border ="none"
                     element.parentElement.parentElement.childNodes.item(0).style.color = "#ffffff"
                     element.parentElement.parentElement.childNodes.item(1).style.color = "#ffffff"
                     element.parentElement.parentElement.childNodes.item(3).style.opacity = "1"
                     element.parentElement.parentElement.childNodes.item(3).classList.add('case-animated2')
                 })
                 element.addEventListener('mouseout', ()=>{
-                    //element.parentElement.parentElement.classList.remove('case-animated2')
-                    /*element.parentElement.parentElement.childNodes.item(3).style.opacity = "0"
-                    element.parentElement.parentElement.childNodes.item(4).style.opacity = "0"
-                    element.parentElement.parentElement.childNodes.item(5).style.opacity = "0"
-                    element.parentElement.parentElement.childNodes.item(3).classList.remove('case-animated')
-                    element.parentElement.parentElement.childNodes.item(4).classList.remove('case-animated')
-                    element.parentElement.parentElement.childNodes.item(5).classList.remove('case-animated')*/
-                    //element.parentElement.parentElement.style.border ="1px solid #C1C1C1"
                     element.parentElement.parentElement.childNodes.item(0).style.color = "#757272"
                     element.parentElement.parentElement.childNodes.item(1).style.color = "#757272"
                     element.parentElement.parentElement.childNodes.item(3).style.opacity = "0"
@@ -322,7 +309,7 @@ export default function Home() {
                 <div>
                     <h1>Hiperconvergencia</h1>
                     <p>
-                        A NorthWare participou de alguns dos projetos de maior destaque do mercado brasileiro de TI. Projetos de Hiperconvergencias deram o que falar bicho
+                        A NorthWare participou de alguns dos projetos de maior destaque do mercado brasileiro de TI.  Seja com clientes do setor público ou empresas privadas
                      </p>
                     <div className="cases-btn-div">
                         <a href="/cases" className="btn-link">SAIBA MAIS</a>
@@ -349,12 +336,12 @@ export default function Home() {
                 <div className="slide-track">
                    {parceiros.map(parceiro => (
                        <div>
-                            <img src={`http://localhost:3333/getImage/${parceiro.imagem}`} alt="logo-lenovo"/>
+                            <img src={API_URL+API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo"/>
                         </div>
                    ))}
                    {parceiros.map(parceiro => (
                        <div>
-                            <img src={`http://localhost:3333/getImage/${parceiro.imagem}`} alt="logo-lenovo"/>
+                            <img src={API_URL+API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo"/>
                         </div>
                    ))}
                 </div>

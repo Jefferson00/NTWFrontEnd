@@ -42,12 +42,12 @@
     color: #EFEFEF;
 }
 
-.header-admin-index #logout{
+.header-admin-index #logout, .header-admin-index #logs{
     cursor: pointer;
     transition: 0.4s;
 }
 
-.header-admin-index #logout:hover p{
+.header-admin-index #logout:hover p, .header-admin-index #logs:hover p{
     color: #ffffff;
 }
 

@@ -8,6 +8,9 @@ import './responsive.css'
 
 import api from '../../services/api'
 
+const API_URL = process.env.REACT_APP_API_URL
+const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
+
 export default function Parceiros(){
     const [parceiros, setParceiros] = useState([]);
 
@@ -63,7 +66,7 @@ export default function Parceiros(){
                         {parceiros.map(parceiro =>(
                             <div>
                                 <a href={parceiro.site} target="_blank">
-                                    <img src={`http://localhost:3333/getImage/${parceiro.imagem}`} alt={parceiro.nome}/>
+                                    <img src={API_URL+API_IMAGE_PATH+parceiro.imagem} alt={parceiro.nome}/>
                                 </a>
                             </div>
                         ))}

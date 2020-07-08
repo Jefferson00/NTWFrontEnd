@@ -6,6 +6,9 @@ import { useHistory } from 'react-router-dom'
 import Logs from './logs'
 
 
+const API_URL = process.env.REACT_APP_API_URL
+const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
+
 export default function Admin() {
 
     const history = useHistory();
@@ -85,10 +88,10 @@ export default function Admin() {
 
     verifyUser(idLogged)
 
-    /*window.onbeforeunload = function(){
+    window.onbeforeunload = function(){
         logout()
         return ''
-    }*/
+    }
 
     window.addEventListener('load',  setThing())
 
@@ -1012,7 +1015,7 @@ export default function Admin() {
                                         <strong>Caracteristica:</strong> {produto.caracteristica}
                                         <strong>Link Catalogo:</strong> {produto.catalogo}
                                         <strong>Fora de linha (EOL): {isEol} </strong>
-                                        <img src={`http://localhost:3333/getImage/${produto.imagem}`} />
+                                        <img src={API_URL+API_IMAGE_PATH+produto.imagem} />
 
                                     </div>
                                     <div>
@@ -1034,7 +1037,7 @@ export default function Admin() {
                                     <strong>Orgão:</strong> {cs.orgao}
                                     <strong>Categoria:</strong> {cs.categoria}
                                     <strong>Descrição:</strong> {cs.descricao}
-                                    <img src={`http://localhost:3333/getImage/${cs.imagem}`} />
+                                    <img src={API_URL+API_IMAGE_PATH+cs.imagem} />
                                 </div>
                                 <div>
                                     <button className="btn-edit" onClick={() => { clickEditCase(cs.id) }}>
@@ -1061,7 +1064,7 @@ export default function Admin() {
                                         <strong>Nome:</strong> {parceiro.nome}
                                         <strong>Site:</strong> {parceiro.site}
                                         <strong>É valido: {isValid}</strong>
-                                        <img src={`http://localhost:3333/getImage/${parceiro.imagem}`} />
+                                        <img src={API_URL+API_IMAGE_PATH+parceiro.imagem} />
                                     </div>
                                     <div>
                                         <button className="btn-edit" onClick={() => { clickEditParceiro(parceiro.id) }}>

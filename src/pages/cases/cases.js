@@ -8,6 +8,9 @@ import './responsive.css'
 
 import api from '../../services/api'
 
+const API_URL = process.env.REACT_APP_API_URL
+const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
+
 export default function Cases() {
     const [cases, setCases] = useState([])
     const [caseModal, setCaseModal] = useState([])
@@ -18,12 +21,10 @@ export default function Cases() {
     }
 
     function openModal(id) {
-    
         const modal = document.getElementById("modal")
         modal.style.display = "flex"
         
         loadResult(id)
-       
     }
 
     function closeModal() {
@@ -32,7 +33,6 @@ export default function Cases() {
         const loading = document.getElementById('loading')
         loading.style.display = "flex"
         setCaseModal([])
-
     }
 
     useEffect(() => {
@@ -92,7 +92,7 @@ export default function Cases() {
                                 <p>{cs.orgao}</p>
                             </div>
                             <div className="cases-card-content"  onClick={() => openModal(cs.id)}>
-                                <img src={`http://localhost:3333/getImage/${cs.imagem}`} />
+                                <img src={API_URL+API_IMAGE_PATH+cs.imagem} />
                             </div>
                             <div className="cases-card-span">
                                 <p>{cs.descricao}</p>
@@ -109,7 +109,7 @@ export default function Cases() {
                     {caseModal.map(csm => (
                         <div id="box" className="border" onLoad={()=>{itsLoaded()}}>
                             <div>
-                                <img src={`http://localhost:3333/getImage/${csm.imagem}`}/>
+                                <img src={API_URL+API_IMAGE_PATH+csm.imagem}/>
                             </div>
                             <div>
                                 <p>
@@ -125,7 +125,7 @@ export default function Cases() {
                     
                 </div>
                 <div id="loading" className="loading-modal">
-                                <span></span>
+                    <span></span>
                 </div>
             </div>
         </div>

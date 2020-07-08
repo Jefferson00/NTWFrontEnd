@@ -8,8 +8,6 @@ import facebook from '../../assets/icons/facebook.svg'
 import linkedin from '../../assets/icons/linkedin.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import mail from '../../assets/icons/mail.svg'
-import room from '../../assets/icons/room.svg'
-import phone from '../../assets/icons/phone.svg'
 
 import Map from './map'
 
@@ -23,16 +21,29 @@ export default function Contato() {
     const [assunto, setAssunto] = useState('');
     const [mensagem, setMensagem] = useState('');
 
-    async function sendMail(){
+    async function sendMail(e){
         
         const data = {nome, sobrenome, email, assunto, mensagem}
+        const loading = document.getElementById('loading')
+        e.preventDefault()
 
         try {
+            loading.style.display = "flex"
             await api.post('sendMailContact', data)
             alert('Obrigado, entraremos em contato')
+            loading.style.display = "none"
+            clearInputs()
         } catch (error) {
             console.log(error)
         }
+    }
+
+    function clearInputs(){
+        setNome('')
+        setSobrenome('')
+        setEmail('')
+        setAssunto('')
+        setMensagem('')
     }
     
 
@@ -83,7 +94,7 @@ export default function Contato() {
                 <div className="contact-content">
                     <div className="contact-form-container">
                         <div className="contact-form">
-                            <form onSubmit={()=> sendMail()}>
+                            <form onSubmit={sendMail}>
                                 <div className="input-group">
                                     <div>
                                         <label data-end=" *">Nome</label>
@@ -166,6 +177,9 @@ export default function Contato() {
                 </div>
 
             </main>
+            <div id="loading" className="loading-modal">
+                <span></span>
+            </div>
         </div>
     )
 
