@@ -3,6 +3,9 @@ import Footer from '../footer'
 
 import api from '../../services/api'
 
+import room from '../../assets/icons/room.svg'
+import phone from '../../assets/icons/phone.svg'
+
 import hlImg1 from '../../assets/content/hl-1.jpg'
 import hlImg2 from '../../assets/content/hl-2.jpg'
 import hlImg3 from '../../assets/content/hl-3.jpg'
@@ -24,7 +27,7 @@ import './responsive.css'
 
 const instText1 = `Compromisso, parceria e seriedade são as principais 
 objetivos da NorthWare ao oferecer as melhores Soluções em Tecnologia e Informação (TI)
- para os seus clientes. 
+ para os seus clientes. <br></br>
  A NorthWare, há mais de 20 anos,
   tem a honra de possuir soluções de fabricantes líderes de mercado em seu portfólio.
    Além disso, conta com equipe de profissionais capacitados com as mais importantes
@@ -37,11 +40,11 @@ const instText2 =
     `A NorthWare está presente desde 1992, 
     baseada nos conceitos de diferenciação pelo 
     seu compromisso com o cliente. 
-    Agrega em seu portfólio produtos de parceiros diversos como Air Tight,
-     Fujitsu, LANDesk, Lenovo, R-Post e Oracle, líderes mundiais do setor. 
+    Agrega em seu portfólio produtos de parceiros diversos como Nutanix,
+     Fujitsu, AOC, Lenovo, Netscolt entre outros, líderes mundiais do setor. 
     Tornou-se referência no fornecimento de soluções em Tecnologia da Informação (TI) 
     em razão do alto nível dos seus profissionais
-     e do elaborado portfólio em produtos e serviços. 
+     e do elaborado portfólio em produtos e serviços. <br></br>
     Sediada em Brasília, 
     conta com agentes em todo o Brasil,
      o que a capacita a atuar em projetos de âmbito nacional.  
@@ -57,7 +60,11 @@ export default function Home() {
 
     const [parceiros, setParceiros] = useState([]);
 
+    
+
     useEffect(() => {
+        document.getElementById("instText1").innerHTML = instText1 
+        document.getElementById("instText2").innerHTML = instText2 
 
         /*Slider*/
         const slider = document.querySelector('.slider');
@@ -75,8 +82,9 @@ export default function Home() {
 
                     carousel.style.justifyContent = 'flex-start';
                     slider.style.transform = 'translate(-33.4%)';
-                    
+                   
                 }, 3000)
+               
             })
 
             prev.addEventListener('click', function () {
@@ -117,7 +125,23 @@ export default function Home() {
                 /* MENU DOWN */ 
             
             const menu = document.getElementById('home');
+            const presentation = document.getElementById('presentation');
             
+            function animePresentation(){
+                const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
+                    if((windowTop) > presentation.style.height + window.innerHeight){
+                        const upPresentation = document.querySelector(" .up-presentation div")
+                        upPresentation.style.transform = 'translateX(0)' 
+                        upPresentation.style.opacity = '1' 
+                        document.querySelector(" .down-presentation").style.opacity = '1'
+                        document.querySelector(" .down-presentation").style.transform = 'translateY(0)'
+                        window.setInterval(() => {
+                         document.querySelector(".presentation").style.overflow = "initial"
+                         document.querySelector(" .up-presentation img").style.opacity = '1'
+                        },1000)
+                    }
+            }
+
             function menuDown(){
             
             const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
@@ -135,6 +159,7 @@ export default function Home() {
             if(menu != null){
             window.addEventListener('scroll', function(){
                 menuDown();
+                animePresentation()
                 if(window.scrollY===0&&window.scrollX===0){
                     menuUp();
                 }
@@ -185,6 +210,16 @@ export default function Home() {
 
     return (
         <div>
+            <div className="top-header">
+                <div>
+                    <img src={phone} alt="telefone" />
+                    <p>(61) 3202-9393</p>
+                </div>
+                <div>
+                    <img src={room} alt="endereço" />
+                    <p>SCN Quadra 01 Bloco F, Ed. América Office Tower, Sala 501</p>
+                </div>
+            </div>
             <header id="home">
                 <img id="img-logo" src={logoImg} alt="logo" />
                 <nav className="main-menu">
@@ -253,17 +288,20 @@ export default function Home() {
                     <p>Suporte Técnico</p>
                 </div>
             </section>
-                <section className="presentation" id="pres" data-aos="fade-in">
+                <section className="presentation" id="presentation" data-aos="fade-in">
                     <div className="up-presentation">
-                        <h1>
-                            COM MAIS DE 20 ANOS DE EXPERIÊNCIA
-                        </h1>
-                        <p>
-                            A Northware ofere a seus clientes um portfólio de soluções tecnológicas com grande valor agregado.
-                        </p>
+                        <div>
+                            <h1>
+                                COM MAIS DE 20 ANOS DE EXPERIÊNCIA
+                            </h1>
+                            <p>
+                                A Northware oferece a seus clientes um portfólio de soluções tecnológicas com grande valor agregado.
+                            </p>
+                        </div>
+                        <img id="productsImg" src={productsImg} alt="imagem"/>
                     </div>
 
-                    <img id="productsImg" src={productsImg} alt="imagem"/>
+                   
 
                     <div className="down-presentation">
                     </div>
@@ -273,8 +311,8 @@ export default function Home() {
             <section id="inst" className="institutional">
                 <div>
                     <h1>SOBRE A NORTHWARE</h1>
-                    <p>
-                        {instText1}
+                    <p id="instText1">
+                        
                     </p>
                 </div>
                 <div>
@@ -285,8 +323,8 @@ export default function Home() {
                 </div>
                 <div>
                     <h1>DIFERENCIAL</h1>
-                    <p>
-                        {instText2}
+                    <p id="instText2">
+                        
                     </p>
                 </div>
             </section>

@@ -78,7 +78,9 @@ function Footer(){
                 <span onClick={() => {scrolToTop()}}></span>
             </div> 
             <div className="copy">
-                2020 Northware
+                <p>
+                    © Copyright - Northware Serviços e Comercios LTDA
+                </p>
             </div>
         </footer>
     )

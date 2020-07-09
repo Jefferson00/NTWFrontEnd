@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Ubuntu:wght@300;400;500;700&display=swap');
 
 *{
   margin:0;
@@ -22,6 +22,10 @@ body{
 img{
   max-width: 100%;
   display: block;
+}
+
+h1{
+  font-family: ubuntu, Roboto, sans-serif;
 }
 
 ul, li, a{
@@ -194,7 +198,6 @@ FOOTER
 
 footer{
   width: 100%;
-  min-height: 100px;
   background: #075a99;
   color: #D2D2D2;
   display: flex;
@@ -203,7 +206,7 @@ footer{
 footer .inform{
   display: flex;
   justify-content: space-between;
-  padding: 40px 0;
+  padding: 20px 0;
   width: 80%;
   margin: 0 auto;
 }
@@ -212,7 +215,7 @@ footer .social{
 }
 
 footer .social h1{
-  font-size: 1.8rem;
+  font-size: 14px;
   color: #D2D2D2;
 }
 
@@ -241,9 +244,13 @@ footer .address >div{
   flex: 1;
 }
 
+footer .address >div img {
+  max-height: 20px;
+}
+
 footer .address h2{
   margin-left: 10px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 15px; 
   font-weight: 300;
 }
@@ -251,6 +258,10 @@ footer .address h2{
 footer .logo-white{
     width: 80%;
     margin: 0 auto;
+}
+
+footer .logo-white img {
+  max-height: 80px;
 }
 
 @keyframes move {
@@ -287,6 +298,11 @@ footer .logo-white{
 
 footer .copy{
   padding: 40px;
-  border-top: 1px solid #d2d2d261;
-  margin: 20px 20px 0;
+  border-top: 1px solid #f0efef4d;
+  margin-top: 20px;
+  background-color: #053b65;
+}
+
+footer .copy p{
+  font-size: 12px;
 }
