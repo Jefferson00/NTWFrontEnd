@@ -83,7 +83,7 @@ export default function Home() {
                     carousel.style.justifyContent = 'flex-start';
                     slider.style.transform = 'translate(-33.4%)';
                    
-                }, 3000)
+                }, 5000)
                
             })
 
@@ -259,9 +259,21 @@ export default function Home() {
             <section className="container-slider">
                 <div className="carousel">
                     <div className="slider">
-                        <section><img src={slideImg1} alt="slide-1" /></section>
-                        <section><img src={slideImg2} alt="slide-2" /></section>
-                        <section><img src={slideImg3} alt="slide-3" /></section>
+                        <section>
+                            <a href="https://psref.lenovo.com/" target="_blank">
+                                <img src={slideImg1} alt="slide-1" />
+                            </a>
+                        </section>
+                        <section>
+                            <a href="" target="_blank">
+                                <img src={slideImg2} alt="slide-2" />
+                            </a>
+                        </section>
+                        <section>
+                            <a href="" target="_blank">
+                                <img src={slideImg3} alt="slide-3" />
+                            </a>
+                        </section>
                     </div>
                     <div className="controls">
                         <span className="arrow prev"/>

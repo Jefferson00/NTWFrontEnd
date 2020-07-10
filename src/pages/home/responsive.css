@@ -47,18 +47,10 @@
         transform: rotate(-45deg) translate(8px, -10px);
     }
 
-    .presentation img {
+    /*.presentation img {
         width: 90%;   
-    }
+    }*/
 
-    .presentation .up-presentation{
-        clip-path: polygon(115% 0%, 100% 50%, 0 100%, 0 0);
-    }
-
-    @keyframes polygon {
-        0% {  opacity:0; clip-path:  polygon(115% 0%, 100% 100%, 0 100%, 0 0); }
-        100% {   opacity:1; clip-path:  polygon(115% 0%, 100% 50%, 0 100%, 0 0);}
-    }
 }
 
 @media (min-width: 1020px){
@@ -68,6 +60,11 @@
 }
 
 @media (max-width: 790px){
+    .top-header{
+        position: initial;
+        padding: 0;
+    }
+
     header#home{
         clip-path: none;
         -webkit-clip-path:none;
@@ -87,7 +84,7 @@
         width: auto;
     }
 
-    .presentation img {
+    /*.presentation img {
         width: 80%;
         height: 400px;   
     }
@@ -101,7 +98,7 @@
         -webkit-clip-path:none;
         animation: none;
         height: 320px;
-    }
+    }*/
 
     .partners .slide-track > div{
         width: 150px;
@@ -109,12 +106,16 @@
 }
 
 @media (max-width: 582px){
+    .top-header{
+        display: none;
+    }
+
     header#home.on{
         height: 100%;
         width: 100%;
     }
 
-    .presentation .up-presentation p{
+    /*.presentation .up-presentation p{
         width: 100%;
     }
 
@@ -124,7 +125,8 @@
 
     .presentation img{
        height: 300px;
-    }
+       margin-left: 25%;
+    }*/
 
     .presentation .up-presentation p{
         font-size: 14px;
@@ -133,8 +135,8 @@
     }
 
     .presentation .up-presentation h1{
-        font-size: 24px;
-        line-height: 36px;
+        font-size: 36px;
+        line-height: 46px;
         padding: 10px;
     }
 
@@ -145,11 +147,11 @@
 
 @media (max-width: 425px){
     .container-slider {
-        height: 80vh;
+        height: auto;
         clip-path: none;
     }
 
-    .presentation .up-presentation{
+    /*.presentation .up-presentation{
         margin-bottom: 100px;
     }
 
@@ -160,7 +162,7 @@
     .presentation img{
         width: 100%;
         height: 250px;
-    }
+    }*/
 
     .institutional {
         width: 100%;
