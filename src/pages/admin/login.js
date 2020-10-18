@@ -54,7 +54,7 @@ export default function Login(){
                                 <input type="text" value={name} onChange={e =>setNome(e.target.value)}/>
                                 <label>Senha</label>
                                 <input type="password" value={password} onChange={e =>setSenha(e.target.value)}/>
-                                <input type="submit" value="ENTRAR"/>
+                                <input type="submit" value="ENTRAR" className="btn login"/>
                             </form>
                         </div>
                     </div>

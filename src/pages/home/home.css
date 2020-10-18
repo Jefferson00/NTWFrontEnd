@@ -109,6 +109,7 @@ header#home.on{
 }
 .container-slider{
     width:100%;
+    height: 100vh;
     margin: 0;
     clip-path: polygon(0% 95%,100% 100%,100% 0%,0% 0% ,0% 0%);
     -webkit-clip-path: polygon(0% 95%,100% 100%,100% 0%,0% 0% ,0% 0%);
@@ -202,7 +203,7 @@ header#home.on{
     flex-wrap: wrap;
 }
 
-.highlight div img{
+/*.highlight div img{
     border-radius: 50%;
     height: 200px;
     width: 200px;
@@ -212,12 +213,154 @@ header#home.on{
 .highlight div img:hover{
     border-radius: 30% 20%;
     box-shadow: 15px 10px 0px #0064ab;
-}
+}*/
 
 .highlight div p{
     text-align: center;
     color: #444343;
     padding: 25px;
+}
+
+#predio-1{
+    animation: updown 2s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+
+#predio-2{
+    animation: updown 1.5s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+
+#elipse{
+    animation: updown2 3s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+
+#elipse-back, #engrenagem-1{
+    animation: rotation 6s linear infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+#engrenagem-2{
+    animation: rotation 6s linear infinite reverse;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+#elipse-1{
+    animation: rotation2 4s linear infinite alternate;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+#elipse-2{
+    animation: rotation2 2s linear infinite alternate;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+#retangulo-1{
+    animation: slide-1 2s ease-in-out infinite alternate;
+}
+
+#retangulo-2{
+    animation: slide-1 2s ease-in-out infinite alternate-reverse;
+}
+
+#retangulo-3, #retangulo-4{
+    animation: slide-2 2s ease-in-out infinite alternate;
+}
+
+#brilho{
+    animation: grow 2s linear infinite alternate;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+#hands{
+    animation: updown 1.5s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+
+#linha-1{
+    animation: updown2 3s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+#linha-2{
+    animation: updown2 2s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+#linha-3{
+    animation: updown2 3s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+#linha-4{
+    animation: updown2 2s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+
+@keyframes updown{
+    from {
+        transform: rotateX(0);
+    }
+    to{
+        transform: rotateX(20deg);
+    }
+}
+
+@keyframes updown2{
+    from {
+        transform: rotateX(0);
+    }
+    to{
+        transform: rotateX(45deg);
+    }
+}
+
+@keyframes rotation{
+    from {
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes rotation2{
+    from {
+        transform: rotateY(0deg);
+    }
+    to{
+        transform: rotateY(-40deg);
+    }
+}
+
+@keyframes grow{
+    from {
+        transform: scale(0)
+    }
+    to{
+        transform: scale(100%)
+    }
+}
+
+@keyframes slide-1{
+    from {
+        transform: translateY(0) translateX(0);
+    }
+    to{
+        transform: translateY(8px) translateX(8px);
+    }
+}
+
+@keyframes slide-2{
+    from {
+        transform: translateY(0) translateX(0);
+    }
+    to{
+        transform: translateY(-10px) translateX(-10px);
+    }
 }
 
 /*PRESENTATION*/
@@ -244,13 +387,11 @@ header#home.on{
     align-items: center;
     justify-content: center;
     position: relative;
-    margin: 100px 0;
     overflow: hidden;
 }
 
 .presentation .up-presentation{
     width: 100%;
-    position: absolute;
     z-index: 2;
     display: flex;
     justify-content: flex-end;
@@ -263,7 +404,6 @@ header#home.on{
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    position: absolute;
     left: 50px;
     top: 0;
     opacity: 0;
@@ -271,14 +411,9 @@ header#home.on{
     transition: 1000ms;
 }
 
-.presentation .up-presentation img{
-    opacity: 0;
-    transition: 2000ms;
-}
-
 .presentation .up-presentation h1{
     color: #0062a8;
-    font-size: 65px;
+    font-size: 55px;
     line-height: 56px;
     text-shadow: 0px 0px 2px white;
     font-family: ubuntu; 

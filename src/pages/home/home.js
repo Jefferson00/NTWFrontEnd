@@ -7,9 +7,9 @@ import room from '../../assets/icons/room.svg'
 import phone from '../../assets/icons/phone.svg'
 
 import hlImg1 from '../../assets/content/hl-1.jpg'
-import hlImg2 from '../../assets/content/hl-2.jpg'
-import hlImg3 from '../../assets/content/hl-3.jpg'
-import hlImg4 from '../../assets/content/hl-4.jpg'
+
+import mainIng from '../../assets/content/main.svg'
+
 
 import logoImg from '../../assets/logos/logo-ntw.png'
 import logoBlue from '../../assets/logos/logo-ntw-blue.svg'
@@ -17,9 +17,14 @@ import slideImg1 from '../../assets/content/sl-1.png'
 import slideImg2 from '../../assets/content/sl-2.png'
 import slideImg3 from '../../assets/content/sl-3.png'
 
-import productsImg from '../../assets/products/products.png'
+
 
 import inst1 from '../../assets/content/inst-1.jpg'
+
+import Empresas from './empresas-svg'
+import Ideias from './ideias-svg'
+import Equipe from './equipe-svg'
+import Suporte from './suporte-svg'
 
 import './home.css'
 import './responsive.css'
@@ -60,11 +65,11 @@ export default function Home() {
 
     const [parceiros, setParceiros] = useState([]);
 
-    
+
 
     useEffect(() => {
-        document.getElementById("instText1").innerHTML = instText1 
-        document.getElementById("instText2").innerHTML = instText2 
+        document.getElementById("instText1").innerHTML = instText1
+        document.getElementById("instText2").innerHTML = instText2
 
         /*Slider*/
         const slider = document.querySelector('.slider');
@@ -76,15 +81,15 @@ export default function Home() {
         if (slider != null) {
             var cont = 0
             window.addEventListener('load', function () {
-                
+
                 this.setInterval(() => {
                     direction = -1;
 
                     carousel.style.justifyContent = 'flex-start';
                     slider.style.transform = 'translate(-33.4%)';
-                   
+
                 }, 5000)
-               
+
             })
 
             prev.addEventListener('click', function () {
@@ -121,91 +126,89 @@ export default function Home() {
             })
         }
 
-            const imgLogo = document.getElementById("img-logo")
-                /* MENU DOWN */ 
-            
-            const menu = document.getElementById('home');
-            const presentation = document.getElementById('presentation');
-            
-            function animePresentation(){
-                const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
-                    if((windowTop) > presentation.style.height + window.innerHeight){
-                        const upPresentation = document.querySelector(" .up-presentation div")
-                        upPresentation.style.transform = 'translateX(0)' 
-                        upPresentation.style.opacity = '1' 
-                        document.querySelector(" .down-presentation").style.opacity = '1'
-                        document.querySelector(" .down-presentation").style.transform = 'translateY(0)'
-                        window.setInterval(() => {
-                         document.querySelector(".presentation").style.overflow = "initial"
-                         document.querySelector(" .up-presentation img").style.opacity = '1'
-                        },1000)
-                    }
-            }
+        const imgLogo = document.getElementById("img-logo")
+        /* MENU DOWN */
 
-            function menuDown(){
-            
-            const windowTop = window.pageYOffset +  ((window.innerHeight * 3)/4);
-                    if((windowTop) > menu.style.height + window.innerHeight){
-                        menu.classList.add('menu-down')
-                        imgLogo.src = logoBlue
-                    }
+        const menu = document.getElementById('home');
+        const presentation = document.getElementById('presentation');
+
+        function animePresentation() {
+            const windowTop = window.pageYOffset + ((window.innerHeight * 3) / 4);
+            if ((windowTop) > presentation.style.height + window.innerHeight) {
+                const upPresentation = document.querySelector(" .up-presentation div")
+                upPresentation.style.transform = 'translateX(0)'
+                upPresentation.style.opacity = '1'
+                /*window.setInterval(() => {
+                 document.querySelector(".presentation").style.overflow = "initial"
+                 document.querySelector(" .up-presentation img").style.opacity = '1'
+                },1000)*/
             }
-            
-            function menuUp(){
-                    menu.classList.remove('menu-down')
-                    imgLogo.src =  logoImg
+        }
+
+        function menuDown() {
+
+            const windowTop = window.pageYOffset + ((window.innerHeight * 3) / 4);
+            if ((windowTop) > menu.style.height + window.innerHeight) {
+                menu.classList.add('menu-down')
+                imgLogo.src = logoBlue
             }
-            
-            if(menu != null){
-            window.addEventListener('scroll', function(){
+        }
+
+        function menuUp() {
+            menu.classList.remove('menu-down')
+            imgLogo.src = logoImg
+        }
+
+        if (menu != null) {
+            window.addEventListener('scroll', function () {
                 menuDown();
                 animePresentation()
-                if(window.scrollY===0&&window.scrollX===0){
+                if (window.scrollY === 0 && window.scrollX === 0) {
                     menuUp();
                 }
             })
-            }
+        }
 
-            //Menu responsivo
+        //Menu responsivo
 
-            let show = true;
-            const header = document.getElementById("home")
-            const menuToggle = header.querySelector(".menu-toggle")
+        let show = true;
+        const header = document.getElementById("home")
+        const menuToggle = header.querySelector(".menu-toggle")
 
-            menuToggle.addEventListener("click", () =>{
+        menuToggle.addEventListener("click", () => {
 
-                document.body.style.overflow = show ? "hidden" : "initial"
-                header.classList.toggle("on", show)
-                show = !show
+            document.body.style.overflow = show ? "hidden" : "initial"
+            header.classList.toggle("on", show)
+            show = !show
+        })
+
+        /*ANIMAÇÕES*/
+
+        const linkCases = document.querySelectorAll('.cases a')
+        //const classes = ['case-animated','case-animated2']
+        linkCases.forEach(element => {
+            element.addEventListener('mouseover', () => {
+                element.parentElement.parentElement.childNodes.item(0).style.color = "#ffffff"
+                element.parentElement.parentElement.childNodes.item(1).style.color = "#ffffff"
+                element.parentElement.parentElement.childNodes.item(3).style.opacity = "1"
+                element.parentElement.parentElement.childNodes.item(3).classList.add('case-animated2')
             })
-      
-            /*ANIMAÇÕES*/
-
-            const linkCases = document.querySelectorAll('.cases a')
-            //const classes = ['case-animated','case-animated2']
-            linkCases.forEach(element =>{
-                element.addEventListener('mouseover', ()=>{
-                    element.parentElement.parentElement.childNodes.item(0).style.color = "#ffffff"
-                    element.parentElement.parentElement.childNodes.item(1).style.color = "#ffffff"
-                    element.parentElement.parentElement.childNodes.item(3).style.opacity = "1"
-                    element.parentElement.parentElement.childNodes.item(3).classList.add('case-animated2')
-                })
-                element.addEventListener('mouseout', ()=>{
-                    element.parentElement.parentElement.childNodes.item(0).style.color = "#757272"
-                    element.parentElement.parentElement.childNodes.item(1).style.color = "#757272"
-                    element.parentElement.parentElement.childNodes.item(3).style.opacity = "0"
-                    element.parentElement.parentElement.childNodes.item(3).classList.remove('case-animated2')
-                })
+            element.addEventListener('mouseout', () => {
+                element.parentElement.parentElement.childNodes.item(0).style.color = "#757272"
+                element.parentElement.parentElement.childNodes.item(1).style.color = "#757272"
+                element.parentElement.parentElement.childNodes.item(3).style.opacity = "0"
+                element.parentElement.parentElement.childNodes.item(3).classList.remove('case-animated2')
             })
-            
-            api.get('parceiros').then(response =>{
-                setParceiros(response.data)
-            })
-    
-    },[])
+        })
 
-    function scrollToInst(){
-        document.querySelector('.institutional').scrollIntoView({behavior:'smooth'})
+        api.get('parceiros').then(response => {
+            setParceiros(response.data)
+        })
+
+    }, [])
+
+    function scrollToInst() {
+        document.querySelector('.institutional').scrollIntoView({ behavior: 'smooth' })
     }
 
     return (
@@ -228,7 +231,7 @@ export default function Home() {
                             <a href="/">Home</a>
                         </li>
                         <li>
-                            <a onClick={() =>{scrollToInst()}} style={{cursor : "pointer"}}>Institucional</a>
+                            <a onClick={() => { scrollToInst() }} style={{ cursor: "pointer" }}>Institucional</a>
                         </li>
                         <li>
                             <a href="/atas">Atas Governo</a>
@@ -248,12 +251,12 @@ export default function Home() {
                     </ul>
 
                 </nav>
-                    <div className="menu-toggle">
-                        <div className="one"></div>
-                        <div className="two"></div>
-                        <div className="three"></div>
-                    </div>
-               
+                <div className="menu-toggle">
+                    <div className="one"></div>
+                    <div className="two"></div>
+                    <div className="three"></div>
+                </div>
+
             </header>
 
             <section className="container-slider">
@@ -276,67 +279,64 @@ export default function Home() {
                         </section>
                     </div>
                     <div className="controls">
-                        <span className="arrow prev"/>
-                        <span className="arrow next"/>
+                        <span className="arrow prev" />
+                        <span className="arrow next" />
                     </div>
                 </div>
             </section>
 
             <section className="highlight">
                 <div>
-                    <img src={hlImg1} alt="Empresas Lideres do Mercado de Tecnologia" />
+                    <Empresas></Empresas>
                     <p>Empresas Lideres do Mercado de Tecnologia</p>
                 </div>
                 <div>
-                    <img src={hlImg2} alt="Ideias Inovadoras" />
+                    <Ideias></Ideias>
                     <p>Ideias Inovadoras</p>
                 </div>
                 <div>
-                    <img src={hlImg3} alt="Equipe Especializada" />
+                    <Equipe></Equipe>
                     <p>Equipe Especializada</p>
                 </div>
                 <div>
-                    <img src={hlImg4} alt="Suporte Técnico" />
+                    <Suporte></Suporte>
                     <p>Suporte Técnico</p>
                 </div>
             </section>
-                <section className="presentation" id="presentation" data-aos="fade-in">
-                    <div className="up-presentation">
-                        <div>
-                            <h1>
-                                COM MAIS DE 20 ANOS DE EXPERIÊNCIA
+            <section className="presentation" id="presentation" data-aos="fade-in">
+                <div className="up-presentation">
+                    <div>
+                        <h1>
+                            COM MAIS DE 20 ANOS DE EXPERIÊNCIA
                             </h1>
-                            <p>
-                                A Northware oferece a seus clientes um portfólio de soluções tecnológicas com grande valor agregado.
-                            </p>
-                        </div>
-                        <img id="productsImg" src={productsImg} alt="imagem"/>
+                        <p>
+                            A Northware oferece a seus clientes um portfólio de soluções tecnológicas com grande valor agregado.
+                        </p>
                     </div>
 
-                   
+                </div>
+                <img id="productsImg" src={mainIng} alt="imagem" />
 
-                    <div className="down-presentation">
-                    </div>
-                </section>
-            
+            </section>
+
 
             <section id="inst" className="institutional">
                 <div>
                     <h1>SOBRE A NORTHWARE</h1>
                     <p id="instText1">
-                        
+
                     </p>
                 </div>
                 <div>
-                    <img src={inst1} alt="inst-1"/>
+                    <img src={inst1} alt="inst-1" />
                 </div>
                 <div>
-                    <img src={hlImg1} alt="inst-2"/>
+                    <img src={hlImg1} alt="inst-2" />
                 </div>
                 <div>
                     <h1>DIFERENCIAL</h1>
                     <p id="instText2">
-                        
+
                     </p>
                 </div>
             </section>
@@ -384,16 +384,16 @@ export default function Home() {
 
             <section className="partners">
                 <div className="slide-track">
-                   {parceiros.map(parceiro => (
-                       <div>
-                            <img src={API_URL+API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo"/>
+                    {parceiros.map(parceiro => (
+                        <div>
+                            <img src={API_URL + API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo" />
                         </div>
-                   ))}
-                   {parceiros.map(parceiro => (
-                       <div>
-                            <img src={API_URL+API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo"/>
+                    ))}
+                    {parceiros.map(parceiro => (
+                        <div>
+                            <img src={API_URL + API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo" />
                         </div>
-                   ))}
+                    ))}
                 </div>
             </section>
 

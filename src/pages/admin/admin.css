@@ -1,5 +1,6 @@
 
 /*login.js*/
+
 .main-content, .main-content-index{
     display: flex;
     flex-direction: column;
@@ -93,6 +94,38 @@
     height: 50px;
 }
 
+form label{
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    color: #3C3C3C;
+    margin-top: 25px;
+  }
+
+  form input{
+    border: 1px solid #616161;
+    border-radius: 5px;
+    margin-top: 15px;
+    width: 345px;
+    height: 33px;
+  }
+
+  .btn{
+    border-radius: 5px;
+    color: #ffffff; 
+    width: 345px;
+    height: 33px;
+    cursor: pointer;
+    transition: background 0.4s;
+  }
+
+  .btn.login{
+    background: #0060A5;
+  }
+
+  .btn.login:hover{
+    background: #01406d;
+  }
 
 
 /*index*/
