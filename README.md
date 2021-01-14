@@ -1,5 +1,33 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+<p align="center">
+  <img src="markdown/site.png">
+</p>
+
+<h2 align="center"> 
+  Site Institucional com painel Administrativo, da Empresa Northware tecnologia
+</h2>
+
+<p align="center">
+  <img alt="ReactVersion" src="https://img.shields.io/badge/react-v16.13.1-blue">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0-brightgreen">
+  <a href="https://www.linkedin.com/in/jefferson-c-silva-aa1b7b1a9/">
+    <img alt="Made by Jefferson" src="https://img.shields.io/badge/made%20by-Jefferson-blue">
+  </a>
+</p>
+
+## 💻 Projeto
+
+O projeto consiste no desenvolvimento de um site institucional para uma empresa revenda de produtos e soluções de tecnologia, com painel administrativo para a gerencia de atas de vendas, produtos, cases e parceiros da empresa.
+
+## 💻 Tecnologias
+
+- HTML
+- CSS
+- ReactJS
+- Node.js
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -66,3 +94,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+Made with ♥ by Jefferson C Silva :wave: [Get in touch!](https://www.linkedin.com/in/jefferson-c-silva)
