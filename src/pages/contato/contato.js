@@ -13,6 +13,7 @@ import Map from './map'
 
 import './contato.css'
 import './responsive.css'
+import functions from '../../functions'
 
 export default function Contato() {
     const [nome, setNome] = useState('');
@@ -66,16 +67,8 @@ export default function Contato() {
 
         //Menu responsivo
 
-        let show = true;
-        const header = document.getElementById("header-contato")
-        const menuToggle = header.querySelector(".menu-toggle")
-
-        menuToggle.addEventListener("click", () =>{
-
-            document.body.style.overflow = show ? "hidden" : "initial"
-            header.classList.toggle("on", show)
-            show = !show
-        })
+        
+        functions.responsiveMenu("header-contato")
     })
 
     

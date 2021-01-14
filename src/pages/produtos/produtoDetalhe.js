@@ -12,6 +12,8 @@ import imgNetwork from '../../assets/products/switch.webp'
 
 import './produtos.css'
 
+import Functions from '../../functions'
+
 import api from '../../services/api'
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -58,17 +60,8 @@ export default function ProdutosDetalhe(){
 
         //Menu responsivo
 
-        let show = true;
-        const header = document.getElementById("header-produtos")
-        const menuToggle = header.querySelector(".menu-toggle")
-
-        menuToggle.addEventListener("click", () =>{
-
-            document.body.style.overflow = show ? "hidden" : "initial"
-            header.classList.toggle("on", show)
-            show = !show
-        })
-    },[])
+        Functions.responsiveMenu("header-produtos")
+    },[cat])
 
     
     return(
@@ -109,7 +102,7 @@ export default function ProdutosDetalhe(){
                                     <h3>{produto.fabricante} {produto.modelo}</h3>
                                     <p>{produto.caracteristica}</p>
                                 </div>
-                                <a href={produto.catalogo} target="_blank">Baixe o catalogo</a>
+                                <a href={produto.catalogo} target="_blank" rel="noopener noreferrer">Baixe o catalogo</a>
                             </div>
                         )
                     )}

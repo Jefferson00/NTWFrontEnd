@@ -129,6 +129,7 @@ main#main-atas .card-table-description{
 main#main-atas .card-table-description table{
     border-collapse: separate;
     border-spacing: 15px;
+    overflow-wrap: anywhere;
 }  
 
 main#main-atas .card-table-description table tr td:first-child{

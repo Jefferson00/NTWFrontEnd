@@ -7,6 +7,7 @@ import './parceiros.css'
 import './responsive.css'
 
 import api from '../../services/api'
+import functions from '../../functions'
 
 const API_URL = process.env.REACT_APP_API_URL
 const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
@@ -21,16 +22,7 @@ export default function Parceiros(){
 
           //Menu responsivo
 
-          let show = true;
-          const header = document.getElementById("header-parceiros")
-          const menuToggle = header.querySelector(".menu-toggle")
-  
-          menuToggle.addEventListener("click", () =>{
-  
-              document.body.style.overflow = show ? "hidden" : "initial"
-              header.classList.toggle("on", show)
-              show = !show
-          })
+          functions.responsiveMenu("header-parceiros")
     },[])
 
     window.addEventListener('load', function () {
@@ -64,8 +56,8 @@ export default function Parceiros(){
                 <div className="content-list-parceiros">
                     <div className="list-parceiros">
                         {parceiros.map(parceiro =>(
-                            <div>
-                                <a href={parceiro.site} target="_blank">
+                            <div key={parceiro.id}>
+                                <a href={parceiro.site} target="_blank" rel="noopener noreferrer">
                                     <img src={API_URL+API_IMAGE_PATH+parceiro.imagem} alt={parceiro.nome}/>
                                 </a>
                             </div>

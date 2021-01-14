@@ -8,7 +8,7 @@ import phone from '../../assets/icons/phone.svg'
 
 import hlImg1 from '../../assets/content/hl-1.jpg'
 
-import mainIng from '../../assets/content/main.svg'
+import mainImage from '../../assets/content/Main-Image.svg'
 
 
 import logoImg from '../../assets/logos/logo-ntw.png'
@@ -25,6 +25,8 @@ import Empresas from './empresas-svg'
 import Ideias from './ideias-svg'
 import Equipe from './equipe-svg'
 import Suporte from './suporte-svg'
+
+import Functions from '../../functions/index'
 
 import './home.css'
 import './responsive.css'
@@ -71,60 +73,7 @@ export default function Home() {
         document.getElementById("instText1").innerHTML = instText1
         document.getElementById("instText2").innerHTML = instText2
 
-        /*Slider*/
-        const slider = document.querySelector('.slider');
-        const carousel = document.querySelector('.carousel');
-        const prev = document.querySelector('.prev');
-        const next = document.querySelector('.next');
-
-        var direction;
-        if (slider != null) {
-            var cont = 0
-            window.addEventListener('load', function () {
-
-                this.setInterval(() => {
-                    direction = -1;
-
-                    carousel.style.justifyContent = 'flex-start';
-                    slider.style.transform = 'translate(-33.4%)';
-
-                }, 5000)
-
-            })
-
-            prev.addEventListener('click', function () {
-                if (direction === -1) {
-                    slider.appendChild(slider.firstElementChild);
-                    direction = 1;
-                }
-
-                slider.style.transform = 'translate(33.4%)';
-                carousel.style.justifyContent = 'flex-end';
-            });
-
-            next.addEventListener('click', function () {
-                direction = -1;
-
-                carousel.style.justifyContent = 'flex-start';
-                slider.style.transform = 'translate(-33.4%)';
-            });
-
-            slider.addEventListener('transitionend', function () {
-                console.log(cont++)
-                if (direction === -1) {
-                    slider.appendChild(slider.firstElementChild);
-                } else if (direction === 1) {
-                    slider.prepend(slider.lastElementChild);
-                }
-
-
-                slider.style.transition = 'none';
-                slider.style.transform = 'translate(0)';
-                setTimeout(function () {
-                    slider.style.transition = 'all 0.8s';
-                })
-            })
-        }
+        Functions.slider()
 
         const imgLogo = document.getElementById("img-logo")
         /* MENU DOWN */
@@ -138,10 +87,6 @@ export default function Home() {
                 const upPresentation = document.querySelector(" .up-presentation div")
                 upPresentation.style.transform = 'translateX(0)'
                 upPresentation.style.opacity = '1'
-                /*window.setInterval(() => {
-                 document.querySelector(".presentation").style.overflow = "initial"
-                 document.querySelector(" .up-presentation img").style.opacity = '1'
-                },1000)*/
             }
         }
 
@@ -184,22 +129,7 @@ export default function Home() {
 
         /*ANIMAÇÕES*/
 
-        const linkCases = document.querySelectorAll('.cases a')
-        //const classes = ['case-animated','case-animated2']
-        linkCases.forEach(element => {
-            element.addEventListener('mouseover', () => {
-                element.parentElement.parentElement.childNodes.item(0).style.color = "#ffffff"
-                element.parentElement.parentElement.childNodes.item(1).style.color = "#ffffff"
-                element.parentElement.parentElement.childNodes.item(3).style.opacity = "1"
-                element.parentElement.parentElement.childNodes.item(3).classList.add('case-animated2')
-            })
-            element.addEventListener('mouseout', () => {
-                element.parentElement.parentElement.childNodes.item(0).style.color = "#757272"
-                element.parentElement.parentElement.childNodes.item(1).style.color = "#757272"
-                element.parentElement.parentElement.childNodes.item(3).style.opacity = "0"
-                element.parentElement.parentElement.childNodes.item(3).classList.remove('case-animated2')
-            })
-        })
+        Functions.animationCasesItem()
 
         api.get('parceiros').then(response => {
             setParceiros(response.data)
@@ -263,17 +193,17 @@ export default function Home() {
                 <div className="carousel">
                     <div className="slider">
                         <section>
-                            <a href="https://psref.lenovo.com/" target="_blank">
+                            <a href="https://psref.lenovo.com/" target="_blank" rel="noopener noreferrer">
                                 <img src={slideImg1} alt="slide-1" />
                             </a>
                         </section>
                         <section>
-                            <a href="" target="_blank">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 <img src={slideImg2} alt="slide-2" />
                             </a>
                         </section>
                         <section>
-                            <a href="" target="_blank">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 <img src={slideImg3} alt="slide-3" />
                             </a>
                         </section>
@@ -315,7 +245,7 @@ export default function Home() {
                     </div>
 
                 </div>
-                <img id="productsImg" src={mainIng} alt="imagem" />
+                <img id="productsImg" src={mainImage} alt="imagem" />
 
             </section>
 
@@ -385,12 +315,12 @@ export default function Home() {
             <section className="partners">
                 <div className="slide-track">
                     {parceiros.map(parceiro => (
-                        <div>
+                        <div key={parceiro.id}>
                             <img src={API_URL + API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo" />
                         </div>
                     ))}
                     {parceiros.map(parceiro => (
-                        <div>
+                        <div key={parceiro.id}>
                             <img src={API_URL + API_IMAGE_PATH + parceiro.imagem} alt="logo-lenovo" />
                         </div>
                     ))}

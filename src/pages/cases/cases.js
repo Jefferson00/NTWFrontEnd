@@ -8,6 +8,8 @@ import './responsive.css'
 
 import api from '../../services/api'
 
+import Functions from '../../functions'
+
 const API_URL = process.env.REACT_APP_API_URL
 const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
 
@@ -42,16 +44,7 @@ export default function Cases() {
 
          //Menu responsivo
 
-         let show = true;
-         const header = document.getElementById("header-cases")
-         const menuToggle = header.querySelector(".menu-toggle")
- 
-         menuToggle.addEventListener("click", () =>{
- 
-             document.body.style.overflow = show ? "hidden" : "initial"
-             header.classList.toggle("on", show)
-             show = !show
-         })
+         Functions.responsiveMenu("header-cases")
     }, [])
 
     window.addEventListener('load', function () {
@@ -87,7 +80,7 @@ export default function Cases() {
 
                 <div className="content-list-cases">
                     {cases.map(cs => (
-                        <div className="cases-card">
+                        <div className="cases-card" key={cs.id}>
                             <div className="cases-card-title">
                                 <p>{cs.orgao}</p>
                             </div>

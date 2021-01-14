@@ -50,7 +50,7 @@ function Footer(){
                             </a>
                         </h1>
                         <h1>
-                            <a href="#">
+                            <a href="mailto:northware@northware.com.br">
                                 <img src={mail} alt="mail"/>
                             </a>
                         </h1>

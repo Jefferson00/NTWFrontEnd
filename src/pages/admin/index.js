@@ -4,7 +4,7 @@ import logoW from '../../assets/logos/Logo-w.png'
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom'
 import Logs from './logs'
-
+import Functions from '../../functions/index'
 
 const API_URL = process.env.REACT_APP_API_URL
 const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
@@ -13,15 +13,11 @@ export default function Admin() {
 
     const history = useHistory();
 
-    function itsLoaded(){
-        const loading = document.getElementById('loading')
-        loading.style.display = "none"
-    }
-
     /*Token*/
     api.defaults.headers.common['Authorization'] = localStorage.getItem('token')
 
     /*variaveis de estado */
+    const [valueSearch, setValueSearch] = useState('')
     //form users
     const [users, setUsers] = useState([]);
     const [id, setId] = useState('');
@@ -30,6 +26,7 @@ export default function Admin() {
     const [confSenha, setConfSenha] = useState('');
     //form atas
     const [atas, setAtas] = useState([]);
+    const [resultAtas, setResultAtas] = useState([]);
     const [id_atas, setIdAtas] = useState('');
     const [produtoAta, setProdutoAta] = useState('');
     const [produtosAta, setProdutosAta] = useState([]);
@@ -41,6 +38,7 @@ export default function Admin() {
     const [valor, setValor] = useState('');
     //form produtos
     const [produtos, setProdutos] = useState([])
+    const [resultProdutos, setResultProdutos] = useState([])
     const [id_produto, setIdProduto] = useState('')
     const [categoriaProduto, setCategoriaProduto] = useState('')
     const [modelo, setModelo] = useState('')
@@ -50,9 +48,9 @@ export default function Admin() {
     const [isEOL, setIsEOL] = useState('')
     const [fileProduto, setFileProduto] = useState('')
 
-    let catProds = []
     //form cases
     const [cases, setCases] = useState([])
+    const [resultCases, setResultCases] = useState([])
     const [id_cases, setIdCases] = useState('')
     const [orgaoCase, setOrgaoCase] = useState('')
     const [descricaoCase, setDescricaoCase] = useState('')
@@ -60,150 +58,81 @@ export default function Admin() {
     const [fileCase, setFileCase] = useState('')
     //form parceiros
     const [parceiros, setParceiros] = useState([])
+    const [resultParceiros, setResultParceiros] = useState([])
     const [id_parceiros, setIdParceiros] = useState('')
     const [nomeParceiro, setNomeParceiro] = useState('')
     const [siteParceiro, setSiteParceiro] = useState('')
     const [isValidParceiro, setIsValidParceiro] = useState('')
     const [fileParceiro, setFileParceiro] = useState('')
-    let arrayCat = []
     const [adminAccess, setAdminAccess] = useState(false)
+
+    const [logsUpdate, setLogsUpdate] = useState(0)
+
+    let arrayCat = []
+    let catProds = []
 
     const userName = localStorage.getItem('name');
 
     /* Verifica se existe algum usuario logado, caso não existe redireciona para a pagina de login */
     const idLogged = localStorage.getItem('Userid');
 
-    function verifyUser(id) {
-        api.get(`users/${id}`).then(response => {
-            const userLogged = response.data
-            if(userLogged.access == 0){
-                setAdminAccess(true)
-            }
-        }, error => {
-            if (error) {
-                history.push('/admin')
-            }
-        })
-    }
 
-    verifyUser(idLogged)
+
 
     window.onbeforeunload = function(){
         logout()
         return ''
     }
 
-    window.addEventListener('load',  setThing())
+    window.addEventListener('load', setCategoryOptions())
 
     useEffect(() => {
-        /*carrega todos os usuarios menos o admin */
-        api.get('users').then(response => {
-            setUsers(response.data.filter(user => user.access != 0))
-        });
-        /*carrega as atas*/
-        api.get('atas').then(response => {
-            setAtas(response.data)
-        })
-        /*carrega produtos*/
-        api.get('produtos').then(response => {
-            setProdutos(response.data)
-        })
-        setThing()
-        /*carrega cases*/
-        api.get('cases').then(response => {
-            setCases(response.data)
-        })
-        /*carrega parceiros*/
-        api.get('parceiros').then(response => {
-            setParceiros(response.data)
-        })
+        loadResults()
 
         handleProduto('')
 
-        /* menu de seleção dos itens */
-        const itensAdmin = document.querySelectorAll('.itens-admin >div')
-        const formsAdmin = document.querySelectorAll('.contact-form.grid form')
-        const lists = document.querySelectorAll('.content-list.grid ul')
+        Functions.selectItemMenu()
+        //limpar os campos do formulario
 
-        /*função que muda os formularios e tabelas com base no item clicado*/
+        Functions.verifyUser(idLogged, history).then(res => {
+            setAdminAccess(res)
+        })
 
-        for (var i = 0; i < itensAdmin.length; i++) {
-            (function (i) {
-                itensAdmin[i].addEventListener('click', function () {
-                    clearInputs()
-                    for (var x = 0; x < itensAdmin.length; x++) {
-                        if (x != i) {
-                            itensAdmin[x].classList.remove('item-selected')
-                        }
-                    }
-                    itensAdmin[i].classList.add('item-selected')
-                    for (var t = 0; t < formsAdmin.length; t++) {
-                        if (formsAdmin[t].id === itensAdmin[i].id) {
-                            formsAdmin[t].classList.add('active')
-                        }
-                        else {
-                            formsAdmin[t].classList.remove('active')
-                        }
-                    }
-                    for (var y = 0; y < lists.length; y++) {
-                        if (lists[y].id === itensAdmin[i].id) {
-                            lists[y].classList.add('active')
-                        } else {
-                            lists[y].classList.remove('active')
-                        }
-                    }
-                })
-            })(i);
-        }
-
-       
-        
     }, [])
 
 
-    function setThing(){
-        console.log(produtos)
+
+
+    function setCategoryOptions() {
         for (var i = 0; i < produtos.length; i++) {
             arrayCat[i] = produtos[i].categoria
-           
+
         }
         catProds = [...new Set(arrayCat)]
-        console.log(catProds)
     }
 
     /*função que recarrega todos os usuarios */
-    function reload() {
+    function loadResults() {
         api.get('users').then(response => {
             setUsers(response.data.filter(user => user.access != 0))
         });
         api.get('atas').then(response => {
             setAtas(response.data)
+            setResultAtas(response.data)
         })
         api.get('produtos').then(response => {
             setProdutos(response.data)
+            setResultProdutos(response.data)
         })
-        setThing()
+        setCategoryOptions()
         api.get('cases').then(response => {
             setCases(response.data)
+            setResultCases(response.data)
         })
         api.get('parceiros').then(response => {
             setParceiros(response.data)
+            setResultParceiros(response.data)
         })
-    }
-
-    async function createLog(log){
-        console.log(log)
-        try {
-            const id_user = idLogged
-            const acao = log.acao
-            const tabela = log.tabela
-            const detalhe = JSON.stringify(log.detalhe)
-            console.log(log.detalhe)
-            const data = {id_user,acao,tabela,detalhe}
-            await api.post('logs',data)
-        } catch (error) {
-            alert('Erro no log')
-        }
     }
 
     /*função que limpa os campos */
@@ -215,7 +144,7 @@ export default function Admin() {
                 select[i].selected = true;
             }
         }
-        reload()
+        loadResults()
         setId('')
         setNome('')
         setSenha('')
@@ -243,6 +172,7 @@ export default function Admin() {
         setFileParceiro('')
     }
 
+    /**FUNÇÕES TABELA USUARIOS */
     /*função de cadastrar novo usuario */
     async function cadastrarUser(e) {
         e.preventDefault()
@@ -261,7 +191,67 @@ export default function Admin() {
             }
         }
     }
+    /*função de deletar um usuario */
+    async function deleteUser(id) {
+        try {
+            var conf = window.confirm("Deseja realmente excluir?")
+            if (conf) {
+                await api.delete(`users/${id}`);
+                const userDeleted = users.filter(user => user.id === id)
+                const detalhe = { "usuario": userDeleted[0].name }
+                const log = { acao: 'deletar', tabela: 'users', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
+                setUsers(users.filter(user => user.id !== id))
+            }
+        } catch (err) {
+            alert('nao foi possivel deletar')
+        }
+    }
+    /*função de atualizar usuario */
+    async function editUser(id) {
 
+        const data = { name, password }
+
+        if (password != '') {
+            if (password == confSenha) {
+                try {
+                    await api.put(`users/${id}`, data)
+                    alert('Senha atualizada com sucesso!')
+                    clearInputs()
+                    Functions.buttonEditUserDisable()
+                } catch (err) {
+                    alert('nao foi possivel atualizar a senha')
+                }
+            } else {
+                alert('Senha não corresponde')
+            }
+        } else {
+            try {
+                await api.put(`users/${id}`, data)
+                const detalhe = { "Usuário": data }
+                const log = { acao: 'atualizar', tabela: 'users', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
+                alert('Atualizado!')
+                clearInputs()
+                Functions.buttonEditUserDisable()
+            } catch (err) {
+                alert('nao foi possivel atualizar')
+            }
+        }
+    }
+    /*função que carrega os dados do usuario no formulario para alteração */
+    function clickEditUser(id) {
+        const btnEdit = document.getElementById("btn-edit")
+        btnEdit.style.display = "block"
+        const userEdit = users.filter(user => user.id == id)
+        setNome(userEdit[0].name)
+        setId(id)
+    }
+
+
+    /**FUNÇÕES TABELA ATAS */
     /*função de cadastrar nova ata */
     async function cadastraAta(e) {
         e.preventDefault()
@@ -272,14 +262,78 @@ export default function Admin() {
             const data = { id_produtos, descricao, orgao, quantidade, garantia, validade, valor }
             await api.post('atas', data)
             alert('Cadastro realizado!')
-            const log = {acao:'cadastrar',tabela:'atas',detalhe:data}
-            createLog(log)
+            const log = { acao: 'cadastrar', tabela: 'atas', detalhe: data }
+            Functions.createLog(log, idLogged)
+            setLogsUpdate(logsUpdate + 1)
             clearInputs()
         } catch (err) {
             alert('Cadastro não realizado')
         }
     }
+    /*função de deletar ata */
+    async function deleteAta(id_atas) {
+        try {
+            var conf = window.confirm("Deseja realmente excluir?")
+            if (conf) {
+                await api.delete(`atas/${id_atas}`);
+                const ataDeleted = atas.filter(ata => ata.id_atas === id_atas)
+                const detalhe = { "ata": ataDeleted }
+                const log = { acao: 'deletar', tabela: 'atas', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
+                setAtas(atas.filter(ata => ata.id_atas !== id_atas))
+                setResultAtas(atas.filter(ata => ata.id_atas !== id_atas))
+            }
+        } catch (error) {
+            alert('nao foi possivel deletar')
+        }
+    }
+    /*função de atualizar atas */
+    async function editAta(id_atas) {
+        const id_produtos = produtoAta
+        const orgao = orgaoAta
 
+        const data = { id_produtos, descricao, orgao, quantidade, garantia, validade, valor }
+        try {
+            await api.put(`atas/${id_atas}`, data)
+            const detalhe = { "Ata": data }
+            const log = { acao: 'atualizar', tabela: 'atas', detalhe: detalhe }
+            Functions.createLog(log, idLogged)
+            setLogsUpdate(logsUpdate + 1)
+            alert('Atualizado!')
+            clearInputs()
+            Functions.buttonEditAtaDisable()
+        } catch (error) {
+            alert('nao foi possivel atualizar')
+        }
+    }
+    /*função que carrega os dados da ata no formulario para alteração */
+    function clickEditAta(id_atas) {
+        setIdAtas(id_atas)
+        const ataEdit = atas.filter(ata => ata.id_atas == id_atas)
+        const select = document.querySelectorAll('select#select-produto option')
+
+        const btnEdit = document.getElementById("btn-edit-ata")
+        const btnCancel = document.getElementById("btn-cancel-ata")
+        btnEdit.style.display = "block"
+        btnCancel.style.display = "block"
+
+        setProdutoAta(ataEdit[0].id_produtos)
+        setDescricao(ataEdit[0].descricao)
+        setOrgaoAta(ataEdit[0].orgao)
+        setQuantidade(ataEdit[0].quantidade)
+        setGarantia(ataEdit[0].garantia)
+        setValidade(ataEdit[0].validade)
+        setValor(ataEdit[0].valor)
+
+        for (var i = 0; i < select.length; i++) {
+            if (select[i].value == ataEdit[0].id_produtos) {
+                select[i].selected = true;
+            }
+        }
+    }
+
+    /**FUNÇÕES TABELA PRODUTOS */
     /*função de cadastrar novo produto */
     async function cadastraProduto(e) {
         e.preventDefault()
@@ -314,121 +368,16 @@ export default function Admin() {
                 headers: { 'Content-type': 'multipart/form-data' }
             })
             alert('Cadastro realizado!')
-            const detalhe = {categoria, modelo, fabricante, caracteristica, catalogo}
-            const log = {acao:'cadastrar',tabela:'produtos',detalhe:detalhe}
-            createLog(log)
+            const detalhe = { categoria, modelo, fabricante, caracteristica, catalogo }
+            const log = { acao: 'cadastrar', tabela: 'produtos', detalhe: detalhe }
+            Functions.createLog(log, idLogged)
+            setLogsUpdate(logsUpdate + 1)
             clearInputs()
         } catch (error) {
             alert('Cadastro não realizado')
         }
     }
-
-    /*função de cadastrar novo case*/
-    async function cadastraCase(e) {
-        e.preventDefault()
-        try {
-            const categoria = categoriaCase
-            const orgao = orgaoCase
-            const descricao = descricaoCase
-            const file = fileCase
-            //const data = {categoria, modelo, fabricante, caracteristica, catalogo, isEOL, file}
-
-            const formData = new FormData();
-            formData.set('categoria', categoria)
-            formData.set('orgao', orgao)
-            formData.set('descricao', descricao)
-            formData.append('file', file)
-
-            await api({
-                method: 'POST',
-                url: 'cases',
-                data: formData,
-                headers: { 'Content-type': 'multipart/form-data' }
-            })
-            alert('Cadastro realizado!')
-            const detalhe = {categoria, orgao, descricao}
-            const log = {acao:'cadastrar',tabela:'case',detalhe:detalhe}
-            createLog(log)
-            clearInputs()
-        } catch (error) {
-            alert('Cadastro não realizado')
-        }
-    }
-
-    /*função de cadastrar novo parceiro*/
-    async function cadastraParceiro(e) {
-        e.preventDefault()
-        try {
-            const nome = nomeParceiro
-            const site = siteParceiro
-            const file = fileParceiro
-
-            var cont = 0
-            const formData = new FormData();
-            const radioValid = document.getElementsByName("isValid");
-            while (cont < radioValid.length) {
-                if (radioValid[cont].checked) {
-                    if (radioValid[cont].id == "false") {
-                        formData.set('isValid', false)
-                    } else {
-                        formData.set('isValid', true)
-                    }
-                }
-                cont++
-            }
-            formData.set('nome', nome)
-            formData.set('site', site)
-            formData.append('file', file)
-
-            await api({
-                method: 'POST',
-                url: 'parceiros',
-                data: formData,
-                headers: { 'Content-type': 'multipart/form-data' }
-            })
-            alert('Cadastro realizado!')
-            const detalhe = {nome, site}
-            const log = {acao:'cadastrar',tabela:'parceiros',detalhe:detalhe}
-            createLog(log)
-            clearInputs()
-        } catch (error) {
-            alert('Cadastro não realizado')
-        }
-    }
-
-    /*função de deletar um usuario */
-    async function deleteUser(id) {
-        try {
-            var conf = window.confirm("Deseja realmente excluir?")
-            if (conf) {
-                await api.delete(`users/${id}`);
-                const userDeleted = users.filter(user => user.id === id)
-                const detalhe = {"usuario": userDeleted[0].name}
-                const log = {acao:'deletar',tabela:'users',detalhe:detalhe}
-                createLog(log)
-                setUsers(users.filter(user => user.id !== id))
-            }
-        } catch (err) {
-            alert('nao foi possivel deletar')
-        }
-    }
-
-    async function deleteAta(id_atas) {
-        try {
-            var conf = window.confirm("Deseja realmente excluir?")
-            if (conf) {
-                await api.delete(`atas/${id_atas}`);
-                const ataDeleted = atas.filter(ata => ata.id_atas === id_atas)
-                const detalhe = {"ata": ataDeleted}
-                const log = {acao:'deletar',tabela:'atas',detalhe:detalhe}
-                createLog(log)
-                setAtas(atas.filter(ata => ata.id_atas !== id_atas))
-            }
-        } catch (error) {
-            alert('nao foi possivel deletar')
-        }
-    }
-
+    /*função de deletar um produto */
     async function deleteProduto(id_produto) {
         try {
             var conf = window.confirm("Deseja realmente excluir?")
@@ -436,226 +385,18 @@ export default function Admin() {
                 await api.delete(`produtos/${id_produto}`);
                 alert('deletado com sucesso')
                 const produtoDeleted = produtos.filter(prod => prod.id_produto === id_produto)
-                const detalhe = {"produto": produtoDeleted[0].modelo}
-                const log = {acao:'deletar',tabela:'produtos',detalhe:detalhe}
-                createLog(log)
+                const detalhe = { "produto": produtoDeleted[0].modelo }
+                const log = { acao: 'deletar', tabela: 'produtos', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
                 setProdutos(produtos.filter(produto => produto.id_produto !== id_produto))
+                setResultProdutos(produtos.filter(produto => produto.id_produto !== id_produto))
             }
         } catch (error) {
             alert('nao foi possivel deletar')
         }
     }
-
-    async function deleteCase(id) {
-        try {
-            var conf = window.confirm("Deseja realmente excluir?")
-            if (conf) {
-                await api.delete(`cases/${id}`);
-                alert('deletado com sucesso')
-                const caseDeleted = cases.filter(cs => cs.id === id)
-                const detalhe = {"case": caseDeleted[0].orgao}
-                const log = {acao:'deletar',tabela:'cases',detalhe:detalhe}
-                createLog(log)
-                setCases(cases.filter(cs => cs.id !== id))
-            }
-        } catch (error) {
-            alert('nao foi possivel deletar')
-        }
-    }
-
-    async function deleteParceiro(id) {
-        try {
-            var conf = window.confirm("Deseja realmente excluir?")
-            if (conf) {
-                await api.delete(`parceiros/${id}`);
-                alert('deletado com sucesso')
-                const parceiroDeleted = parceiros.filter(parceiro => parceiro.id === id)
-                const detalhe = {"parceiro": parceiroDeleted[0].nome}
-                const log = {acao:'deletar',tabela:'parceiros',detalhe:detalhe}
-                createLog(log)
-                setParceiros(parceiros.filter(parceiro => parceiro.id !== id))
-            }
-        } catch (error) {
-            alert('nao foi possivel deletar')
-        }
-    }
-
-    /*função que carrega os dados do usuario no formulario para alteração */
-    function clickEditUser(id) {
-        const btnEdit = document.getElementById("btn-edit")
-        btnEdit.style.display = "block"
-        const userEdit = users.filter(user => user.id == id)
-        setNome(userEdit[0].name)
-        setId(id)
-    }
-
-    function clickEditAta(id_atas) {
-        setIdAtas(id_atas)
-        const ataEdit = atas.filter(ata => ata.id_atas == id_atas)
-        const select = document.querySelectorAll('select#select-produto option')
-
-        const btnEdit = document.getElementById("btn-edit-ata")
-        const btnCancel = document.getElementById("btn-cancel-ata")
-        btnEdit.style.display = "block"
-        btnCancel.style.display = "block"
-
-        setProdutoAta(ataEdit[0].id_produtos)
-        setDescricao(ataEdit[0].descricao)
-        setOrgaoAta(ataEdit[0].orgao)
-        setQuantidade(ataEdit[0].quantidade)
-        setGarantia(ataEdit[0].garantia)
-        setValidade(ataEdit[0].validade)
-        setValor(ataEdit[0].valor)
-
-        for (var i = 0; i < select.length; i++) {
-            if (select[i].value == ataEdit[0].id_produtos) {
-                select[i].selected = true;
-            }
-        }
-    }
-
-    function clickEditProduto(id_produto) {
-        setIdProduto(id_produto)
-
-        const produtoEdit = produtos.filter(produto => produto.id_produto == id_produto)
-
-        const btnEdit = document.getElementById("btn-edit-produto")
-        const btnCancel = document.getElementById("btn-cancel-produto")
-        btnEdit.style.display = "block"
-        btnCancel.style.display = "block"
-
-        const radioEOL = document.getElementsByName("isEOL");
-
-        if (produtoEdit[0].isEOL) {
-            console.log('teste')
-            radioEOL[1].checked = true
-        } else {
-            radioEOL[0].checked = true
-        }
-
-        setCategoriaProduto(produtoEdit[0].categoria)
-        setModelo(produtoEdit[0].modelo)
-        setFabricante(produtoEdit[0].fabricante)
-        setCatalogo(produtoEdit[0].catalogo)
-        setCaracteristica(produtoEdit[0].caracteristica)
-        setIsEOL(produtoEdit[0].isEOL)
-    }
-
-    function clickEditCase(id) {
-        setIdCases(id)
-
-        const caseEdit = cases.filter(cs => cs.id == id)
-
-        const btnEdit = document.getElementById("btn-edit-case")
-        btnEdit.style.display = "block"
-
-        setCategoriaCase(caseEdit[0].categoria)
-        setOrgaoCase(caseEdit[0].orgao)
-        setDescricaoCase(caseEdit[0].descricao)
-        setCategoriaCase(caseEdit[0].categoria)
-
-    }
-
-    function clickEditParceiro(id) {
-        setIdParceiros(id)
-
-        const parceiroEdit = parceiros.filter(parceiro => parceiro.id == id)
-
-        const btnEdit = document.getElementById("btn-edit-parceiro")
-        btnEdit.style.display = "block"
-        const btnCancel = document.getElementById("btn-cancel-parceiro")
-        btnCancel.style.display = "block"
-
-        const radioValid = document.getElementsByName("isValid");
-
-        if (parceiroEdit[0].isValid) {
-            radioValid[1].checked = true
-        } else {
-            radioValid[0].checked = true
-        }
-
-        setNomeParceiro(parceiroEdit[0].nome)
-        setSiteParceiro(parceiroEdit[0].site)
-    }
-
-
-    function buttonEditUserDisable() {
-        const btnEdit = document.getElementById("btn-edit")
-        btnEdit.style.display = "none"
-    }
-
-    function buttonEditAtaDisable() {
-        const btnEdit = document.getElementById("btn-edit-ata")
-        const btnCancel = document.getElementById("btn-cancel-ata")
-        btnEdit.style.display = "none"
-        btnCancel.style.display = "none"
-    }
-
-    function buttonEditProdutoDisable() {
-        const btnEdit = document.getElementById("btn-edit-produto")
-        const btnCancel = document.getElementById("btn-cancel-produto")
-        btnEdit.style.display = "none"
-        btnCancel.style.display = "none"
-    }
-
-    function buttonEditCaseDisable() {
-        const btnEdit = document.getElementById("btn-edit-case")
-        btnEdit.style.display = "none"
-    }
-
-    function buttonEditParceiroDisable() {
-        const btnEdit = document.getElementById("btn-edit-parceiro")
-        const btnCancel = document.getElementById("btn-cancel-parceiro")
-        btnEdit.style.display = "none"
-        btnCancel.style.display = "none"
-    }
-
-    /*função de atualizar usuario */
-    async function editUser(id) {
-
-        const data = { name, password }
-
-        if (password != '') {
-            if (password == confSenha) {
-                try {
-                    await api.put(`users/${id}`, data)
-                    alert('Senha atualizada com sucesso!')
-                    clearInputs()
-                    buttonEditUserDisable()
-                } catch (err) {
-                    alert('nao foi possivel atualizar a senha')
-                }
-            } else {
-                alert('Senha não corresponde')
-            }
-        } else {
-            try {
-                await api.put(`users/${id}`, data)
-                alert('Atualizado!')
-                clearInputs()
-                buttonEditUserDisable()
-            } catch (err) {
-                alert('nao foi possivel atualizar')
-            }
-        }
-    }
-
-    /*função de atualizar atas */
-    async function editAta(id_atas) {
-        const id_produtos = produtoAta
-        const orgao = orgaoAta
-
-        const data = { id_produtos, descricao, orgao, quantidade, garantia, validade, valor }
-        try {
-            await api.put(`atas/${id_atas}`, data)
-            alert('Atualizado!')
-            clearInputs()
-            buttonEditAtaDisable()
-        } catch (error) {
-            alert('nao foi possivel atualizar')
-        }
-    }
-
+    /*função de atualizar um produto */
     async function editProduto(id_produto) {
         try {
             const categoria = categoriaProduto
@@ -688,15 +429,98 @@ export default function Admin() {
                 headers: { 'Content-type': 'multipart/form-data' }
             })
 
-
+            const detalhe = { "produto": { categoria, modelo, fabricante, caracteristica, catalogo, file } }
+            const log = { acao: 'atualizar', tabela: 'produtos', detalhe: detalhe }
+            Functions.createLog(log, idLogged)
+            setLogsUpdate(logsUpdate + 1)
             alert('Atualizado!')
             clearInputs()
-            buttonEditProdutoDisable()
+            Functions.buttonEditProdutoDisable()
         } catch (error) {
             alert('Erro na atualização')
         }
     }
+    /*função que carrega os dados do produto no formulario para alteração */
+    function clickEditProduto(id_produto) {
+        setIdProduto(id_produto)
 
+        const produtoEdit = produtos.filter(produto => produto.id_produto == id_produto)
+
+        const btnEdit = document.getElementById("btn-edit-produto")
+        const btnCancel = document.getElementById("btn-cancel-produto")
+        btnEdit.style.display = "block"
+        btnCancel.style.display = "block"
+
+        const radioEOL = document.getElementsByName("isEOL");
+
+        if (produtoEdit[0].isEOL) {
+            radioEOL[1].checked = true
+        } else {
+            radioEOL[0].checked = true
+        }
+
+        setCategoriaProduto(produtoEdit[0].categoria)
+        setModelo(produtoEdit[0].modelo)
+        setFabricante(produtoEdit[0].fabricante)
+        setCatalogo(produtoEdit[0].catalogo)
+        setCaracteristica(produtoEdit[0].caracteristica)
+        setIsEOL(produtoEdit[0].isEOL)
+    }
+
+
+    /**FUNÇÕES TABELA CASES */
+    /*função de cadastrar novo case*/
+    async function cadastraCase(e) {
+        e.preventDefault()
+        try {
+            const categoria = categoriaCase
+            const orgao = orgaoCase
+            const descricao = descricaoCase
+            const file = fileCase
+            //const data = {categoria, modelo, fabricante, caracteristica, catalogo, isEOL, file}
+
+            const formData = new FormData();
+            formData.set('categoria', categoria)
+            formData.set('orgao', orgao)
+            formData.set('descricao', descricao)
+            formData.append('file', file)
+
+            await api({
+                method: 'POST',
+                url: 'cases',
+                data: formData,
+                headers: { 'Content-type': 'multipart/form-data' }
+            })
+            alert('Cadastro realizado!')
+            const detalhe = { categoria, orgao, descricao }
+            const log = { acao: 'cadastrar', tabela: 'case', detalhe: detalhe }
+            Functions.createLog(log, idLogged)
+            setLogsUpdate(logsUpdate + 1)
+            clearInputs()
+        } catch (error) {
+            alert('Cadastro não realizado')
+        }
+    }
+    /*função de deletar um case */
+    async function deleteCase(id) {
+        try {
+            var conf = window.confirm("Deseja realmente excluir?")
+            if (conf) {
+                await api.delete(`cases/${id}`);
+                alert('deletado com sucesso')
+                const caseDeleted = cases.filter(cs => cs.id === id)
+                const detalhe = { "case": caseDeleted[0].orgao }
+                const log = { acao: 'deletar', tabela: 'cases', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
+                setCases(cases.filter(cs => cs.id !== id))
+                setResultCases(cases.filter(cs => cs.id !== id))
+            }
+        } catch (error) {
+            alert('nao foi possivel deletar')
+        }
+    }
+    /*função de atualizar um case */
     async function editCase(id) {
         try {
             if (categoriaCase != '' && orgaoCase != '' && descricaoCase != '') {
@@ -717,10 +541,13 @@ export default function Admin() {
                     headers: { 'Content-type': 'multipart/form-data' }
                 })
 
-
+                const detalhe = { "case": { categoria, orgao, descricao, file } }
+                const log = { acao: 'atualizar', tabela: 'cases', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
                 alert('Atualizado!')
                 clearInputs()
-                buttonEditCaseDisable()
+                Functions.buttonEditCaseDisable()
             } else {
                 alert('Erro na atualização! Campos vazios')
             }
@@ -729,9 +556,153 @@ export default function Admin() {
             alert('Erro na atualização')
         }
     }
+    /*função que carrega os dados do case no formulario para alteração */
+    function clickEditCase(id) {
+        setIdCases(id)
 
+        const caseEdit = cases.filter(cs => cs.id == id)
+
+        const btnEdit = document.getElementById("btn-edit-case")
+        btnEdit.style.display = "block"
+
+        setCategoriaCase(caseEdit[0].categoria)
+        setOrgaoCase(caseEdit[0].orgao)
+        setDescricaoCase(caseEdit[0].descricao)
+        setCategoriaCase(caseEdit[0].categoria)
+
+    }
+
+
+    /**FUNÇÕES TABELA PARCEIROS */
+    /*função de cadastrar novo parceiro*/
+    async function cadastraParceiro(e) {
+        e.preventDefault()
+        try {
+            const nome = nomeParceiro
+            const site = siteParceiro
+            const file = fileParceiro
+
+            var cont = 0
+            const formData = new FormData();
+            const radioValid = document.getElementsByName("isValid");
+            while (cont < radioValid.length) {
+                if (radioValid[cont].checked) {
+                    if (radioValid[cont].id == "false") {
+                        formData.set('isValid', false)
+                    } else {
+                        formData.set('isValid', true)
+                    }
+                }
+                cont++
+            }
+            formData.set('nome', nome)
+            formData.set('site', site)
+            formData.append('file', file)
+
+            await api({
+                method: 'POST',
+                url: 'parceiros',
+                data: formData,
+                headers: { 'Content-type': 'multipart/form-data' }
+            })
+            alert('Cadastro realizado!')
+            const detalhe = { nome, site }
+            const log = { acao: 'cadastrar', tabela: 'parceiros', detalhe: detalhe }
+            Functions.createLog(log, idLogged)
+            setLogsUpdate(logsUpdate + 1)
+            clearInputs()
+        } catch (error) {
+            alert('Cadastro não realizado')
+        }
+    }
+    /*função de deletar um parceiro */
+    async function deleteParceiro(id) {
+        try {
+            var conf = window.confirm("Deseja realmente excluir?")
+            if (conf) {
+                await api.delete(`parceiros/${id}`);
+                alert('deletado com sucesso')
+                const parceiroDeleted = parceiros.filter(parceiro => parceiro.id === id)
+                const detalhe = { "parceiro": parceiroDeleted[0].nome }
+                const log = { acao: 'deletar', tabela: 'parceiros', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
+                setParceiros(parceiros.filter(parceiro => parceiro.id !== id))
+                setResultParceiros(parceiros.filter(parceiro => parceiro.id !== id))
+            }
+        } catch (error) {
+            alert('nao foi possivel deletar')
+        }
+    }
+    /*função de atualizar um parceiro */
     async function editParceiro(id) {
+        try {
+            if (nomeParceiro != '' && siteParceiro != '') {
+                const nome = nomeParceiro
+                const site = siteParceiro
+                const file = fileParceiro
+                var cont = 0
 
+                const formData = new FormData();
+                const radioValid = document.getElementsByName("isValid");
+                while (cont < radioValid.length) {
+                    if (radioValid[cont].checked) {
+                        if (radioValid[cont].id == "false") {
+                            formData.set('isValid', false)
+                        } else {
+                            formData.set('isValid', true)
+                        }
+                    }
+                    cont++
+                }
+                formData.set('nome', nome)
+                formData.set('site', site)
+                formData.append('file', file)
+
+
+                await api({
+                    method: 'PUT',
+                    url: `parceiros/${id}`,
+                    data: formData,
+                    headers: { 'Content-type': 'multipart/form-data' }
+                })
+                const detalhe = { "parceiro": { nome, site, file } }
+                const log = { acao: 'atualizar', tabela: 'parceiros', detalhe: detalhe }
+                Functions.createLog(log, idLogged)
+                setLogsUpdate(logsUpdate + 1)
+
+                alert('Atualizado!')
+                clearInputs()
+                Functions.buttonEditParceiroDisable()
+            } else {
+                alert('Erro na atualização! Campos vazios')
+            }
+
+        } catch (error) {
+            alert('Erro na atualização')
+        }
+    }
+    /*função que carrega os dados do parceiro no formulario para alteração */
+    function clickEditParceiro(id) {
+        setIdParceiros(id)
+
+        const parceiroEdit = parceiros.filter(parceiro => parceiro.id == id)
+
+        const btnEdit = document.getElementById("btn-edit-parceiro")
+        btnEdit.style.display = "block"
+        const btnCancel = document.getElementById("btn-cancel-parceiro")
+        btnCancel.style.display = "block"
+
+        const radioValid = document.getElementsByName("isValid");
+
+        if (parceiroEdit[0].isValid) {
+            radioValid[1].checked = true
+        } else {
+            radioValid[0].checked = true
+        }
+
+        setNomeParceiro(parceiroEdit[0].nome)
+        setSiteParceiro(parceiroEdit[0].site)
     }
 
     /*função de logout */
@@ -745,16 +716,41 @@ export default function Admin() {
 
         api.get(`produtos/${value}`).then(response => {
             setProdutosAta(response.data)
-            console.log(produtosAta)
         })
     }
 
-    function showLogs(){
-        const logsContent = document.querySelector('.logs-content')
-        logsContent.style.display = "flex"
-        logsContent.scrollIntoView({behavior:'smooth'})
+    function searching(e) {
+        setValueSearch(e.target.value)
     }
-   
+
+    useEffect(() => {
+        let resultsAtas = atas.filter(ata => 
+            ata.descricao.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            ata.orgao.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            ata.garantia.toLowerCase().includes(valueSearch.toLowerCase()) || 
+            ata.validade.toLowerCase().includes(valueSearch.toLowerCase()) 
+            )
+        let resultsProdutos = produtos.filter(prod => 
+            prod.modelo.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            prod.categoria.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            prod.fabricante.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            prod.caracteristica.toLowerCase().includes(valueSearch.toLowerCase()) 
+            )
+        let resultsCases = cases.filter(cases => 
+            cases.descricao.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            cases.orgao.toLowerCase().includes(valueSearch.toLowerCase()) ||
+            cases.categoria.toLowerCase().includes(valueSearch.toLowerCase()) 
+            )
+        let resultsParceiros = parceiros.filter(parc => 
+            parc.nome.toLowerCase().includes(valueSearch.toLowerCase())
+            )
+
+        setResultAtas(resultsAtas)
+        setResultProdutos(resultsProdutos)
+        setResultCases(resultsCases)
+        setResultParceiros(resultsParceiros)
+
+    }, [valueSearch])
 
     return (
         <div>
@@ -769,12 +765,12 @@ export default function Admin() {
                 </div>
                 <div>
                     {adminAccess ?
-                        <div id="logs" onClick={showLogs}>
+                        <div id="logs" onClick={Functions.showLogs}>
                             <p>Logs</p>
                         </div>
                         :
-                        <div style={{pointerEvents : "none"}}></div>
-                    } 
+                        <div style={{ pointerEvents: "none" }}></div>
+                    }
                     <div id="userName">
                         <p>{userName}</p>
                     </div>
@@ -792,12 +788,21 @@ export default function Admin() {
                 {adminAccess ?
                     <div id="usuarios">Usuarios</div>
                     :
-                    <div style={{pointerEvents : "none"}}></div>
+                    <div style={{ pointerEvents: "none" }}></div>
                 }
-                
+
             </div>
 
-            <div className="main-content-index" onLoad={()=>{itsLoaded()}}>
+            <div className="search">
+                <div>
+                <label>
+                    <h3>Buscar</h3>
+                </label>
+                <input type="text" value={valueSearch} onChange={searching} />
+                </div>
+            </div>
+
+            <div className="main-content-index" onLoad={() => { Functions.itsLoaded() }}>
                 <div className="contact-form grid">
                     <form id="atas" className="active" onSubmit={cadastraAta}>
                         <div className="input-group">
@@ -806,7 +811,7 @@ export default function Admin() {
                                 <select id="select-categoria" name="categorias" onChange={e => handleProduto(e.target.value)} required>
                                     {
                                         catProds.map(prod => (
-                                            <option value={prod}>{prod}</option>
+                                            <option value={prod} key={prod.id}>{prod}</option>
                                         ))
                                     }
                                 </select>
@@ -816,7 +821,7 @@ export default function Admin() {
                                 <select id="select-produto" name="produtos" onChange={e => setProdutoAta(e.target.value)} required>
                                     <option>Selecione</option>
                                     {produtosAta.map(produto => (
-                                        <option value={produto.id_produto}>{produto.modelo}</option>
+                                        <option value={produto.id_produto} key={produto.id}>{produto.modelo}</option>
                                     ))}
                                 </select>
                             </div>
@@ -859,7 +864,7 @@ export default function Admin() {
                                 value="CANCELAR"
                                 style={{ display: "none" }}
                                 id="btn-cancel-ata"
-                                onClick={() => { buttonEditAtaDisable(); clearInputs() }} />
+                                onClick={() => { Functions.buttonEditAtaDisable(); clearInputs() }} />
                             <input className="btn-cad" type="submit" value="CADASTRAR" />
                         </div>
                     </form>
@@ -879,9 +884,9 @@ export default function Admin() {
                             <div>
                                 <label data-end=" *">É EOL (End of Life)?</label>
                                 <div className="input-group">
-                                    <label for="false">Não</label>
+                                    <label htmlFor="false">Não</label>
                                     <input type="radio" id="false" name="isEOL" value={isEOL} />
-                                    <label for="true">Sim</label>
+                                    <label htmlFor="true">Sim</label>
                                     <input type="radio" id="true" name="isEOL" value={isEOL} />
                                 </div>
                             </div>
@@ -902,7 +907,7 @@ export default function Admin() {
                                 value="CANCELAR"
                                 style={{ display: "none" }}
                                 id="btn-cancel-produto"
-                                onClick={() => { buttonEditProdutoDisable(); clearInputs() }} />
+                                onClick={() => { Functions.buttonEditProdutoDisable(); clearInputs() }} />
                             <input type="submit" value="CADASTRAR" />
                         </div>
                     </form>
@@ -922,16 +927,16 @@ export default function Admin() {
 
                     <form id="parceiros" onSubmit={cadastraParceiro}>
                         <label data-end=" *">Nome</label>
-                        <input type="text" value={nomeParceiro} onChange={e => setNomeParceiro(e.target.value)} required/>
+                        <input type="text" value={nomeParceiro} onChange={e => setNomeParceiro(e.target.value)} required />
                         <label data-end=" *">Site</label>
-                        <input type="text" value={siteParceiro} onChange={e => setSiteParceiro(e.target.value)} required/>
+                        <input type="text" value={siteParceiro} onChange={e => setSiteParceiro(e.target.value)} required />
                         <div className="input-group">
                             <div>
                                 <label data-end=" *">Parceria ativa?</label>
                                 <div className="input-group">
-                                    <label for="false">Não</label>
+                                    <label htmlFor="false">Não</label>
                                     <input type="radio" id="false" name="isValid" />
-                                    <label for="true">Sim</label>
+                                    <label htmlFor="true">Sim</label>
                                     <input type="radio" id="true" name="isValid" />
                                 </div>
                             </div>
@@ -953,7 +958,7 @@ export default function Admin() {
                                 value="CANCELAR"
                                 style={{ display: "none" }}
                                 id="btn-cancel-parceiro"
-                                onClick={() => { buttonEditParceiroDisable(); clearInputs() }} />
+                                onClick={() => { Functions.buttonEditParceiroDisable(); clearInputs() }} />
                             <input type="submit" value="CADASTRAR" />
                         </div>
                     </form>
@@ -973,8 +978,9 @@ export default function Admin() {
 
                 </div>
                 <div className="content-list grid">
+
                     <ul id="atas" className="active">
-                        {atas.map(ata => (
+                        {resultAtas.map(ata => (
                             <li key={ata.id_atas}>
                                 <div>
                                     <strong>Produto: </strong>{ata.modelo}
@@ -1001,7 +1007,7 @@ export default function Admin() {
                         ))}
                     </ul>
                     <ul id="produtos">
-                        {produtos.map(produto => {
+                        {resultProdutos.map(produto => {
                             let isEol = 'Não'
                             if (produto.isEOL) {
                                 isEol = 'Sim'
@@ -1015,7 +1021,7 @@ export default function Admin() {
                                         <strong>Caracteristica:</strong> {produto.caracteristica}
                                         <strong>Link Catalogo:</strong> {produto.catalogo}
                                         <strong>Fora de linha (EOL): {isEol} </strong>
-                                        <img src={API_URL+API_IMAGE_PATH+produto.imagem} />
+                                        <img src={API_URL + API_IMAGE_PATH + produto.imagem} />
 
                                     </div>
                                     <div>
@@ -1031,13 +1037,13 @@ export default function Admin() {
                         })}
                     </ul>
                     <ul id="cases">
-                        {cases.map(cs => (
+                        {resultCases.map(cs => (
                             <li key={cs.id}>
                                 <div>
                                     <strong>Orgão:</strong> {cs.orgao}
                                     <strong>Categoria:</strong> {cs.categoria}
                                     <strong>Descrição:</strong> {cs.descricao}
-                                    <img src={API_URL+API_IMAGE_PATH+cs.imagem} />
+                                    <img src={API_URL + API_IMAGE_PATH + cs.imagem} />
                                 </div>
                                 <div>
                                     <button className="btn-edit" onClick={() => { clickEditCase(cs.id) }}>
@@ -1052,7 +1058,7 @@ export default function Admin() {
                         )}
                     </ul>
                     <ul id="parceiros">
-                        {parceiros.map(parceiro => {
+                        {resultParceiros.map(parceiro => {
 
                             let isValid = 'Não'
                             if (parceiro.isValid) {
@@ -1064,7 +1070,7 @@ export default function Admin() {
                                         <strong>Nome:</strong> {parceiro.nome}
                                         <strong>Site:</strong> {parceiro.site}
                                         <strong>É valido: {isValid}</strong>
-                                        <img src={API_URL+API_IMAGE_PATH+parceiro.imagem} />
+                                        <img src={API_URL + API_IMAGE_PATH + parceiro.imagem} />
                                     </div>
                                     <div>
                                         <button className="btn-edit" onClick={() => { clickEditParceiro(parceiro.id) }}>
@@ -1098,11 +1104,11 @@ export default function Admin() {
                 </div>
             </div>
             {adminAccess ?
-                <Logs></Logs>
-                    :
+                <Logs teste={logsUpdate}></Logs>
+                :
                 <div></div>
-            } 
-            
+            }
+
 
             <div id="loading" className="loading-admin">
                 <span></span>

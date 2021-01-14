@@ -94,7 +94,7 @@
     height: 50px;
 }
 
-form label{
+#login form label{
     font-weight: bold;
     font-size: 16px;
     line-height: 16px;
@@ -102,7 +102,7 @@ form label{
     margin-top: 25px;
   }
 
-  form input{
+  #login form input{
     border: 1px solid #616161;
     border-radius: 5px;
     margin-top: 15px;
@@ -110,7 +110,7 @@ form label{
     height: 33px;
   }
 
-  .btn{
+  #login .btn{
     border-radius: 5px;
     color: #ffffff; 
     width: 345px;
@@ -119,11 +119,11 @@ form label{
     transition: background 0.4s;
   }
 
-  .btn.login{
+  #login .btn.login{
     background: #0060A5;
   }
 
-  .btn.login:hover{
+  #login .btn.login:hover{
     background: #01406d;
   }
 
@@ -133,6 +133,8 @@ form label{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #d2d2d2;
 }
 
 .itens-admin > div{
@@ -145,6 +147,7 @@ form label{
 .itens-admin > div.item-selected{
     border: 2px solid #0062A8;
     border-radius: 5px;
+    background: #ffffff;
 }
 
 .main-content-index{
@@ -258,30 +261,58 @@ form label{
     width: 100px;
 }
 
+.search{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 90%;
+    margin: 15px auto;
+}
+
+.search div{
+    width: 45%;
+}
+
+.search input{
+    width: 100%;
+    border:1px solid #c4c4c4;
+    height: 30px;
+    padding-left: 5px;
+}
+
+.search label{
+    width: 45%;
+    color: #565656;
+}
+
 
 /*Logs*/
 
 .logs-content{
     display: none;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     border: 1px solid #d2d2d2;
     padding: 20px;
-    overflow: scroll;
-    max-width: 80%;
+    max-width: 90%;
     max-height: 500px;
     margin-bottom: 200px;
 }
 
 .logs-list{
     max-width: 80%;
+    overflow: scroll;
 }
 
 .logs-list table{
-    background: #d2d2d2;
+    background: #e2e2e2;
     width: 100%;
     table-layout: fixed;
     overflow-wrap: break-word;
+}
+
+.logs-list table thead{
+    background-color: #C4C4C4;
 }
 
 .logs-list table td{
@@ -292,14 +323,46 @@ form label{
 .logs-options{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex: 1;
+    flex: 1 1;
+    margin: 15px 10px
+}
+
+.logs-options strong{
+    color: #818181;
 }
 
 .logs-options div{
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .logs-options div li{
    cursor: pointer;
+}
+
+.logs-user-li{
+    display: flex;
+    background-color: #f2f2f2;
+    padding: 10px 15px;
+    margin-top: 10px;
+    align-items: center;
+    color: #818181;
+    transition: all 0.4s;
+}
+
+.logs-user-li:hover{
+    background-color: #e2e2e2;
+}
+
+.all{
+    background-color: #e2e2e2;
+    color:#3c3c3c;
+}
+
+.all:hover{
+    background-color: #B8B8B8;
+}
+
+.logs-user-li img{
+    margin-right: 10px;
 }

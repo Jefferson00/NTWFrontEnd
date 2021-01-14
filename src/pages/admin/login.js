@@ -49,7 +49,7 @@ export default function Login(){
                             <img src={logoImg}/>
                         </div>
                         <div className="contact-form">
-                            <form onSubmit={login}>
+                            <form onSubmit={login} id="login">
                                 <label>Usuário</label>
                                 <input type="text" value={name} onChange={e =>setNome(e.target.value)}/>
                                 <label>Senha</label>

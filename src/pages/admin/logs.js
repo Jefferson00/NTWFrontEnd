@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import api from '../../services/api';
 import 'jspdf-autotable'
 import jsPDF from 'jspdf'
+import UserIcon from '../../assets/icons/user-icon.svg'
 
-export default function Header() {
+export default function Header({teste}) {
     const [logs, setLogs] = useState([]);
     const [users1, setUsers1] = useState([]);
+    let tst = teste
 
     useEffect(() => {
         api.get('logs').then(response => {
@@ -14,8 +16,7 @@ export default function Header() {
         api.get('users').then(response => {
             setUsers1(response.data.filter(user => user.access != 0))
         });
-
-    }, [])
+    }, [tst])
 
 
     function setLogsByUser(id) {
@@ -94,33 +95,41 @@ export default function Header() {
                             </tr>
                         </thead>
                         <tbody>
-                                {logs.map(log=>(
+                                {logs.map(log=>{
+                                    
+                                    var dt = new Date(log.data)
+                                    return(
                                     <tr key={log.id_log}>
                                         <td>{log.name}</td>
                                         <td>{log.acao}</td>
                                         <td>{log.tabela}</td>
                                         <td>{log.detalhe}</td>
-                                        <td>{log.data}</td>
+                                        <td>
+                                            {dt.getDate()} / {dt.getMonth()+1} / {dt.getFullYear()}<br></br>
+                                            {dt.getHours()}:{dt.getMinutes()}:{dt.getSeconds()}
+                                        </td>
                                     </tr>
-                                ))}
+                                )})}
                         </tbody>
                     </table>
                 </div>
                 <div className="logs-options">
                     <div>
+                        <strong>Usuários</strong>
+                        <ul>
+                            {users1.map(user => (
+                                <li key={user.id} onClick={() => { setLogsByUser(user.id) }} className="logs-user-li">
+                                      <img src={UserIcon} alt="user" />
+                                     {user.name}
+                                </li>
+                            ))}
+                            <li onClick={() => { setLogsByAll() }} className="logs-user-li all">Todos</li>
+                        </ul>
+                    </div>
+                    <div>
             
                          <button className="btn download" id="btn-pdf" onClick={()=>{print()}}>Salvar PDF</button>
                           
-                    </div>
-                    <div>
-                        <ul>
-                            {users1.map(user => (
-                                <li key={user.id} onClick={() => { setLogsByUser(user.id) }}>
-                                    <strong>Usuario:</strong> {user.name}
-                                </li>
-                            ))}
-                            <li onClick={() => { setLogsByAll() }}>Todos</li>
-                        </ul>
                     </div>
                 </div>
             </div>

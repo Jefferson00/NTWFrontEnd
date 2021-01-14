@@ -7,6 +7,7 @@ import api from '../../services/api'
 
 import './atas.css'
 import './responsive.css'
+import Functions from '../../functions'
 
 const API_URL = process.env.REACT_APP_API_URL
 const API_IMAGE_PATH = process.env.REACT_APP_API_IMAGE_PATH
@@ -110,18 +111,18 @@ export default function Atas() {
                     //verifica se o item verificado é 'todos' e se é verdadeiro
                     if (checkedItems[r][0] === 'todos' && checkedItems[r][1] === true) {
                         //se for verdadeiro, verifica se na variavel selectedItems não possui o item e o adciona
-                        if (selectedItems.indexOf(checkedItems[r][0]) == -1) {
+                        if (selectedItems.indexOf(checkedItems[r][0]) === -1) {
                             selectedItems.push(checkedItems[r][0])
                         }
                     }
                     // verifica se o item verificado verdadeiro é igual ao id do card da ata (verificando se é a mesma categoria está selecionada)
                     else if (itensProd[x].id === checkedItems[r][0] && checkedItems[r][1] === true) {
                         //verifica se na variavel selectedItems não possui o item e o adciona
-                        if (selectedItems.indexOf(checkedItems[r][0]) == -1) {
+                        if (selectedItems.indexOf(checkedItems[r][0]) === -1) {
                             selectedItems.push(checkedItems[r][0])
                             var todosIndex = selectedItems.indexOf('todos') // pega o indice de 'todos'
                             // se "todos" estiver selecionado, então retira ele da variavel selectedItems
-                            if (todosIndex != -1) {
+                            if (todosIndex !== -1) {
                                 selectedItems.splice(todosIndex, 1)
                             }
                         }
@@ -129,7 +130,7 @@ export default function Atas() {
                     // verifica se a mesma categoria não está selecionada, se sim retira o item da variavel selectedItems
                     else if (itensProd[x].id === checkedItems[r][0] && checkedItems[r][1] === false) {
                         var indexItem = selectedItems.indexOf(checkedItems[r][0])
-                        if (indexItem != -1) {
+                        if (indexItem !== -1) {
                             selectedItems.splice(indexItem, 1)
                         }
                     }
@@ -139,7 +140,7 @@ export default function Atas() {
             for (var x = 0; x < itensProd.length; x++) {
                 (function (x) {
                     //se não houver nenhum item selecionado, torna todos cards desabilitados
-                    if (selectedItems.length == 0) {
+                    if (selectedItems.length === 0) {
                         itensProd[x].style.opacity = 0
                         setTimeout(() => { itensProd[x].style.display = "none" }, 500)
                     }
@@ -156,7 +157,7 @@ export default function Atas() {
                     else {
                         for (var i = 0; i < selectedItems.length; i++) {
                             var pos1 = selectedItems.indexOf(itensProd[x].id)
-                            if (pos1 != -1) {
+                            if (pos1 !== -1) {
                                 itensProd[x].style.display = "block"
 
                                 setTimeout(() => {
@@ -206,16 +207,7 @@ export default function Atas() {
             setAtas(response.data);
         })
 
-        //Menu responsivo
-        let show = true;
-        const header = document.getElementById("header-atas")
-        const menuToggle = header.querySelector(".menu-toggle")
-
-        menuToggle.addEventListener("click", () =>{
-            document.body.style.overflow = show ? "hidden" : "initial"
-            header.classList.toggle("on", show)
-            show = !show
-        })
+        Functions.responsiveMenu("header-atas")
         
     }, [])
 
@@ -247,7 +239,7 @@ export default function Atas() {
                                 <h1>{ata.categoria}</h1>
                             </div>
                             <div className="card-img">
-                                <img src= {API_URL+API_IMAGE_PATH+ata.imagem} />
+                                <img src= {API_URL+API_IMAGE_PATH+ata.imagem} alt={ata.modelo}/>
                             </div>
                             <h3>{ata.modelo}</h3>
                             <div className="card-table-description">
@@ -294,7 +286,7 @@ export default function Atas() {
                     {ataModal.map( ata1 => (
                         <div className="border" onLoad={()=>{itsLoaded()}}>
                                     <div className="item-description">
-                                    <img src= {API_URL+API_IMAGE_PATH+ata1.imagem}/>
+                                    <img src= {API_URL+API_IMAGE_PATH+ata1.imagem} alt={ata1.modelo}/>
                                     <h3>{ata1.modelo}</h3>
                                     <table>
                                         <tr>
@@ -322,7 +314,7 @@ export default function Atas() {
                             <div className="item-details">
                                 <div>
                                     <p>{ata1.descricao}</p>
-                                    <a href={ata1.catalogo} target="_blank">Baixe o catalogo</a>
+                                    <a href={ata1.catalogo} target="_blank" rel="noopener noreferrer">Baixe o catalogo</a>
                                 </div>
                                 <div className="form-details">
                                     <p>Gostou? Preencha o formulario que entraremos em contato</p>

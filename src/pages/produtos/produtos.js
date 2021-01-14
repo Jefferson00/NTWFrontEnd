@@ -9,6 +9,7 @@ import imgNetworking from '../../assets/products/switch.webp'
 
 import Footer from '../footer'
 
+import Functions from '../../functions/index'
 
 
 import './produtos.css'
@@ -24,38 +25,11 @@ export default function Produtos(){
     useEffect(()=>{
     /*ANIMAÇÕES*/
 
-    const linkProdutos = document.querySelectorAll('.desc-produto a')
-    linkProdutos.forEach(element =>{
-            const descProd = element.parentElement.parentElement.childNodes.item(1)
-            const background = element.parentElement.parentElement.childNodes.item(2)
-            const h3 = descProd.childNodes.item(0)
-            const p = descProd.childNodes.item(1)
-        element.addEventListener('mouseover', ()=>{
-            background.style.opacity = "1"
-            h3.style.color = "#ffffff"
-            p.style.color = "#ffffff"
-            background.classList.add('produto-animated')
-        })
-        element.addEventListener('mouseout', ()=>{
-            background.style.opacity = "0"
-            h3.style.color = "#565656"
-            p.style.color = "#818181"
-            background.classList.remove('produto-animated')
-        })
-        })
+    Functions.animationProductsItem()
 
         //Menu responsivo
 
-        let show = true;
-        const header = document.getElementById("header-produtos")
-        const menuToggle = header.querySelector(".menu-toggle")
-
-        menuToggle.addEventListener("click", () =>{
-
-            document.body.style.overflow = show ? "hidden" : "initial"
-            header.classList.toggle("on", show)
-            show = !show
-        })
+        Functions.responsiveMenu("header-produtos")
     },[])
 
     return(
