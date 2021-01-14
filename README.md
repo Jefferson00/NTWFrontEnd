@@ -21,6 +21,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 O projeto consiste no desenvolvimento de um site institucional para uma empresa revenda de produtos e soluções de tecnologia, com painel administrativo para a gerencia de atas de vendas, produtos, cases e parceiros da empresa.
 
+<h1 align="center">
+    <img alt="Example2" title="Example2" src="markdown/web-2.gif" heigth="700px" />
+</h1>
+
 ## 💻 Tecnologias
 
 - HTML
